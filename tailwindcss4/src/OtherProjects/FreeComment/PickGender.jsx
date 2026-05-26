@@ -1,15 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import maleProfile from "../../assets/ProjectsLogos/OtherProjectsSVG/CommentAppWallpaper/maleProfile.svg";
 import femaleProfile from "../../assets/ProjectsLogos/OtherProjectsSVG/CommentAppWallpaper/femaleProfile.svg";
 
-function PickGender({ setToGender, setIsGender, passedUsername }) {
-  const [loading, setLoading] = useState(true);
+function PickGender({
+  setToGender,
+  setIsGender,
+  passedUsername,
+  setCheckingGender,
+}) {
+  console.log("SENDING TO DB:", passedUsername);
 
   const handleGenderSelect = async (gender) => {
     setIsGender(gender);
     setToGender(false);
+    setCheckingGender(false);
 
-    await fetch("http://localhost:5000/set-gender", {
+    await fetch(`${import.meta.env.VITE_API_URL}/set-gender`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -21,33 +27,10 @@ function PickGender({ setToGender, setIsGender, passedUsername }) {
     });
   };
 
-  useEffect(() => {
-    if (!passedUsername) return;
-
-    const fetchUser = async () => {
-      const res = await fetch(
-        `http://localhost:5000/get-user?username=${passedUsername}`,
-      );
-      const data = await res.json();
-
-      if (data.user?.gender) {
-        setIsGender(data.user.gender);
-        setToGender(false); // skip selection
-      } else {
-        setToGender(true); // show selection
-      }
-      setLoading(false);
-    };
-
-    if (passedUsername) {
-      fetchUser();
-    }
-  }, [passedUsername]);
-
   return (
     <div className="h-full w-full flex">
       <div className="h-80 w-130 flex items-center rounded-4xl mx-auto my-auto bg-amber-100">
-        <div className="w-1/2 border-1 h-60 items-center flex justify-center">
+        <div className="w-1/2 h-60 items-center flex justify-center">
           <img
             onClick={() => handleGenderSelect("Female")}
             src={femaleProfile}
@@ -55,7 +38,7 @@ function PickGender({ setToGender, setIsGender, passedUsername }) {
             className="h-50 cursor-pointer hover:scale-110 duration-100 ease-in"
           />
         </div>
-        <div className="w-1/2 border-1 h-60 items-center flex justify-center">
+        <div className="w-1/2 h-60 items-center flex justify-center">
           <img
             onClick={() => handleGenderSelect("Male")}
             src={maleProfile}

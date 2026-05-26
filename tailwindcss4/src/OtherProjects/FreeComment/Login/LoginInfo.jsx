@@ -10,6 +10,7 @@ function LoginInfo({
   switchField,
   setPassedUsername,
   setToGender,
+  setCheckingGender,
 }) {
   const [username, setUsername] = useState("");
   const [errorMessSwitch, setErrorMessSwitch] = useState(null);
@@ -40,7 +41,6 @@ function LoginInfo({
       setHideInfoField(false);
       setHideUserInfo(false);
     }, 8000);
-    setToGender(true);
   }
 
   const handleSubmit = async (e) => {
@@ -48,13 +48,16 @@ function LoginInfo({
 
     try {
       if (step === "loginUser") {
-        const response = await fetch("http://localhost:5000/userLogin", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
+        const response = await fetch(
+          `${import.meta.env.VITE_API_URL}/userLogin`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ username }),
           },
-          body: JSON.stringify({ username }),
-        });
+        );
 
         const data = await response.json();
         console.log("Users:", data.data);
@@ -77,6 +80,7 @@ function LoginInfo({
         }
 
         if (data.code === "USER_LOGGED_IN") {
+          setCheckingGender(true);
           handleSuccessFlow(data.message);
           setPassedUsername(data.username);
         }

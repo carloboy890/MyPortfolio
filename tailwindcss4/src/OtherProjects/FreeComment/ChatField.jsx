@@ -17,6 +17,10 @@ function ChatField() {
     switchField,
     toGender,
     setToGender,
+    setCheckingGender,
+    checkingGender,
+    isGender,
+    setIsGender,
   } = useContext(UsernameContext);
 
   const chatEndRef = useRef(null);
@@ -27,10 +31,11 @@ function ChatField() {
   const [messageSent, setMessageSent] = useState([]);
   const [openChatHead, setOpenChatHead] = useState(false);
   const [passUserInfo, setPassUserInfo] = useState([]);
-  const [isGender, setIsGender] = useState("");
+  // const [isGender, setIsGender] = useState("");
   const [selectedUser, setSelectedUser] = useState("");
   const [allMessages, setAllMessages] = useState([]);
   const [readCounts, setReadCounts] = useState({});
+  const [imageLoaded, setImageLoaded] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -39,18 +44,21 @@ function ChatField() {
       // const firstLoad = await fetchMessages(0);
 
       if (switchField === "AskMe") {
-        const response = await fetch("http://localhost:5000/AskMe-Messages", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
+        const response = await fetch(
+          `${import.meta.env.VITE_API_URL}/AskMe-Messages`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              chatText,
+              passedUsername,
+              passedAdminUsername,
+              selectedUser,
+            }),
           },
-          body: JSON.stringify({
-            chatText,
-            passedUsername,
-            passedAdminUsername,
-            selectedUser,
-          }),
-        });
+        );
         const data = await response.json();
         console.log(data.message);
 
@@ -76,11 +84,14 @@ function ChatField() {
     const fetchAllMessages = async () => {
       if (!passedAdminUsername) return;
 
-      const response = await axios.get("http://localhost:5000/AskMe-Messages", {
-        params: {
-          adminUsername: passedAdminUsername,
+      const response = await axios.get(
+        `${import.meta.env.VITE_API_URL}/AskMe-Messages`,
+        {
+          params: {
+            adminUsername: passedAdminUsername,
+          },
         },
-      });
+      );
 
       setAllMessages(response.data.data);
       setReadCounts(response.data.readCounts);
@@ -116,9 +127,12 @@ function ChatField() {
       params.username = passedUsername;
     }
 
-    const response = await axios.get("http://localhost:5000/AskMe-Messages", {
-      params,
-    });
+    const response = await axios.get(
+      `${import.meta.env.VITE_API_URL}/AskMe-Messages`,
+      {
+        params,
+      },
+    );
 
     return response.data;
   };
@@ -134,9 +148,9 @@ function ChatField() {
 
       setMessageSent(data.data);
 
-      console.log(messageSent.length);
+      // console.log(messageSent.length);
 
-      console.log(data);
+      // console.log(data);
     };
     loadMessages();
 
@@ -169,6 +183,24 @@ function ChatField() {
     console.log(messageSent);
   }, [messageSent, passedUsername]);
 
+  useEffect(() => {
+    const img = new Image();
+
+    img.src = chatField;
+
+    img.onload = () => {
+      setImageLoaded(true);
+    };
+  }, []);
+
+  if (!imageLoaded) {
+    return (
+      <div className="fixed w-full h-full flex items-center justify-center">
+        Loading...
+      </div>
+    );
+  }
+
   return (
     <div className="fixed w-full h-full">
       <div className="absolute right-20 top-3">Log Out</div>
@@ -177,6 +209,7 @@ function ChatField() {
           setIsGender={setIsGender}
           setToGender={setToGender}
           passedUsername={passedUsername}
+          setCheckingGender={setCheckingGender}
         />
       ) : (
         <div className="absolute left-80">

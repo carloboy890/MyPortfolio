@@ -66,7 +66,7 @@ function AdminChatUsers({
 
     setIsCountTrue(false);
 
-    await axios.put("http://localhost:5000/update-read-count", {
+    await axios.put(`${import.meta.env.VITE_API_URL}/update-read-count`, {
       username: user.username,
       readCount: messageCount,
     });
@@ -83,20 +83,9 @@ function AdminChatUsers({
       (msg) => msg.username === user.username,
     );
 
-    // console.log(JSON.stringify(userMessages));
-    // if(userMessages[userMessages.length - 1] )
-
-    // console.log(`Only User Message: ${JSON.stringify(onlyUserMessages)}`);
     console.log(`User Messages: ${userMessages.length}`);
-    // const counts = onlyUserMessages.length - readCounts[user.username];
-    // console.log(`Counts: ${counts}`);
-    // const total = onlyUserMessages.length;
-    // const read = readCounts[user.username] || 0;
 
-    // const unreadCount = Math.max(0, total - read);
     const count = onlyUserMessages.length > (readCounts[user.username] || 0);
-
-    console.log(count);
 
     return {
       count,

@@ -9,6 +9,7 @@ function CommentInfoField({
   setPassedUsername,
   setPassedAdminUsername,
   setToGender,
+  setCheckingGender,
 }) {
   const [switchField, setSwitchField] = useState("");
   const [hideInfoField, setHideInfoField] = useState(true);
@@ -63,6 +64,7 @@ function CommentInfoField({
           hideInfoField={hideInfoField}
           setPassedUsername={setPassedUsername}
           setToGender={setToGender}
+          setCheckingGender={setCheckingGender}
         />
       )}
       {switchField === "AdminLogin" && !hideInfoField && (

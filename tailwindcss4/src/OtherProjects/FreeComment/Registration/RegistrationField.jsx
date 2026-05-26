@@ -40,13 +40,16 @@ function RegistrationField({ setHideInfoField, switchField }) {
 
     try {
       if (step === "regUsername") {
-        const response = await fetch("http://localhost:5000/reg-username", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
+        const response = await fetch(
+          `${import.meta.env.VITE_API_URL}/reg-username`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ username }),
           },
-          body: JSON.stringify({ username }),
-        });
+        );
 
         const data = await response.json();
         console.log("Users:", data.data);
