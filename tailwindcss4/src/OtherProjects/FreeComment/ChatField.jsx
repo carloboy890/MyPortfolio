@@ -18,12 +18,13 @@ function ChatField() {
     toGender,
     setToGender,
     setCheckingGender,
-    checkingGender,
     isGender,
     setIsGender,
   } = useContext(UsernameContext);
 
   const chatEndRef = useRef(null);
+  const isAtBottomRef = useRef(false);
+  const isLoadingOldMessagesRef = useRef(false);
   const [chatText, setChatText] = useState("");
   const [showEmojis, setShowEmojis] = useState(false);
   const [errorMess, setErrorMess] = useState("");
@@ -36,13 +37,13 @@ function ChatField() {
   const [allMessages, setAllMessages] = useState([]);
   const [readCounts, setReadCounts] = useState({});
   const [imageLoaded, setImageLoaded] = useState(false);
+  const [hasMore, setHasMore] = useState(true);
+  const [loadingMore, setLoadingMore] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      // const firstLoad = await fetchMessages(0);
-
       if (switchField === "AskMe") {
         const response = await fetch(
           `${import.meta.env.VITE_API_URL}/AskMe-Messages`,
@@ -68,6 +69,9 @@ function ChatField() {
 
         if (data.code === "MESSAGE_SENT") {
           setMessageSucc(data.message);
+          setTimeout(() => {
+            scrollToBottom();
+          }, 100);
         }
 
         const updatedMessages = await fetchMessages(0);
@@ -85,7 +89,7 @@ function ChatField() {
       if (!passedAdminUsername) return;
 
       const response = await axios.get(
-        `${import.meta.env.VITE_API_URL}/AskMe-Messages`,
+        `${import.meta.env.VITE_API_URL}/AskMe-Counts`,
         {
           params: {
             adminUsername: passedAdminUsername,
@@ -137,31 +141,160 @@ function ChatField() {
     return response.data;
   };
 
-  useEffect(() => {
-    const loadMessages = async () => {
-      if (passedAdminUsername && !selectedUser) {
-        setMessageSent([]);
-        return;
-      }
+  ///DEBUGGING STARTS HERE
 
-      const data = await fetchMessages(0);
+  const loadMessages = async (newSkip = 0, append = false) => {
+    if (passedAdminUsername && !selectedUser) {
+      setMessageSent([]);
+      return;
+    }
+    console.log("append:", append, "current length:", messageSent.length);
+    const data = await fetchMessages(newSkip);
 
+    if (data.data.length === 0) {
+      setHasMore(false);
+      return;
+    }
+
+    if (append) {
+      setMessageSent((prev) => {
+        const updated = [...data.data, ...prev];
+
+        console.log(updated);
+
+        return updated;
+      });
+      console.log("RENDER:", messageSent.length);
+    } else {
       setMessageSent(data.data);
+    }
+    // const data = await fetchMessages(0);
 
-      // console.log(messageSent.length);
+    // setMessageSent(data.data);
 
-      // console.log(data);
-    };
-    loadMessages();
+    // console.log(messageSent.length);
 
-    // const interval = setInterval(() => {
-    //   loadMessages();
-    // }, 3000);
+    // console.log(data);
+  };
+  // loadMessages(0, false);
 
-    // return () => clearInterval(interval);
+  // const interval = setInterval(() => {
+  //   loadMessages();
+  // }, 3000);
+
+  // return () => clearInterval(interval);
+
+  console.log("RENDER:", messageSent.length);
+
+  const pollMessages = async () => {
+    const data = await fetchMessages(0);
+
+    setMessageSent((prev) => {
+      const existingIds = new Set(prev.map((msg) => msg._id));
+
+      const newMessages = data.data.filter((msg) => !existingIds.has(msg._id));
+
+      // console.log(existingIds);
+      // console.log(newMessages);
+
+      console.log("Polling user:", selectedUser);
+      console.log("Current messages:", messageSent.length);
+
+      return [...prev, ...newMessages];
+    });
+  };
+
+  useEffect(() => {
+    loadMessages(0, false);
+
+    const interval = setInterval(() => {
+      pollMessages();
+    }, 3000);
+
+    return () => clearInterval(interval);
   }, [passedUsername, passedAdminUsername, selectedUser]);
 
+  useEffect(() => {
+    setMessageSent([]);
+    setHasMore(true);
+
+    loadMessages(0, false);
+  }, [selectedUser]);
+
+  // useEffect(() => {
+  //   //IMMEDIATE FETCH FOR THE SELECTED USER BEFORE POLLING
+  //   loadMessages(0, false);
+
+  //   const interval = setInterval(() => {
+  //     loadMessages(0, false);
+  //   }, 60000);
+
+  //   return () => clearInterval(interval);
+  // }, [passedUsername, passedAdminUsername, selectedUser]);
+
+  // =========================
+  // LOAD MORE (INFINITE SCROLL)
+  // =========================
+
+  const loadMore = async () => {
+    if (loadingMore || !hasMore) return;
+
+    isLoadingOldMessagesRef.current = true;
+
+    setLoadingMore(true);
+
+    const nextSkip = messageSent.length;
+
+    await loadMessages(nextSkip, true);
+
+    setLoadingMore(false);
+  };
+
+  // useEffect(() => {
+  //   const el = chatEndRef.current;
+  //   if (!el) return;
+
+  //   const handleScroll = () => {
+  //     if (el.scrollTop < 10 && hasMore && !loadingMore) {
+  //       loadMore();
+  //     }
+  //   };
+
+  //   el.addEventListener("scroll", handleScroll);
+  //   return () => el.removeEventListener("scroll", handleScroll);
+  // }, [hasMore, loadingMore, messageSent]);
+
   //SCROLL ANIMATION
+
+  // useEffect(() => {
+  //   const el = chatEndRef.current;
+  //   if (!el) return;
+
+  //   el.scrollTo({
+  //     top: el.scrollHeight,
+  //     behavior: "smooth",
+  //   });
+  // }, [messageSent]);
+
+  useEffect(() => {
+    const el = chatEndRef.current;
+    if (!el) return;
+
+    const isAtBottom = el.scrollHeight - el.scrollTop - el.clientHeight < 50;
+
+    // isAtBottomRef.current = isAtBottom;
+
+    const handleScroll = () => {
+      isAtBottomRef.current = isAtBottom;
+      if (el.scrollTop < 1 && hasMore && !loadingMore) {
+        loadMore();
+      }
+      // console.log(el.scrollTop);
+    };
+
+    el.addEventListener("scroll", handleScroll);
+    return () => el.removeEventListener("scroll", handleScroll);
+  }, [hasMore, loadingMore, loadMore]);
 
   const scrollToBottom = () => {
     const el = chatEndRef.current;
@@ -172,9 +305,28 @@ function ChatField() {
       behavior: "smooth",
     });
   };
+
   useEffect(() => {
-    scrollToBottom();
+    if (!messageSent.length) return;
+
+    if (isLoadingOldMessagesRef.current) {
+      isLoadingOldMessagesRef.current = false;
+      return;
+    }
   }, [messageSent]);
+
+  // useEffect(() => {
+  //   if (!messageSent.length) return;
+
+  //   if (isAtBottomRef.current) {
+  //     scrollToBottom();
+  //   }
+  // }, [messageSent, selectedUser]);
+
+  // console.log(chatEndRef);
+  // console.log(isAtBottomRef);
+
+  ///DEBUGGING ENDS HERE
 
   //----->
 
@@ -224,6 +376,11 @@ function ChatField() {
               passedAdminUsername={passedAdminUsername}
               passUserInfo={passUserInfo}
               switchField={switchField}
+              loadMore={loadMore}
+              hasMore={hasMore}
+              loadingMore={loadingMore}
+              // handleScroll={handleScroll}
+              isAtBottomRef={isAtBottomRef}
             />
           </div>
           {showEmojis ? (
@@ -280,6 +437,7 @@ function ChatField() {
               setSelectedUser={setSelectedUser}
               readCounts={readCounts}
               setReadCounts={setReadCounts}
+              scrollToBottom={scrollToBottom}
             />
           )
         : null}

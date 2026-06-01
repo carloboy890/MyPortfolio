@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import femaleProfile from "../../assets/ProjectsLogos/OtherProjectsSVG/CommentAppWallpaper/femaleProfile.svg";
 import maleProfile from "../../assets/ProjectsLogos/OtherProjectsSVG/CommentAppWallpaper/maleProfile.svg";
 import axios from "axios";
@@ -9,6 +9,7 @@ function AdminChatUsers({
   setSelectedUser,
   readCounts,
   setReadCounts,
+  scrollToBottom,
 }) {
   const [isCountTrue, setIsCountTrue] = useState("");
 
@@ -70,6 +71,10 @@ function AdminChatUsers({
       username: user.username,
       readCount: messageCount,
     });
+
+    setTimeout(() => {
+      scrollToBottom();
+    }, 100);
   }
 
   function getUserData(user) {
@@ -83,7 +88,7 @@ function AdminChatUsers({
       (msg) => msg.username === user.username,
     );
 
-    console.log(`User Messages: ${userMessages.length}`);
+    // console.log(`User Messages: ${userMessages.length}`);
 
     const count = onlyUserMessages.length > (readCounts[user.username] || 0);
 

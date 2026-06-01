@@ -7,7 +7,9 @@ function InnerChatBox({
   messageSent,
   chatEndRef,
   switchField,
+  loadingMore,
 }) {
+  console.log(loadingMore);
   return (
     <div
       className="absolute p-3 justify-between flex bottom-39 h-140 w-270 overflow-y-scroll"
@@ -15,6 +17,12 @@ function InnerChatBox({
     >
       {switchField === "AskMe" && (
         <div className="w-full box-border">
+          {loadingMore && (
+            <div className="text-center z-20 text-xl py-2">
+              Opening old messages...
+            </div>
+          )}
+
           {messageSent.map((msg) => {
             return (
               <ChatBubble
