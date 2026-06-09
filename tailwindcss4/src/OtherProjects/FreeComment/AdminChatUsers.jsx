@@ -10,6 +10,7 @@ function AdminChatUsers({
   readCounts,
   setReadCounts,
   scrollToBottom,
+  loadMessages,
 }) {
   const [isCountTrue, setIsCountTrue] = useState("");
 
@@ -17,10 +18,10 @@ function AdminChatUsers({
   const users = [
     ...new Map(
       messageSent
-        .filter((msg) => msg.username !== "admin8080")
+        .filter((msg) => msg && msg.username !== "admin8080")
         .map((msg) => [
           msg.username,
-          { username: msg.username, gender: msg.gender },
+          { username: msg?.username, gender: msg?.gender },
         ]),
     ).values(),
   ].sort((a, b) => {
@@ -42,8 +43,6 @@ function AdminChatUsers({
   });
 
   // END OF SORTING
-
-  console.log(readCounts);
 
   async function handleUserClick(user) {
     const conversationId = [user.username, "admin8080"].sort().join("_");
@@ -71,6 +70,8 @@ function AdminChatUsers({
       username: user.username,
       readCount: messageCount,
     });
+
+    // loadMessages(0, false);
 
     setTimeout(() => {
       scrollToBottom();

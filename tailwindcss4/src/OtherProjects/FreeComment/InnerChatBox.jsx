@@ -9,7 +9,16 @@ function InnerChatBox({
   switchField,
   loadingMore,
 }) {
-  console.log(loadingMore);
+  // const ids = messageSent.map((msg) => msg._id);
+
+  // const duplicates = ids.filter((id, index) => ids.indexOf(id) !== index);
+
+  // console.log("Duplicates:", duplicates);
+
+  const ids = messageSent.map((msg) => msg._id);
+
+  console.log("Total messages:", ids.length);
+  console.log("Unique messages:", new Set(ids).size);
   return (
     <div
       className="absolute p-3 justify-between flex bottom-39 h-140 w-270 overflow-y-scroll"

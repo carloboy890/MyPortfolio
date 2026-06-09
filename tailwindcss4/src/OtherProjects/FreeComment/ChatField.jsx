@@ -84,6 +84,8 @@ function ChatField() {
     }
   };
 
+  //FETCH ALL MESSAGES (COUNT)
+
   useEffect(() => {
     const fetchAllMessages = async () => {
       if (!passedAdminUsername) return;
@@ -110,9 +112,9 @@ function ChatField() {
     // return () => clearInterval(interval);
   }, [passedAdminUsername]);
 
-  console.log(readCounts);
+  // console.log(readCounts);
 
-  //FETCHED MESSAGES
+  //FETCHED MESSAGES FOR MESSAGE RENDER
 
   const fetchMessages = async (skip = 0) => {
     let params = {
@@ -138,6 +140,8 @@ function ChatField() {
       },
     );
 
+    // console.log(response.data);
+
     return response.data;
   };
 
@@ -148,7 +152,7 @@ function ChatField() {
       setMessageSent([]);
       return;
     }
-    console.log("append:", append, "current length:", messageSent.length);
+    // console.log("append:", append, "current length:", messageSent.length);
     const data = await fetchMessages(newSkip);
 
     if (data.data.length === 0) {
@@ -157,34 +161,24 @@ function ChatField() {
     }
 
     if (append) {
+      // setMessageSent((prev) => {
+      //   const updated = [...data.data, ...prev];
+
+      //   return updated;
+      // });
       setMessageSent((prev) => {
-        const updated = [...data.data, ...prev];
+        const merged = [...data.data, ...prev];
 
-        console.log(updated);
-
-        return updated;
+        return merged.filter(
+          (msg, index, self) =>
+            index === self.findIndex((m) => m._id === msg._id),
+        );
       });
       console.log("RENDER:", messageSent.length);
     } else {
       setMessageSent(data.data);
     }
-    // const data = await fetchMessages(0);
-
-    // setMessageSent(data.data);
-
-    // console.log(messageSent.length);
-
-    // console.log(data);
   };
-  // loadMessages(0, false);
-
-  // const interval = setInterval(() => {
-  //   loadMessages();
-  // }, 3000);
-
-  // return () => clearInterval(interval);
-
-  console.log("RENDER:", messageSent.length);
 
   const pollMessages = async () => {
     const data = await fetchMessages(0);
@@ -205,6 +199,9 @@ function ChatField() {
   };
 
   useEffect(() => {
+    setMessageSent([]); //AFTER CLICKING THE NEXT USER THIS REFRESHES TO AN EMPTY ARRAY
+    setHasMore(true);
+
     loadMessages(0, false);
 
     const interval = setInterval(() => {
@@ -214,20 +211,20 @@ function ChatField() {
     return () => clearInterval(interval);
   }, [passedUsername, passedAdminUsername, selectedUser]);
 
-  useEffect(() => {
-    setMessageSent([]);
-    setHasMore(true);
+  // useEffect(() => {
+  //   setMessageSent([]);
+  //   setHasMore(true);
 
-    loadMessages(0, false);
-  }, [selectedUser]);
+  //   loadMessages(0, false);
+  // }, [selectedUser]);
 
   // useEffect(() => {
   //   //IMMEDIATE FETCH FOR THE SELECTED USER BEFORE POLLING
   //   loadMessages(0, false);
 
   //   const interval = setInterval(() => {
-  //     loadMessages(0, false);
-  //   }, 60000);
+  //     poll
+  //   }, 5000);
 
   //   return () => clearInterval(interval);
   // }, [passedUsername, passedAdminUsername, selectedUser]);
@@ -236,45 +233,43 @@ function ChatField() {
   // LOAD MORE (INFINITE SCROLL)
   // =========================
 
+  console.log({
+    loadingMore,
+    hasMore,
+  });
+
+  // const loadMore = async () => {
+  //   if (loadingMore || !hasMore) return;
+
+  //   isLoadingOldMessagesRef.current = true;
+
+  //   setLoadingMore(true);
+
+  //   const nextSkip = messageSent.length;
+
+  //   await loadMessages(nextSkip, true);
+
+  //   setLoadingMore(false);
+  // };
+
   const loadMore = async () => {
     if (loadingMore || !hasMore) return;
 
     isLoadingOldMessagesRef.current = true;
-
     setLoadingMore(true);
 
-    const nextSkip = messageSent.length;
+    try {
+      const nextSkip = messageSent.length;
 
-    await loadMessages(nextSkip, true);
-
-    setLoadingMore(false);
+      await loadMessages(nextSkip, true);
+    } catch (err) {
+      console.error("Load more failed:", err);
+    } finally {
+      setLoadingMore(false);
+    }
   };
 
-  // useEffect(() => {
-  //   const el = chatEndRef.current;
-  //   if (!el) return;
-
-  //   const handleScroll = () => {
-  //     if (el.scrollTop < 10 && hasMore && !loadingMore) {
-  //       loadMore();
-  //     }
-  //   };
-
-  //   el.addEventListener("scroll", handleScroll);
-  //   return () => el.removeEventListener("scroll", handleScroll);
-  // }, [hasMore, loadingMore, messageSent]);
-
   //SCROLL ANIMATION
-
-  // useEffect(() => {
-  //   const el = chatEndRef.current;
-  //   if (!el) return;
-
-  //   el.scrollTo({
-  //     top: el.scrollHeight,
-  //     behavior: "smooth",
-  //   });
-  // }, [messageSent]);
 
   useEffect(() => {
     const el = chatEndRef.current;
@@ -364,59 +359,61 @@ function ChatField() {
           setCheckingGender={setCheckingGender}
         />
       ) : (
-        <div className="absolute left-80">
-          <img src={chatField} alt="Chat Field" className="h-245" />
-          <div className="flex justify-center">
-            <InnerChatBox
-              errorMess={errorMess}
-              messageSucc={messageSucc}
-              messageSent={messageSent}
-              chatEndRef={chatEndRef}
-              passedUsername={passedUsername}
-              passedAdminUsername={passedAdminUsername}
-              passUserInfo={passUserInfo}
-              switchField={switchField}
-              loadMore={loadMore}
-              hasMore={hasMore}
-              loadingMore={loadingMore}
-              // handleScroll={handleScroll}
-              isAtBottomRef={isAtBottomRef}
-            />
-          </div>
-          {showEmojis ? (
-            <div className="absolute bottom-197 h-20 items-center flex left-65 w-160">
-              <EmojiComponent setChatText={setChatText} />
+        (passedUsername || selectedUser) && (
+          <div className="absolute left-80">
+            <img src={chatField} alt="Chat Field" className="h-245" />
+            <div className="flex justify-center">
+              <InnerChatBox
+                errorMess={errorMess}
+                messageSucc={messageSucc}
+                messageSent={messageSent}
+                chatEndRef={chatEndRef}
+                passedUsername={passedUsername}
+                passedAdminUsername={passedAdminUsername}
+                passUserInfo={passUserInfo}
+                switchField={switchField}
+                loadMore={loadMore}
+                hasMore={hasMore}
+                loadingMore={loadingMore}
+                // handleScroll={handleScroll}
+                isAtBottomRef={isAtBottomRef}
+              />
             </div>
-          ) : null}
-          <div onClick={() => setShowEmojis((val) => !val)}>
-            <img
-              src={happyEmoji}
-              alt=":)"
-              className="h-12 w-12 absolute bottom-22 left-77 hover:scale-110 cursor-pointer ease-in-out duration-200"
-            />
-          </div>
-          <form
-            onSubmit={handleSubmit}
-            className="flex absolute bottom-21 right-20 w-180 justify-between"
-          >
-            <input
-              type="text"
-              value={chatText}
-              className={`${styles.input} !w-160`}
-              onChange={(e) => setChatText(e.target.value.slice(0, 150))}
-            />
-            <button
-              type="submit"
-              style={{
-                boxShadow:
-                  "inset 0 2px 4px 0 rgb(2 6 23 / 0.3), inset 0 -2px 4px 0 rgb(203 213 225)",
-              }}
-              className="inline-flex w-18 cursor-pointer items-center gap-1 rounded border border-slate-300 bg-gradient-to-b from-slate-50 to-slate-200 px-4 py-2 font-semibold hover:opacity-90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-slate-300 focus-visible:ring-offset-2 active:opacity-100"
+            {showEmojis ? (
+              <div className="absolute bottom-197 h-20 items-center flex left-65 w-160">
+                <EmojiComponent setChatText={setChatText} />
+              </div>
+            ) : null}
+            <div onClick={() => setShowEmojis((val) => !val)}>
+              <img
+                src={happyEmoji}
+                alt=":)"
+                className="h-12 w-12 absolute bottom-22 left-77 hover:scale-110 cursor-pointer ease-in-out duration-200"
+              />
+            </div>
+            <form
+              onSubmit={handleSubmit}
+              className="flex absolute bottom-21 right-20 w-180 justify-between"
             >
-              Enter
-            </button>
-          </form>
-        </div>
+              <input
+                type="text"
+                value={chatText}
+                className={`${styles.input} !w-160`}
+                onChange={(e) => setChatText(e.target.value.slice(0, 150))}
+              />
+              <button
+                type="submit"
+                style={{
+                  boxShadow:
+                    "inset 0 2px 4px 0 rgb(2 6 23 / 0.3), inset 0 -2px 4px 0 rgb(203 213 225)",
+                }}
+                className="inline-flex w-18 cursor-pointer items-center gap-1 rounded border border-slate-300 bg-gradient-to-b from-slate-50 to-slate-200 px-4 py-2 font-semibold hover:opacity-90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-slate-300 focus-visible:ring-offset-2 active:opacity-100"
+              >
+                Enter
+              </button>
+            </form>
+          </div>
+        )
       )}
       {passedAdminUsername && (
         <AdminChatHead
@@ -438,6 +435,7 @@ function ChatField() {
               readCounts={readCounts}
               setReadCounts={setReadCounts}
               scrollToBottom={scrollToBottom}
+              loadMessages={loadMessages}
             />
           )
         : null}
