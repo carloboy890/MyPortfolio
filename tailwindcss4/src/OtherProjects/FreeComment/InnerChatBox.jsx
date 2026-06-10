@@ -19,6 +19,7 @@ function InnerChatBox({
 
   console.log("Total messages:", ids.length);
   console.log("Unique messages:", new Set(ids).size);
+
   return (
     <div
       className="absolute p-3 justify-between flex bottom-39 h-140 w-270 overflow-y-scroll"

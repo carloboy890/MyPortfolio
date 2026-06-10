@@ -16,6 +16,10 @@ import WeatherApp from "./OtherProjects/WeatherApps/WeatherApp";
 import MovieApp from "./OtherProjects/MovieApps/MovieApp";
 import Project from "./Routes/Project";
 import OtherProjects from "./Components/OtherProjects";
+import LoginInfo from "./OtherProjects/FreeComment/Login/LoginInfo";
+import AdminLoginInfo from "./OtherProjects/FreeComment/Login/adminLoginInfo";
+import RegistrationField from "./OtherProjects/FreeComment/Registration/RegistrationField";
+import ChatField from "./OtherProjects/FreeComment/ChatField";
 import { HashRouter as Router, Route, Routes } from "react-router-dom";
 
 // import MusicPlayer from "./Components/MusicPlayer";
@@ -39,16 +43,14 @@ function App() {
         <Route path="/Education" element={<Education />} />
         <Route path="/Experience" element={<Experience />} />
         <Route path="/Skills" element={<Skills />} />
+
         <Route path="/freeCommentApp" element={<FreeCommentApp />} />
-        {/* <Route path="/weatherApp" element={<WeatherApp />}>
-          <Route index element={<WeatherSmallCards />} />
-        </Route> */}
+
         <Route path="/weatherApp" element={<WeatherApp />} />
         <Route path="movieApp" element={<MovieApp />} />
         <Route path="/Hobbies" element={<Hobbies />} />
         <Route path="/simon" element={<SimonGame />} />
         <Route path="/quiz" element={<QuizGame />} />
-        {/* <Route path="/weatherSmallCards" element={<WeatherSmallCards />} /> */}
       </Routes>
     </>
   );

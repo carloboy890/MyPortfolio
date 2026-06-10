@@ -3,8 +3,14 @@ import CommentAppUsername from "../Login/CommentAppUsername";
 import CommentAppPassword from "../Login/CommentAdminInputField";
 import CommentInfoField from "../CommentInfoField";
 import RedirectingComponent from "../RedirectingComponent";
+import backButton from "../../../assets/ProjectsLogos/OtherProjectsSVG/BackArrowWeatherApp.svg";
 
-function RegistrationField({ setHideInfoField, switchField }) {
+function RegistrationField({
+  setHideInfoField,
+  switchField,
+  setHideBackButton,
+  hideBackButton,
+}) {
   const [username, setUsername] = useState("");
   const [regCodeErrorMess, setRegCodeErrorMess] = useState("");
   const [regSuccess, setRegSuccess] = useState("");
@@ -73,24 +79,10 @@ function RegistrationField({ setHideInfoField, switchField }) {
         }
 
         if (data.code === "USER_CREATED") {
+          setHideBackButton(false);
           handleSuccessFlow(data.success, data.message1);
         }
       }
-
-      // else if (step === "regAdminPassword") {
-      //   const response = await fetch("http://localhost:5000/regAdminPassword", {
-      //     method: "POST",
-      //     headers: { "Content-Type": "application/json" },
-      //     body: JSON.stringify({ password }),
-      //   });
-
-      //   const data = await response.json();
-      //   console.log("Message", data.message);
-
-      //   if (data.code === "ADMIN_CREATED") {
-      //     handleSuccessFlow(data.success);
-      //   }
-      // }
     } catch (err) {
       console.error("Error connecting to the server:", err);
     }
@@ -99,6 +91,16 @@ function RegistrationField({ setHideInfoField, switchField }) {
   return (
     <>
       <div className="h-full relative z-10 flex flex-col items-center justify-center">
+        {hideBackButton && (
+          <div className="z-21 absolute left-10 top-8">
+            <img
+              onClick={() => setHideInfoField(true)}
+              src={backButton}
+              alt="Back Button"
+              className="h-15 w-15 cursor-pointer transition duration-150 hover:scale-110"
+            />
+          </div>
+        )}
         <form
           onSubmit={handleSubmit}
           className="flex flex-col items-center space-y-4"
@@ -116,20 +118,6 @@ function RegistrationField({ setHideInfoField, switchField }) {
                 regCodeErrorMess={regCodeErrorMess}
               />
             ))}
-
-          {/* {step === "regAdminPassword" &&
-            (status === "redirect" ? (
-              <RedirectingComponent />
-            ) : (
-              <CommentAppPassword
-                password={password}
-                setPassword={setPassword}
-                userError={userError}
-                userReq={userReq}
-                errorMessSwitch={errorMessSwitch}
-                regSuccess={regSuccess}
-              />
-            ))} */}
           {hideButton && (
             <button
               disabled={status === "loading"}

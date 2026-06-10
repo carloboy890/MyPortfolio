@@ -2,12 +2,15 @@ import React, { useState } from "react";
 import CommentAppUsername from "./CommentAppUsername";
 import CommentAdminInputField from "./CommentAdminInputField";
 import LoggingInComponent from "./LoggingInComponent";
+import backButton from "../../../assets/ProjectsLogos/OtherProjectsSVG/BackArrowWeatherApp.svg";
 
 function AdminLoginInfo({
   setHideInfoField,
   switchField,
   setHideUserInfo,
   setPassedAdminUsername,
+  setHideBackButton,
+  hideBackButton,
 }) {
   const [adminUsername, setAdminUsername] = useState("");
   const [adminPassword, setAdminPassword] = useState("");
@@ -80,6 +83,15 @@ function AdminLoginInfo({
         }
 
         if (data.code === "ADMIN_LOGGED_IN") {
+          setHideBackButton(false);
+          localStorage.setItem(
+            "admin",
+            JSON.stringify({
+              username: adminUsername,
+              role: "admin",
+            }),
+          );
+          localStorage.removeItem("user");
           handleSuccessFlow(data.message);
           setPassedAdminUsername(data.adminUsername);
         }
@@ -92,7 +104,20 @@ function AdminLoginInfo({
   return (
     <>
       <div className="h-full relative z-10 flex flex-col items-center justify-center">
-        <form onSubmit={handleSubmit} className="flex flex-col items-center">
+        {hideBackButton && (
+          <div className="z-21 absolute left-10 top-8">
+            <img
+              onClick={() => setHideInfoField(true)}
+              src={backButton}
+              alt="Back Button"
+              className="h-15 w-15 cursor-pointer transition duration-150 hover:scale-110"
+            />
+          </div>
+        )}
+        <form
+          onSubmit={handleSubmit}
+          className="flex flex-col items-center mb-2"
+        >
           {step === "loginAdmin" &&
             (status === "loggingIn" ? (
               <LoggingInComponent />

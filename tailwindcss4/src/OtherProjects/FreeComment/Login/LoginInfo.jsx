@@ -3,6 +3,7 @@ import CommentAppUsername from "./CommentAppUsername";
 import CommentAppPassword from "./CommentAdminInputField";
 import LoggingInComponent from "./LoggingInComponent";
 import ChatField from "../ChatField";
+import backButton from "../../../assets/ProjectsLogos/OtherProjectsSVG/BackArrowWeatherApp.svg";
 
 function LoginInfo({
   setHideInfoField,
@@ -11,6 +12,8 @@ function LoginInfo({
   setPassedUsername,
   setToGender,
   setCheckingGender,
+  setHideBackButton,
+  hideBackButton,
 }) {
   const [username, setUsername] = useState("");
   const [errorMessSwitch, setErrorMessSwitch] = useState(null);
@@ -80,6 +83,14 @@ function LoginInfo({
         }
 
         if (data.code === "USER_LOGGED_IN") {
+          setHideBackButton(false);
+          localStorage.setItem(
+            "user",
+            JSON.stringify({
+              username: username,
+              role: "user",
+            }),
+          );
           setCheckingGender(true);
           handleSuccessFlow(data.message);
           setPassedUsername(data.username);
@@ -93,6 +104,16 @@ function LoginInfo({
   return (
     <>
       <div className="h-full relative z-10 flex flex-col items-center justify-center">
+        {hideBackButton && (
+          <div className="z-21 absolute left-10 top-8">
+            <img
+              onClick={() => setHideInfoField(true)}
+              src={backButton}
+              alt="Back Button"
+              className="h-15 w-15 cursor-pointer transition duration-150 hover:scale-110"
+            />
+          </div>
+        )}
         <form
           onSubmit={handleSubmit}
           className="flex flex-col space-y-4 items-center"

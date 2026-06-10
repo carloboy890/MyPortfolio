@@ -9,6 +9,7 @@ import { UsernameContext } from "./FreeCommentApp";
 import axios from "axios";
 import AdminChatUsers from "./AdminChatUsers";
 import PickGender from "./PickGender";
+import { useCallback } from "react";
 
 function ChatField() {
   const {
@@ -20,6 +21,7 @@ function ChatField() {
     setCheckingGender,
     isGender,
     setIsGender,
+    handleLogOut,
   } = useContext(UsernameContext);
 
   const chatEndRef = useRef(null);
@@ -161,11 +163,6 @@ function ChatField() {
     }
 
     if (append) {
-      // setMessageSent((prev) => {
-      //   const updated = [...data.data, ...prev];
-
-      //   return updated;
-      // });
       setMessageSent((prev) => {
         const merged = [...data.data, ...prev];
 
@@ -203,6 +200,9 @@ function ChatField() {
     setHasMore(true);
 
     loadMessages(0, false);
+    setTimeout(() => {
+      scrollToBottom();
+    }, 100);
 
     const interval = setInterval(() => {
       pollMessages();
@@ -211,27 +211,7 @@ function ChatField() {
     return () => clearInterval(interval);
   }, [passedUsername, passedAdminUsername, selectedUser]);
 
-  // useEffect(() => {
-  //   setMessageSent([]);
-  //   setHasMore(true);
-
-  //   loadMessages(0, false);
-  // }, [selectedUser]);
-
-  // useEffect(() => {
-  //   //IMMEDIATE FETCH FOR THE SELECTED USER BEFORE POLLING
-  //   loadMessages(0, false);
-
-  //   const interval = setInterval(() => {
-  //     poll
-  //   }, 5000);
-
-  //   return () => clearInterval(interval);
-  // }, [passedUsername, passedAdminUsername, selectedUser]);
-
-  // =========================
   // LOAD MORE (INFINITE SCROLL)
-  // =========================
 
   console.log({
     loadingMore,
@@ -242,17 +222,20 @@ function ChatField() {
   //   if (loadingMore || !hasMore) return;
 
   //   isLoadingOldMessagesRef.current = true;
-
   //   setLoadingMore(true);
 
-  //   const nextSkip = messageSent.length;
+  //   try {
+  //     const nextSkip = messageSent.length;
 
-  //   await loadMessages(nextSkip, true);
-
-  //   setLoadingMore(false);
+  //     await loadMessages(nextSkip, true);
+  //   } catch (err) {
+  //     console.error("Load more failed:", err);
+  //   } finally {
+  //     setLoadingMore(false);
+  //   }
   // };
 
-  const loadMore = async () => {
+  const loadMore = useCallback(async () => {
     if (loadingMore || !hasMore) return;
 
     isLoadingOldMessagesRef.current = true;
@@ -267,7 +250,7 @@ function ChatField() {
     } finally {
       setLoadingMore(false);
     }
-  };
+  }, [loadingMore, hasMore, messageSent.length]);
 
   //SCROLL ANIMATION
 
@@ -310,17 +293,6 @@ function ChatField() {
     }
   }, [messageSent]);
 
-  // useEffect(() => {
-  //   if (!messageSent.length) return;
-
-  //   if (isAtBottomRef.current) {
-  //     scrollToBottom();
-  //   }
-  // }, [messageSent, selectedUser]);
-
-  // console.log(chatEndRef);
-  // console.log(isAtBottomRef);
-
   ///DEBUGGING ENDS HERE
 
   //----->
@@ -348,9 +320,22 @@ function ChatField() {
     );
   }
 
+  localStorage.setItem("switchField", switchField);
+
+  console.log({
+    passedUsername,
+    passedAdminUsername,
+    selectedUser,
+  });
+
   return (
     <div className="fixed w-full h-full">
-      <div className="absolute right-20 top-3">Log Out</div>
+      <div
+        className="absolute right-20 top-3 cursor-pointer font-bold"
+        onClick={handleLogOut}
+      >
+        Log Out
+      </div>
       {toGender ? (
         <PickGender
           setIsGender={setIsGender}

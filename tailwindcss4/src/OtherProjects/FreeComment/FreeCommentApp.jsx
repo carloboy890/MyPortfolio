@@ -23,6 +23,29 @@ function FreeCommentApp() {
   const [isGender, setIsGender] = useState("");
 
   useEffect(() => {
+    const savedUsername = localStorage.getItem("user");
+    const savedAdminUsername = localStorage.getItem("admin");
+    const savedSwitchField = localStorage.getItem("switchField");
+
+    if (savedUsername) {
+      const user = JSON.parse(savedUsername);
+      setPassedUsername(user.username);
+
+      setHideUserInfo(false);
+    }
+
+    if (savedAdminUsername) {
+      const admin = JSON.parse(savedAdminUsername);
+      setPassedAdminUsername(admin.username);
+      setHideUserInfo(false);
+    }
+
+    if (savedSwitchField) {
+      setSwitchField(savedSwitchField);
+    }
+  }, []);
+
+  useEffect(() => {
     if (!passedUsername) return;
 
     const fetchUser = async () => {
@@ -56,6 +79,18 @@ function FreeCommentApp() {
     }
   }, [passedUsername]);
 
+  function handleLogOut() {
+    localStorage.removeItem("user");
+    localStorage.removeItem("admin");
+    localStorage.removeItem("switchField");
+
+    setPassedUsername("");
+    setPassedAdminUsername("");
+    setSwitchField("");
+    setHideUserInfo(true);
+    setOpenUserInfo(true);
+  }
+
   return (
     <FreeCommentBG>
       {hideUserInfo ? (
@@ -74,6 +109,7 @@ function FreeCommentApp() {
                 setPassedAdminUsername={setPassedAdminUsername}
                 setToGender={setToGender}
                 setCheckingGender={setCheckingGender}
+                setOpenUserInfo={setOpenUserInfo}
               />
             )}
           </div>
@@ -99,6 +135,7 @@ function FreeCommentApp() {
             checkingGender,
             isGender,
             setIsGender,
+            handleLogOut,
           }}
         >
           <ChatField />
