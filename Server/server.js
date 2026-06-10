@@ -2,6 +2,9 @@ import express from "express";
 import cors from "cors";
 import { MongoClient } from "mongodb";
 import bcrypt from "bcrypt";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const app = express();
 
@@ -14,8 +17,9 @@ app.use(
 );
 app.use(express.json());
 
-const url = "mongodb://127.0.0.1:27017";
-const client = new MongoClient(url);
+// const url = "mongodb://127.0.0.1:27017";
+
+const client = new MongoClient(process.env.MONGO_URI);
 
 let db;
 
@@ -269,65 +273,6 @@ function checkPass(req, res, next) {
 
 //Sending Message
 
-// async function messageSender(req, res, next) {
-//   const { passedUsername } = req.body;
-
-//   try {
-//     const findSender = await db
-//       .collection("AskMe-Messages")
-//       .findOne({ username: passedUsername });
-
-//     if (!findSender) {
-//       return res.json({ sender: false, code: "OTHER_USER" });
-//       next();
-//     } else {
-//       return res.json({ sender: true, code: "YOU_USER" });
-//     }
-
-//   } catch (error) {
-//     console.error(error);
-//     res.status(500).json({ message: "Server error" });
-//   }
-// }
-
-// async function matchUser(req, res, next) {
-//   const { passedUsername, passedAdminUsername } = req.body;
-
-//   try {
-//     const user = await db.collection("users").findOne({
-//       username: passedUsername,
-//     });
-
-//     const adminUser = await db
-//       .collection("admin")
-//       .findOne({ adminUsername: passedAdminUsername });
-
-//     if (!user) {
-//       return res.status(400).json({
-//         success: false,
-//         code: "MESSAGE_FAIL",
-//         message: "User not found",
-//       });
-//     }
-//     if (passedAdminUsername === "admin8080") {
-//       if (!adminUser) {
-//         return res.status(400).json({
-//           success: false,
-//           code: "MESSAGE_FAIL",
-//           message: "Admin not found",
-//         });
-//       }
-//     }
-
-//     req.matchAdminUser = adminUser;
-//     req.matchUser = user;
-//     next();
-//   } catch (err) {
-//     console.error(err);
-//     res.status(500).json({ message: "Server error" });
-//   }
-// }
-
 async function matchUser(req, res, next) {
   const { passedUsername, passedAdminUsername } = req.body;
 
@@ -495,6 +440,8 @@ app.post("/set-gender", async (req, res) => {
   try {
     await db.collection("users").updateOne({ username }, { $set: { gender } });
 
+    console.log(gender);
+
     res.json({
       success: true,
       message: "Gender saved",
@@ -576,6 +523,65 @@ app.get("/AskMe-Messages", async (req, res) => {
     const messages = await db
       .collection("AskMe-Messages")
       .find(filter)
+      .sort({ createdAt: -1 }) // IMPORTANT: chat order
+      .skip(Number(skip))
+      .limit(Number(limit))
+      .toArray();
+
+    //Counts
+    messages.reverse();
+
+    const users = await db.collection("users").find({}).toArray();
+
+    const readCounts = {};
+
+    users.forEach((user) => {
+      readCounts[user.username] = user.adminReadCount || 0;
+    });
+
+    res.json({
+      success: true,
+      data: messages,
+      readCounts,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({
+      message: "Server error",
+    });
+  }
+});
+
+app.get("/AskMe-Counts", async (req, res) => {
+  const { username, adminUsername, selectedUser, skip = 0 } = req.query;
+
+  try {
+    let filter = {};
+
+    // BOTH USER + ADMIN (normal chat view)
+    if (username && adminUsername) {
+      const conversationId = [username, adminUsername].sort().join("_");
+
+      filter = { conversationId };
+    }
+
+    // USER ONLY VIEW (chat with admin)
+    else if (username) {
+      const conversationId = [username, "admin8080"].sort().join("_");
+
+      filter = { conversationId };
+    }
+
+    // ADMIN VIEW (must include selected user)
+    else if (adminUsername && selectedUser) {
+      const conversationId = [selectedUser, adminUsername].sort().join("_");
+
+      filter = { conversationId };
+    }
+
+    const messages = await db
+      .collection("AskMe-Messages")
+      .find(filter)
       .sort({ createdAt: 1 }) // IMPORTANT: chat order
       .skip(Number(skip))
       .toArray();
@@ -621,8 +627,10 @@ app.get("/get-user", async (req, res) => {
   }
 });
 
+const PORT = process.env.PORT || 5001;
+
 connectDB().then(() => {
-  app.listen(5000, () => {
-    console.log("Server Listening on port 5000");
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
   });
 });
