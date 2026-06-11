@@ -20,6 +20,8 @@ function RegistrationField({
 
   const step = "regUsername";
 
+  console.log(import.meta.env.VITE_API_URL);
+
   function handleSuccessFlow(success, message) {
     setStatus("loading");
     setErrorMessSwitch(true);
