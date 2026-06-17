@@ -28,14 +28,21 @@ function PickGender({
   };
 
   return (
-    <div className="h-full w-full flex">
-      <div className="h-80 w-130 flex items-center rounded-4xl mx-auto my-auto bg-amber-100">
+    <div
+      className="z-20 h-full w-full flex 
+    "
+    >
+      <div
+        className="h-80 w-130 flex items-center rounded-4xl mx-auto my-auto bg-amber-100 
+      max-sm:h-60 max-sm:w-90"
+      >
         <div className="w-1/2 h-60 items-center flex justify-center">
           <img
             onClick={() => handleGenderSelect("Female")}
             src={femaleProfile}
             alt="Female Profile"
-            className="h-50 cursor-pointer hover:scale-110 duration-100 ease-in"
+            className="h-50 cursor-pointer hover:scale-110 duration-100 ease-in 
+            max-sm:w-38"
           />
         </div>
         <div className="w-1/2 h-60 items-center flex justify-center">
@@ -43,7 +50,8 @@ function PickGender({
             onClick={() => handleGenderSelect("Male")}
             src={maleProfile}
             alt="Male Profile"
-            className="h-50 cursor-pointer hover:scale-110 duration-100 ease-in"
+            className="h-50 cursor-pointer hover:scale-110 duration-100 ease-in 
+            max-sm:w-38"
           />
         </div>
       </div>

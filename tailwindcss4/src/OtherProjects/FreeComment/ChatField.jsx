@@ -70,11 +70,11 @@ function ChatField() {
         }
 
         if (data.code === "MESSAGE_SENT") {
-          setMessageSucc(data.message);
           setTimeout(() => {
             scrollToBottom();
           }, 100);
         }
+        setMessageSucc(data.message);
 
         const updatedMessages = await fetchMessages(0);
 
@@ -107,11 +107,11 @@ function ChatField() {
 
     fetchAllMessages();
 
-    // const interval = setInterval(() => {
-    //   fetchAllMessages();
-    // }, 3000);
+    const interval = setInterval(() => {
+      fetchAllMessages();
+    }, 3000);
 
-    // return () => clearInterval(interval);
+    return () => clearInterval(interval);
   }, [passedAdminUsername]);
 
   // console.log(readCounts);
@@ -329,9 +329,9 @@ function ChatField() {
   });
 
   return (
-    <div className="fixed w-full h-full">
+    <div className="relative flex justify-center w-full h-full">
       <div
-        className="absolute right-20 top-3 cursor-pointer font-bold"
+        className="absolute right-10 top-3 cursor-pointer font-bold z-2"
         onClick={handleLogOut}
       >
         Log Out
@@ -345,9 +345,24 @@ function ChatField() {
         />
       ) : (
         (passedUsername || selectedUser) && (
-          <div className="absolute left-80">
-            <img src={chatField} alt="Chat Field" className="h-245" />
-            <div className="flex justify-center">
+          <div
+            className="flex relative justify-center items-center h-full
+          max-lg:w-[80%] 
+          max-md:w-full"
+          >
+            <img
+              src={chatField}
+              alt="Chat Field"
+              className="h-full 
+            w-full max-md:hidden"
+            />
+            <div
+              className="flex absolute w-full h-full max-h-[70%] justify-center items-center
+              max-lg:max-h-[70%]
+              max-md:max-h-full
+            
+            "
+            >
               <InnerChatBox
                 errorMess={errorMess}
                 messageSucc={messageSucc}
@@ -365,38 +380,54 @@ function ChatField() {
               />
             </div>
             {showEmojis ? (
-              <div className="absolute bottom-197 h-20 items-center flex left-65 w-160">
-                <EmojiComponent setChatText={setChatText} />
+              <div className="absolute w-[60%] flex justify-center h-full">
+                <div
+                  className="absolute h-20 top-24 z-2 flex max-w-[85%] 
+                max-lg:top-48 
+                max-md:hidden"
+                >
+                  <EmojiComponent setChatText={setChatText} />
+                </div>
               </div>
             ) : null}
-            <div onClick={() => setShowEmojis((val) => !val)}>
-              <img
-                src={happyEmoji}
-                alt=":)"
-                className="h-12 w-12 absolute bottom-22 left-77 hover:scale-110 cursor-pointer ease-in-out duration-200"
-              />
-            </div>
-            <form
-              onSubmit={handleSubmit}
-              className="flex absolute bottom-21 right-20 w-180 justify-between"
+            <div
+              className="absolute flex justify-center items-end h-[73%] w-[70%] 
+            max-lg:h-[45%]
+            max-md:h-[95%] max-md:w-[90%]"
             >
-              <input
-                type="text"
-                value={chatText}
-                className={`${styles.input} !w-160`}
-                onChange={(e) => setChatText(e.target.value.slice(0, 150))}
-              />
-              <button
-                type="submit"
-                style={{
-                  boxShadow:
-                    "inset 0 2px 4px 0 rgb(2 6 23 / 0.3), inset 0 -2px 4px 0 rgb(203 213 225)",
-                }}
-                className="inline-flex w-18 cursor-pointer items-center gap-1 rounded border border-slate-300 bg-gradient-to-b from-slate-50 to-slate-200 px-4 py-2 font-semibold hover:opacity-90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-slate-300 focus-visible:ring-offset-2 active:opacity-100"
-              >
-                Enter
-              </button>
-            </form>
+              <div className="flex absolute h-10 w-[95%] space-x-2">
+                <div onClick={() => setShowEmojis((val) => !val)}>
+                  <img
+                    src={happyEmoji}
+                    alt=":)"
+                    className="h-12 w-12 hover:scale-110 cursor-pointer ease-in-out duration-200 
+                    max-lg:h-9 max-lg:w-9
+                    max-md:hidden"
+                  />
+                </div>
+                <form
+                  onSubmit={handleSubmit}
+                  className="flex h-12 justify-between w-full max-lg:h-9.5"
+                >
+                  <input
+                    type="text"
+                    value={chatText}
+                    className={`${styles.input}`}
+                    onChange={(e) => setChatText(e.target.value.slice(0, 150))}
+                  />
+                  <button
+                    type="submit"
+                    style={{
+                      boxShadow:
+                        "inset 0 2px 4px 0 rgb(2 6 23 / 0.3), inset 0 -2px 4px 0 rgb(203 213 225)",
+                    }}
+                    className="inline-flex w-18 cursor-pointer items-center gap-1 rounded border border-slate-300 bg-gradient-to-b from-slate-50 to-slate-200 px-4 py-2 font-semibold hover:opacity-90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-slate-300 focus-visible:ring-offset-2 active:opacity-100"
+                  >
+                    Enter
+                  </button>
+                </form>
+              </div>
+            </div>
           </div>
         )
       )}

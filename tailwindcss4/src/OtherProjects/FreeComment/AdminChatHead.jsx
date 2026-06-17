@@ -29,28 +29,46 @@ function AdminChatHead({ setOpenChatHead, messageSent, readCounts }) {
   }, 0);
 
   return (
-    <div
-      onClick={() => setOpenChatHead((prev) => !prev)}
-      className="fixed right-20 top-205 hover:scale-110 transition duration-300"
-    >
-      <span className="font absolute text-[0.5rem] text-white top-8.5 left-35.5 z-10 font-Jost">
-        {textCount}
-      </span>
+    <div className="absolute h-full border-1 w-full">
+      <div onClick={() => setOpenChatHead((prev) => !prev)} className="h-[10%]">
+        <img
+          src={MessageAlert}
+          className="h-15 w-15 hidden  absolute cursor-pointer right-31 top-1 max-2xl:block z-1"
+          alt="Message Alert"
+        />
+        <span
+          className="font absolute text-[0.5rem] hidden
+         max-2xl:inline-block max-2xl:right-37.5 max-2xl:top-5.5 text-white z-1"
+        >
+          {textCount}
+        </span>
+      </div>
+      <div
+        onClick={() => setOpenChatHead((prev) => !prev)}
+        className="fixed right-0 top-205 hover:scale-110 transition duration-300"
+      >
+        <span
+          className="font absolute text-[0.5rem] text-white top-8.5 left-35.5 z-10 font-Jost
+       max-2xl:block max-2xl:absolute max-2xl:left-6.5 max-2xl:top-4.5 "
+        >
+          {textCount}
+        </span>
 
-      <img
-        src={MessageAlert}
-        className="h-15 w-15 scale absolute cursor-pointer right-31 top-4"
-        alt="Message Alert"
-      />
+        <img
+          src={MessageAlert}
+          className="h-15 w-15 absolute cursor-pointer right-31 top-4 max-2xl:block"
+          alt="Message Alert"
+        />
 
-      <img
-        src={MessageBoxTheme}
-        className="h-30 w-75 cursor-pointer"
-        alt="Message Box Theme"
-      />
+        <img
+          src={MessageBoxTheme}
+          className="h-30 w-75 cursor-pointer max-2xl:hidden"
+          alt="Message Box Theme"
+        />
 
-      <div className="font-Jost absolute cursor-pointer top-20 left-27 font-bold text-xl z-10">
-        Message
+        <div className="font-Jost absolute cursor-pointer top-20 left-27 font-bold text-xl z-10">
+          Message
+        </div>
       </div>
     </div>
   );

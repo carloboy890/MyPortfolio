@@ -72,9 +72,13 @@ function ChatBubble({ isMine, messageSent, firstMess }) {
     <div className={`flex ${isMine ? "justify-end" : "justify-start"} w-full`}>
       <div
         className={`flex flex-col mt-2 w-fit max-w-lg border rounded-3xl p-3
+          max-xl:scale-80 max-xl:-mt-2 
+          max-lg:p-3 max-lg:scale-75 max-lg:-mt-4
+          max-
+          
       ${isMine ? "bg-blue-400 text-white" : "bg-gray-200 text-black"}`}
       >
-        <div className="flex items-center space-x-1.5">
+        <div className="flex items-center space-x-1.5 ">
           <span className="text-sm font-semibold">{messageSent.username}</span>
 
           <span className="text-sm">

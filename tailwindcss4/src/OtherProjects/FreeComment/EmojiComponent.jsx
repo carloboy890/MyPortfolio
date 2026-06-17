@@ -47,12 +47,15 @@ function EmojiComponent({ setChatText }) {
   const mapEmojis = allEmojis.map((emoji, i) => {
     return (
       <SwiperSlide key={i} className="">
-        <div className="h-20 items-center flex justify-center">
+        <div
+          className="h-20 items-center flex justify-center
+        max-lg:w-full"
+        >
           <img
             onClick={() => setChatText((prev) => prev + " " + emoji.token)}
             src={emoji.img}
             alt="emoji"
-            className="w-12 h-12 cursor-pointer hover:scale-110 transition duration-200"
+            className="w-12 h-12 cursor-pointer hover:scale-110 transition duration-200 max-lg:w-9 max-lg:h-9"
           />
         </div>
       </SwiperSlide>

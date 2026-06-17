@@ -13,33 +13,45 @@ function CommentAdminInputField({
 }) {
   return (
     <>
-      <div className="h-65 flex flex-col justify-around">
+      <div className="h-48 flex flex-col justify-end">
         <p className="text-md h-6 text-center text-red-700">
           {errorMessSwitch ? adminLogSuccess : adminLoginCodeErrorMess}
         </p>
-        <div>
-          <div className="space-y-2 h-23">
-            <p className="text-lg text-center font-Coiny font-bold">
+        <div className="flex flex-col items-end">
+          <div
+            className="space-y-1 h-18 
+          max-xl:h-16"
+          >
+            <p
+              className="text-sm text-center font-Coiny font-bold 
+            max-xl:text-[0.8rem]"
+            >
               Admin Username
             </p>
 
             <input
               type="text"
               value={adminUsername}
-              className={`${styles.input} ${switchField === "AdminLogin" ? "h-10" : ""}`}
+              className={`${styles.input} ${switchField === "AdminLogin" ? "h-8 max-xl:h-4" : ""}`}
               onChange={(e) => {
                 setAdminUsername(e.target.value);
               }}
             />
           </div>
-          <div className="space-y-2 h-23">
-            <p className="text-lg text-center font-Coiny font-bold">
+          <div
+            className="space-y-1 h-18 
+          max-xl:h-16"
+          >
+            <p
+              className="text-sm text-center font-Coiny font-bold 
+            max-xl:text-[0.8rem]"
+            >
               Admin Password
             </p>
             <input
               type="password"
               value={adminPassword}
-              className={`${styles.input} ${switchField === "AdminLogin" ? "h-10" : ""}`}
+              className={`${styles.input} ${switchField === "AdminLogin" ? "h-8 max-xl:h-4" : ""}`}
               onChange={(e) => {
                 setAdminPassword(e.target.value);
               }}

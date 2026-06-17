@@ -101,69 +101,71 @@ function AdminChatUsers({
   }
 
   return (
-    <div className="bg-[#f1eeee] fixed rounded-3xl h-110 w-80 right-17 top-90 overflow-y-scroll">
-      <div className="h-16 bg-[#7d3cc7] border-1 rounded-t-3xl flex justify-between">
-        <div className="m-4 text-2xl font-Jost font-bold text-[#fff]">
-          Message
+    <div className="border-1 flex justify-end items-end absolute h-full right-0 w-[30%]">
+      <div className="bg-[#f1eeee] fixed rounded-3xl overflow-y-scroll">
+        <div className="h-16 bg-[#7d3cc7] border-1 rounded-t-3xl flex justify-between">
+          <div className="m-4 text-2xl font-Jost font-bold text-[#fff]">
+            Message
+          </div>
+          <div className="text-white absolute cursor-pointer top-5 right-5 font-bold">
+            X
+          </div>
         </div>
-        <div className="text-white absolute cursor-pointer top-5 right-5 font-bold">
-          X
-        </div>
-      </div>
-      <div className="">
-        {users.map((user, i) => {
-          const { count, latest, latestTime } = getUserData(user);
+        <div className="">
+          {users.map((user, i) => {
+            const { count, latest, latestTime } = getUserData(user);
 
-          function formatMessageTime(dateString) {
-            const date = new Date(dateString);
+            function formatMessageTime(dateString) {
+              const date = new Date(dateString);
 
-            return date.toLocaleTimeString([], {
-              hour: "2-digit",
-              minute: "2-digit",
-            });
-          }
+              return date.toLocaleTimeString([], {
+                hour: "2-digit",
+                minute: "2-digit",
+              });
+            }
 
-          return (
-            <div
-              onClick={() => {
-                handleUserClick(user);
-                setSelectedUser(user.username);
-              }}
-              key={i}
-              className={`h-20 w-full pl-3 pt-3 cursor-pointer justify-around hover:bg-amber-400 flex`}
-            >
-              <div className="flex  space-x-3 w-full ">
-                <div>
-                  <img
-                    src={
-                      user.gender === "Male"
-                        ? maleProfile
-                        : user.gender === "Female"
-                          ? femaleProfile
-                          : femaleProfile // fallback
-                    }
-                    className="h-15 w-15"
-                    alt="user"
-                  />
-                </div>
-                <div className=" flex w-57 justify-between">
-                  <div className="space-y-2">
-                    <div className="font-Jost font-bold">{user.username}</div>
-                    <div className="w-40 truncate">{latest}</div>
+            return (
+              <div
+                onClick={() => {
+                  handleUserClick(user);
+                  setSelectedUser(user.username);
+                }}
+                key={i}
+                className={`h-20 w-full pl-3 pt-3 cursor-pointer justify-around hover:bg-amber-400 flex`}
+              >
+                <div className="flex  space-x-3 w-full ">
+                  <div>
+                    <img
+                      src={
+                        user.gender === "Male"
+                          ? maleProfile
+                          : user.gender === "Female"
+                            ? femaleProfile
+                            : femaleProfile // fallback
+                      }
+                      className="h-15 w-15"
+                      alt="user"
+                    />
                   </div>
-                  <div className="w-1/8 space-y-2 text-center">
-                    <div className="text-[0.6rem] font-bold">
-                      {latestTime ? formatMessageTime(latestTime) : ""}
+                  <div className=" flex w-57 justify-between">
+                    <div className="space-y-2">
+                      <div className="font-Jost font-bold">{user.username}</div>
+                      <div className="w-40 truncate">{latest}</div>
                     </div>
-                    {count ? (
-                      <div className="relative border-1 h-2 w-2 bg-red-600 rounded-full flex justify-center ml-3"></div>
-                    ) : null}
+                    <div className="w-1/8 space-y-2 text-center">
+                      <div className="text-[0.6rem] font-bold">
+                        {latestTime ? formatMessageTime(latestTime) : ""}
+                      </div>
+                      {count ? (
+                        <div className="relative border-1 h-2 w-2 bg-red-600 rounded-full flex justify-center ml-3"></div>
+                      ) : null}
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
       </div>
     </div>
   );

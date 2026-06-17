@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import CommentAppUsername from "./CommentAppUsername";
 import CommentAdminInputField from "./CommentAdminInputField";
 import LoggingInComponent from "./LoggingInComponent";
-import backButton from "../../../assets/ProjectsLogos/OtherProjectsSVG/BackArrowWeatherApp.svg";
 
 function AdminLoginInfo({
   setHideInfoField,
@@ -103,8 +102,13 @@ function AdminLoginInfo({
 
   return (
     <>
-      <div className="h-full relative z-10 flex flex-col items-center justify-center">
-        {hideBackButton && (
+      <div
+        className="h-75 w-full absolute z-10 flex flex-col items-center justify-center 
+      max-2xl:h-72
+      max-xl:h-55
+      max-lg:w-120"
+      >
+        {/* {hideBackButton && (
           <div className="z-21 absolute left-10 top-8">
             <img
               onClick={() => setHideInfoField(true)}
@@ -113,7 +117,7 @@ function AdminLoginInfo({
               className="h-15 w-15 cursor-pointer transition duration-150 hover:scale-110"
             />
           </div>
-        )}
+        )} */}
         <form
           onSubmit={handleSubmit}
           className="flex flex-col items-center mb-2"
@@ -136,18 +140,35 @@ function AdminLoginInfo({
               </>
             ))}
           {hideButton && (
-            <button
-              disabled={status === "loading"}
-              type="submit"
-              className={`inline-flex w-24 justify-center items-center gap-2 rounded border px-4 py-2 font-semibold
+            <div className="space-x-2">
+              <button
+                onClick={setHideInfoField}
+                disabled={status === "loading"}
+                type="submit"
+                className={`inline-flex w-20 justify-center items-center gap-2 rounded border px-4 py-2 font-semibold h-8
+                  max-xl:h-6 max-xl:w-16 max-xl:text-sm
          ${
            status === "loading"
              ? "bg-gray-300 cursor-wait opacity-70"
              : "bg-gradient-to-b from-slate-50 to-slate-200 cursor-pointer hover:opacity-90"
          }`}
-            >
-              Enter
-            </button>
+              >
+                Back
+              </button>
+              <button
+                disabled={status === "loading"}
+                type="submit"
+                className={`inline-flex w-20 justify-center items-center gap-2 rounded border px-4 py-2 font-semibold h-8
+                  max-xl:h-6 max-xl:w-16 max-xl:text-sm
+         ${
+           status === "loading"
+             ? "bg-gray-300 cursor-wait opacity-70"
+             : "bg-gradient-to-b from-slate-50 to-slate-200 cursor-pointer hover:opacity-90"
+         }`}
+              >
+                Enter
+              </button>
+            </div>
           )}
         </form>
       </div>

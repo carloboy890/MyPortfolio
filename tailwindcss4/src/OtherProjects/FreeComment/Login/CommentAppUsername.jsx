@@ -12,9 +12,21 @@ function CommentAppUsername({
   loginCodeErrorMess,
 }) {
   return (
-    <div className="space-y-5 h-35 flex flex-col text-center">
+    <div
+      className=" h-30 flex flex-col text-center 
+    max-xl:h-26
+    max-lg:h-23
+    max-sm:h-20 max-sm:items-center"
+    >
       <div className="flex flex-col justify-between h-full">
-        <p className="text-3xl font-Coiny font-bold">Type Your Username :</p>
+        <p
+          className="text-3xl font-Coiny font-bold 
+        max-xl:text-2xl 
+        max-lg:text-xl
+        max-sm:text-lg"
+        >
+          Type Your Username :
+        </p>
         <p className="text-l text-center text-red-700">
           {switchField === "Register" &&
             (errorMessSwitch ? regSuccess : regCodeErrorMess)}
@@ -25,7 +37,8 @@ function CommentAppUsername({
       <input
         type="text"
         value={username}
-        className={styles.input}
+        className={`${styles.input} h-10 
+        max-sm:h-6 max-sm:!w-[80%]`}
         onChange={(e) => {
           setUsername(e.target.value);
         }}

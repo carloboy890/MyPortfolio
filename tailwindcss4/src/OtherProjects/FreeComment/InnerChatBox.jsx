@@ -22,7 +22,9 @@ function InnerChatBox({
 
   return (
     <div
-      className="absolute p-3 justify-between flex bottom-39 h-140 w-270 overflow-y-scroll"
+      className="p-3 absolute flex h-[90%] max-h-[68%] w-[95%] top-35 overflow-y-auto z-2
+      max-lg:h-[44%] max-lg:top-52 max-lg:pt-3
+      max-md:h-[80%] max-md:w-full"
       ref={chatEndRef}
     >
       {switchField === "AskMe" && (
@@ -77,3 +79,9 @@ export default InnerChatBox;
 //     <ChatBubble />
 //   </div>
 // </div>
+
+// max-2xl:h-130
+// max-xl:w-235 max-xl:h-110
+// max-lg:w-182 max-lg:h-83
+// max-md:w-full max-md:h-150
+// max-sm:h-250"
