@@ -103,11 +103,16 @@ function LoginInfo({
   return (
     <>
       <div
-        className="h-75 w-full absolute z-10 flex flex-col items-center justify-center 
-      max-xl:h-60
-      max-lg:h-60 max-lg:w-full"
+        className="absolute w-full h-full flex
+      max-sm:items-center"
       >
-        {/* {hideBackButton && (
+        <div
+          className="h-[80%] w-full relative z-10 flex flex-col items-center justify-center 
+      max-xl:h-60
+      max-lg:h-60 max-lg:w-full
+      max-md:h-full"
+        >
+          {/* {hideBackButton && (
           <div className="z-21 absolute left-10 top-8">
             <img
               onClick={() => setHideInfoField(true)}
@@ -117,60 +122,63 @@ function LoginInfo({
             />
           </div>
         )} */}
-        <form
-          onSubmit={handleSubmit}
-          className="flex flex-col space-y-4 items-center
-          max-sm:space-y-2"
-        >
-          {step === "loginUser" &&
-            (status === "loggingIn" ? (
-              <LoggingInComponent />
-            ) : (
-              <CommentAppUsername
-                username={username}
-                setUsername={setUsername}
-                logSuccess={logSuccess}
-                errorMessSwitch={errorMessSwitch}
-                loginCodeErrorMess={loginCodeErrorMess}
-                switchField={switchField}
-              />
-            ))}
-          {hideButton && (
-            <div className="space-x-2">
-              <button
-                onClick={setHideInfoField}
-                disabled={status === "loading"}
-                type="submit"
-                className={`inline-flex w-24 justify-center items-center gap-2 rounded border px-4 py-2 font-semibold 
+          <form
+            onSubmit={handleSubmit}
+            className="absolute flex flex-col space-y-4 items-center
+          max-sm:space-y-2 max-md:scale-130"
+          >
+            {step === "loginUser" &&
+              (status === "loggingIn" ? (
+                <LoggingInComponent />
+              ) : (
+                <CommentAppUsername
+                  username={username}
+                  setUsername={setUsername}
+                  logSuccess={logSuccess}
+                  errorMessSwitch={errorMessSwitch}
+                  loginCodeErrorMess={loginCodeErrorMess}
+                  switchField={switchField}
+                />
+              ))}
+            {hideButton && (
+              <div className="space-x-2">
+                <button
+                  onClick={setHideInfoField}
+                  disabled={status === "loading"}
+                  type="button"
+                  className={`inline-flex w-24 justify-center items-center gap-2 rounded border px-4 py-2 font-semibold 
                   max-xl:h-10
                   max-lg:h-8 max-lg:w-15
+                  max-md:w-16 max-md:h-6 max-md:text-[0.7rem]
                   max-sm:h-6 max-sm:w-12 max-sm:text-[0.6rem]
          ${
            status === "loading"
              ? "bg-gray-300 cursor-wait opacity-70"
              : "bg-gradient-to-b from-slate-50 to-slate-200 cursor-pointer hover:opacity-90"
          }`}
-              >
-                Back
-              </button>
-              <button
-                disabled={status === "loading"}
-                type="submit"
-                className={`inline-flex w-24 justify-center items-center gap-2 rounded border px-4 py-2 font-semibold 
+                >
+                  Back
+                </button>
+                <button
+                  disabled={status === "loading"}
+                  type="submit"
+                  className={`inline-flex w-24 justify-center items-center gap-2 rounded border px-4 py-2 font-semibold 
                   max-xl:h-10
                   max-lg:h-8 max-lg:w-15
+                  max-md:w-16 max-md:h-6 max-md:text-[0.7rem]
                   max-sm:h-6 max-sm:w-12 max-sm:text-[0.6rem]
          ${
            status === "loading"
              ? "bg-gray-300 cursor-wait opacity-70"
              : "bg-gradient-to-b from-slate-50 to-slate-200 cursor-pointer hover:opacity-90"
          }`}
-              >
-                Enter
-              </button>
-            </div>
-          )}
-        </form>
+                >
+                  Enter
+                </button>
+              </div>
+            )}
+          </form>
+        </div>
       </div>
     </>
   );

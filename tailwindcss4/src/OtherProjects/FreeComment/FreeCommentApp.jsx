@@ -96,26 +96,29 @@ function FreeCommentApp() {
       <div className="relative h-full">
         {hideUserInfo ? (
           <div
-            className="relative w-210 flex flex-col justify-around h-full
+            className="absolute w-210 flex flex-col justify-around h-full
           max-2xl:top-7 
           max-xl:top-22
           max-lg:top-35
-          max-sm:-top-10
+          max-md:top-0 max-md:w-full
+          
           "
           >
             <div
-              className="relative flex w-150 left-25 
+              className="absolute flex w-150 left-25 
             max-2xl:w-145
             max-xl:w-120 max-xl:left-25 
             max-lg:left-5
-            max-sm:left-2
+            max-md:w-full max-md:left-0 max-md:h-full
+            max-sm:left-0 max-sm:h-full max-sm:w-full
+             
             "
             >
               <img
                 src={chatConvoLogo}
                 alt="chatConvoLogo"
                 className=" w-150 mt-5 max-lg:w-120 
-                max-sm:w-120"
+                max-md:hidden"
               />
               {openUserInfo ? (
                 <UserFormInfo

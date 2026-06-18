@@ -12,7 +12,7 @@ function UserFormInfo({ setOpenUserInfo, setSwitchField }) {
       className="absolute flex left-14 items-center w-3/4 h-85 justify-center 
     max-xl:-bottom-5 
     max-lg:-bottom-5
-    max-sm:-bottom-5"
+    max-sm:bottom-0 max-sm:left-0 max-sm:w-full max-sm:h-full max-sm:justify-center max-sm:items-center "
     >
       <div
         onClick={() => {
@@ -34,13 +34,13 @@ function UserFormInfo({ setOpenUserInfo, setSwitchField }) {
           setOpenUserInfo(false);
           setSwitchField("Community");
         }}
-        className="pointer-events-none transition-transform duration-200 hover:scale-110"
+        className="pointer-events-none transition-transform duration-200 hover:scale-110 max-sm:flex max-sm:flex-col relative"
       >
         <div
-          className="absolute text-sm right-20 top-15 font-bold
-          max-2xl:right-18
-        max-xl:top-20 max-xl:text-[0.8rem] max-xl:right-15
-        max-sm:right-15 max-sm:top-20 max-sm:text-[0.8rem]"
+          className="absolute text-sm right-14 -top-1 font-bold
+          max-2xl:right-14
+        max-xl:-top-1 max-xl:text-[0.8rem] max-xl:right-10.5
+        max-sm:right-10.5 max-sm:-top-1 max-sm:text-[0.8rem]"
         >
           Coming Soon!
         </div>

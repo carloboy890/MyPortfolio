@@ -102,13 +102,13 @@ function AdminLoginInfo({
 
   return (
     <>
-      <div
-        className="h-75 w-full absolute z-10 flex flex-col items-center justify-center 
-      max-2xl:h-72
-      max-xl:h-55
-      max-lg:w-120"
-      >
-        {/* {hideBackButton && (
+      <div className="absolute w-full h-full flex items-center">
+        <div
+          className="h-[90%] w-full relative z-10 flex flex-col items-center
+      max-xl:h-full
+      max-md:max-md:h-full max-md:justify-center"
+        >
+          {/* {hideBackButton && (
           <div className="z-21 absolute left-10 top-8">
             <img
               onClick={() => setHideInfoField(true)}
@@ -118,59 +118,66 @@ function AdminLoginInfo({
             />
           </div>
         )} */}
-        <form
-          onSubmit={handleSubmit}
-          className="flex flex-col items-center mb-2"
-        >
-          {step === "loginAdmin" &&
-            (status === "loggingIn" ? (
-              <LoggingInComponent />
-            ) : (
-              <>
-                <CommentAdminInputField
-                  adminUsername={adminUsername}
-                  setAdminUsername={setAdminUsername}
-                  adminLogSuccess={adminlogSuccess}
-                  errorMessSwitch={errorMessSwitch}
-                  adminLoginCodeErrorMess={adminLoginCodeErrorMess}
-                  switchField={switchField}
-                  adminPassword={adminPassword}
-                  setAdminPassword={setAdminPassword}
-                />
-              </>
-            ))}
-          {hideButton && (
-            <div className="space-x-2">
-              <button
-                onClick={setHideInfoField}
-                disabled={status === "loading"}
-                type="submit"
-                className={`inline-flex w-20 justify-center items-center gap-2 rounded border px-4 py-2 font-semibold h-8
-                  max-xl:h-6 max-xl:w-16 max-xl:text-sm
+          <form
+            onSubmit={handleSubmit}
+            className="absolute flex flex-col items-center mb-2
+            max-xl:scale-90
+            max-md:scale-130"
+          >
+            {step === "loginAdmin" &&
+              (status === "loggingIn" ? (
+                <LoggingInComponent />
+              ) : (
+                <>
+                  <CommentAdminInputField
+                    adminUsername={adminUsername}
+                    setAdminUsername={setAdminUsername}
+                    adminLogSuccess={adminlogSuccess}
+                    errorMessSwitch={errorMessSwitch}
+                    adminLoginCodeErrorMess={adminLoginCodeErrorMess}
+                    switchField={switchField}
+                    adminPassword={adminPassword}
+                    setAdminPassword={setAdminPassword}
+                  />
+                </>
+              ))}
+            {hideButton && (
+              <div className="space-x-2">
+                <button
+                  onClick={setHideInfoField}
+                  disabled={status === "loading"}
+                  type="button"
+                  className={`inline-flex w-20 justify-center items-center gap-2 rounded border px-4 py-2 font-semibold h-8
+                  max-xl:h-6 max-xl:w-16 
+                  max-md:text-[0.7rem]
+                  max-xl:text-sm
          ${
            status === "loading"
              ? "bg-gray-300 cursor-wait opacity-70"
              : "bg-gradient-to-b from-slate-50 to-slate-200 cursor-pointer hover:opacity-90"
          }`}
-              >
-                Back
-              </button>
-              <button
-                disabled={status === "loading"}
-                type="submit"
-                className={`inline-flex w-20 justify-center items-center gap-2 rounded border px-4 py-2 font-semibold h-8
-                  max-xl:h-6 max-xl:w-16 max-xl:text-sm
+                >
+                  Back
+                </button>
+                <button
+                  disabled={status === "loading"}
+                  type="submit"
+                  className={`inline-flex w-20 justify-center items-center gap-2 rounded border px-4 py-2 font-semibold h-8
+                  max-xl:h-6 max-xl:w-16
+                  max-md:text-[0.7rem]
+                  max-xl:text-sm
          ${
            status === "loading"
              ? "bg-gray-300 cursor-wait opacity-70"
              : "bg-gradient-to-b from-slate-50 to-slate-200 cursor-pointer hover:opacity-90"
          }`}
-              >
-                Enter
-              </button>
-            </div>
-          )}
-        </form>
+                >
+                  Enter
+                </button>
+              </div>
+            )}
+          </form>
+        </div>
       </div>
     </>
   );

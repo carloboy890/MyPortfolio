@@ -14,7 +14,7 @@ function CommentAdminInputField({
   return (
     <>
       <div className="h-48 flex flex-col justify-end">
-        <p className="text-md h-6 text-center text-red-700">
+        <p className="text-md h-6 text-center text-red-700 max-sm:text-[0.7rem]">
           {errorMessSwitch ? adminLogSuccess : adminLoginCodeErrorMess}
         </p>
         <div className="flex flex-col items-end">

@@ -27,7 +27,7 @@ function CommentAppUsername({
         >
           Type Your Username :
         </p>
-        <p className="text-l text-center text-red-700">
+        <p className=" text-center text-red-700 max-sm:text-[0.6rem]">
           {switchField === "Register" &&
             (errorMessSwitch ? regSuccess : regCodeErrorMess)}
           {switchField === "Login" &&

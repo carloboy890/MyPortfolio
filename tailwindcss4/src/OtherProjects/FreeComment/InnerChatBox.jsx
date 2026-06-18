@@ -24,7 +24,7 @@ function InnerChatBox({
     <div
       className="p-3 absolute flex h-[90%] max-h-[68%] w-[95%] top-35 overflow-y-auto z-2
       max-lg:h-[44%] max-lg:top-52 max-lg:pt-3
-      max-md:h-[80%] max-md:w-full"
+      max-md:max-h-full max-md:h-[80%] max-md:top-15 max-md:w-full "
       ref={chatEndRef}
     >
       {switchField === "AskMe" && (

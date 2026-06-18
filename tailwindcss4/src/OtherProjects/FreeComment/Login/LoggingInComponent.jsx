@@ -3,7 +3,7 @@ import styles from "./LoggingInComponent.module.css";
 
 function LoggingInComponent() {
   return (
-    <div className={`${styles.loader}`}>
+    <div className={`${styles.loader} max-2xl:scale-70`}>
       <label>Logging in...</label>
       <div className={`${styles.loading}`}></div>
     </div>

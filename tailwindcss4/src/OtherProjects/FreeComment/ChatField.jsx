@@ -359,7 +359,7 @@ function ChatField() {
             <div
               className="flex absolute w-full h-full max-h-[70%] justify-center items-center
               max-lg:max-h-[70%]
-              max-md:max-h-full
+              max-md:max-h-full max-md:items-start
             
             "
             >

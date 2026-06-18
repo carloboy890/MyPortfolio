@@ -53,7 +53,7 @@ function FreeCommentBG({ children }) {
           max-2xl:w-23 
           max-xl:w-20
           max-lg:w-17
-          max-sm:hidden"
+          max-md:hidden"
         />
       </div>
       <div className="absolute -bottom-40 -left-18">
