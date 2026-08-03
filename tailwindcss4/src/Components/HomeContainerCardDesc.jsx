@@ -27,7 +27,7 @@ function HomeContainerCardDesc(props) {
         <>
           <div
             className="space-y-10 h-full max-2xl:w-[90%] max-xl:w-[90%]
-          max-lg:flex max-lg:flex-col max-lg:justify-center
+          max-lg:flex max-lg:flex-col max-lg:justify-center max-md:items-center
           max-lg:space-y-15 
           max-md:space-y-10
           "
@@ -99,14 +99,14 @@ function HomeContainerCardDesc(props) {
               className="flex
               max-xl:h-17
               max-lg:h-15 max-lg:w-[90%]
-              max-md:h-20 max-md:w-full max-md:justify-center
+              max-md:h-20 max-md:w-[60%] max-md:justify-center max-md:items-center
               max-sm:h-[13%] h-20"
               initial={{ opacity: 0, x: -200 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: false, amount: 0.5 }}
               transition={{ duration: 1.8 }}
             >
-              <div className="max-md:w-[60%] max-md:h-full max-sm:w-auto">
+              <div className="max-md:w-70 max-md:h-full max-md:justify-end">
                 <img
                   src={arrowView}
                   alt="arrowView"
@@ -115,12 +115,12 @@ function HomeContainerCardDesc(props) {
                  max-sm:p-1 max-sm:w-full"
                 />
               </div>
-              <div className="flex justify-center max-md:h-full">
+              <div className="flex justify-center max-md:w-auto max-md:h-full">
                 <img
                   src={playButton}
                   alt="playButton"
                   onClick={props.onShowVideo}
-                  className=" cursor-pointer"
+                  className=" cursor-pointer w-full h-full"
                 />
               </div>
             </motion.div>
