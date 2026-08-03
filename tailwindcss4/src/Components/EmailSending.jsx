@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import emailjs from "@emailjs/browser";
 
 function EmailSending() {
+  const [error, setError] = useState("");
   const [formData, setFormData] = useState({
     from_name: "",
     from_email: "",
@@ -19,6 +20,27 @@ function EmailSending() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!formData.from_name.trim()) {
+      setError("Please type your name");
+      return;
+    }
+
+    if (!formData.from_email.trim()) {
+      setError("Please type your email");
+      return;
+    }
+
+    if (!formData.subject.trim()) {
+      setError("Please type a subject");
+      return;
+    }
+
+    if (!formData.message.trim()) {
+      setError("Please type a message");
+      return;
+    }
+
+    setError("");
 
     emailjs
       .send(
@@ -71,11 +93,12 @@ function EmailSending() {
           </div>
           <input
             type="text"
-            className="bg-white h-10 w-full rounded-3xl pl-4
+            className="bg-white h-10 w-full rounded-3xl pl-4 text-black
             max-sm:h-6"
             name="from_name"
             value={formData.from_name}
             onChange={handleChange}
+            required
           />
         </div>
         <div
@@ -91,11 +114,12 @@ function EmailSending() {
           </div>
           <input
             type="text"
-            className="bg-white h-10 w-full rounded-3xl pl-4
+            className="bg-white h-10 w-full rounded-3xl pl-4 text-black
             max-sm:h-6"
             name="from_email"
             value={formData.from_email}
             onChange={handleChange}
+            required
           />
         </div>
       </div>
@@ -116,11 +140,12 @@ function EmailSending() {
           </div>
           <input
             type="text"
-            className="bg-white h-10 w-full rounded-3xl pl-4
+            className="bg-white h-10 w-full rounded-3xl pl-4 text-black
             max-sm:h-6"
             name="subject"
             value={formData.subject}
             onChange={handleChange}
+            required
           />
         </div>
         <div
@@ -141,6 +166,7 @@ function EmailSending() {
             name="message"
             value={formData.message}
             onChange={handleChange}
+            required
           />
         </div>
       </div>

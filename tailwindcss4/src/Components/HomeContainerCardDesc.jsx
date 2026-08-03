@@ -99,13 +99,13 @@ function HomeContainerCardDesc(props) {
               max-xl:h-17
               max-lg:h-15 max-lg:w-[90%]
               max-md:h-20 max-md:w-full max-md:justify-center
-              max-sm:h-[10%] h-20"
+              max-sm:h-[13%] h-20"
               initial={{ opacity: 0, x: -200 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: false, amount: 0.5 }}
               transition={{ duration: 1.8 }}
             >
-              <div className="max-md:w-[60%] max-md:h-full">
+              <div className="max-md:w-[60%] max-md:h-full max-sm:w-[70%]">
                 <img
                   src={arrowView}
                   alt="arrowView"
@@ -114,7 +114,7 @@ function HomeContainerCardDesc(props) {
                  max-sm:p-1 max-sm:w-full"
                 />
               </div>
-              <div className="flex justify-center">
+              <div className="flex justify-center max-md:h-full">
                 <img
                   src={playButton}
                   alt="playButton"

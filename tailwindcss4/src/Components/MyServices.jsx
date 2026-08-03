@@ -52,7 +52,7 @@ function MyServices() {
     >
       {/* output */}
       <div
-        className="max-sm:absolute w-[60%] h-full flex justify-center items-center 
+        className=" w-[60%] h-full flex justify-center items-center 
       max-lg:w-full max-lg:flex-col max-lg:space-y-2"
       >
         <MyServiceBigContainer

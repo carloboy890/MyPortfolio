@@ -23,12 +23,12 @@ function MyServiceBigContainer({ slides }) {
       >
         <div
           className="relative flex justify-center items-center w-full h-[40%]
-        max-xl:h-[30%] max-sm:h-[25%]"
+        max-xl:h-[30%] max-sm:h-[20%]"
         >
           <img
             src={slides.logo}
             alt={slides.title}
-            className="absolute h-[70%] w-[70%]"
+            className=" h-[70%] w-[70%] max-sm:h-20 max-sm:w-20"
           />
         </div>
         <div
@@ -46,7 +46,7 @@ function MyServiceBigContainer({ slides }) {
     leading-10 text-xl max-2xl:leading-10 text-center
     max-xl:text-[0.9rem]
     max-lg:h-80
-    max-md:text-[0.9rem] max-sm:leading-8"
+    max-md:text-[0.rem] max-sm:leading-8 max-sm:h-auto max-sm:text-[0.7rem]"
           >
             {slides.FullMeaning}
           </div>

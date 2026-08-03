@@ -97,7 +97,7 @@ const Home = () => {
               </MotionConfig>
             </div>
           </div>
-          <div className="relative h-screen flex-col flex ">
+          <div className="relative h-screen flex-col flex max-sm:h-[100vh] ">
             <MotionConfig reducedMotion={isMd ? "always" : "never"}>
               <MyServices />
             </MotionConfig>
