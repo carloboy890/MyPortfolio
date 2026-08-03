@@ -29,7 +29,8 @@ function HomeContainerCardDesc(props) {
             className="space-y-10 h-full max-2xl:w-[90%] max-xl:w-[90%]
           max-lg:flex max-lg:flex-col max-lg:justify-center
           max-lg:space-y-15 
-          max-md:space-y-10"
+          max-md:space-y-10
+          "
           >
             <motion.div
               className="line-container w-[75%]
@@ -105,7 +106,7 @@ function HomeContainerCardDesc(props) {
               viewport={{ once: false, amount: 0.5 }}
               transition={{ duration: 1.8 }}
             >
-              <div className="max-md:w-[60%] max-md:h-full max-sm:w-[70%]">
+              <div className="max-md:w-[60%] max-md:h-full max-sm:w-auto">
                 <img
                   src={arrowView}
                   alt="arrowView"
@@ -149,7 +150,7 @@ function HomeContainerCardDesc(props) {
             <motion.div
               className="flex gap-2 justify-end
               max-lg:hidden
-              max-md:pl-0 max-md:gap-1 max-md:h-full translate-y-10 animate-bounce
+              max-md:pl-0 max-md:gap-1 max-md:h-full translate-y-10 animate-bounce max-md:flex max-md:animate-none max-md:justify-center max-md:translate-y-0
               max-sm:gap-0"
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}

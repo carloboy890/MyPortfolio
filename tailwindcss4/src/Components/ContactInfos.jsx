@@ -4,7 +4,8 @@ import { motion } from "framer-motion";
 function ContactInfos(props) {
   return (
     <motion.div
-      className="w-full h-[30%] flex items-center"
+      className="w-full h-[30%] flex items-center
+      max-sm:space-x-4"
       initial={{ opacity: 0, x: -100 }}
       whileInView={{ opacity: 1, x: 0 }}
       transition={{ duration: 1 }}
@@ -14,9 +15,7 @@ function ContactInfos(props) {
         className="w-25 h-full border-white flex justify-center items-center rounded-4xl bg-cyan-950
       max-2xl:w-20 max-2xl:h-20
       max-xl:w-17 max-xl:h-17
-      max-lg:w-14 max-lg:h-14
-      max-md:w-12 max-md:h-12
-      max-sm:w-9 max-sm:h-9"
+      max-lg:w-14 max-lg:h-14"
       >
         <img src={props.logo} alt={props.title} className="w-[40%]" />
       </div>
@@ -36,7 +35,7 @@ function ContactInfos(props) {
         <div
           className="max-2xl:text-[0.9rem]
         max-lg:text-[0.7rem] 
-        max-sm:text-[0.5rem] max-sm:break-words"
+        max-sm:text-[0.8rem] max-sm:break-words"
         >
           {props.description}
         </div>

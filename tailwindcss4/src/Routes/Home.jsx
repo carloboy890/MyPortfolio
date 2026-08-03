@@ -39,7 +39,7 @@ const Home = () => {
   return (
     <div>
       <MainBgCover />
-      <div className="absolute w-full min-h-screen overflow-scroll font-Jost flex flex-col justify-center items-center text-white">
+      <div className="absolute w-full min-h-screen overflow-x-hidden overflow-scroll font-Jost flex flex-col justify-center items-center text-white">
         <div className="fixed top-5 left-0 h-[12%] opacity-90 w-full z-50 flex justify-center">
           <Navbar
             homeRef={homeRef}
@@ -56,7 +56,7 @@ const Home = () => {
             <div
               ref={homeRef}
               className="h-[100vh] bg-[#090909] w-full flex rounded-t-4xl
-              max-lg-[80vh] max-sm:h-auto max-sm:bg-transparent"
+              max-lg-[80vh] max-sm:h-auto max-md:bg-transparent"
             >
               <HomeContainer
                 key={location.key}

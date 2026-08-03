@@ -70,7 +70,7 @@ function EmailSending() {
       onSubmit={handleSubmit}
       className="w-full h-full p-10 space-y-5 text-white
       max-lg:p-4 max-lg:space-y-2 
-      max-md:space-y-0 max-md:p-1"
+      max-md:space-y-0 max-md:p-1 max-sm:space-y-3"
       initial={{ opacity: 0, x: 100 }}
       whileInView={{ opacity: 1, x: 0 }}
       transition={{ duration: 1 }}
@@ -78,12 +78,12 @@ function EmailSending() {
     >
       <div
         className="flex h-[20%]
-      max-md:flex-col max-md:h-auto"
+      max-md:flex-col max-md:h-auto max-sm:space-y-2"
       >
         <div
           className="w-[50%] p-5 space-y-3
         max-md:w-full max-md:p-2 
-        max-sm:space-y-1"
+        max-sm:space-y-2"
         >
           <div
             className="text-[1.2rem]
@@ -94,7 +94,7 @@ function EmailSending() {
           <input
             type="text"
             className="bg-white h-10 w-full rounded-3xl pl-4 text-black
-            max-sm:h-6"
+            max-sm:h-8"
             name="from_name"
             value={formData.from_name}
             onChange={handleChange}
@@ -104,7 +104,7 @@ function EmailSending() {
         <div
           className=" w-[50%] p-5 space-y-3
         max-md:w-full max-md:p-2
-        max-sm:space-y-1"
+        max-sm:space-y-2"
         >
           <div
             className="text-[1.2rem]
@@ -115,7 +115,7 @@ function EmailSending() {
           <input
             type="text"
             className="bg-white h-10 w-full rounded-3xl pl-4 text-black
-            max-sm:h-6"
+            max-sm:h-8"
             name="from_email"
             value={formData.from_email}
             onChange={handleChange}
@@ -125,12 +125,12 @@ function EmailSending() {
       </div>
       <div
         className="flex flex-col h-[60%]
-      max-md:h-auto"
+      max-md:h-auto max-sm:space-y-2"
       >
         <div
           className=" w-full p-5 h-[40%] space-y-3 
         max-md:p-2 max-md:h-auto
-        max-sm:space-y-1"
+        max-sm:space-y-2"
         >
           <div
             className="text-[1.2rem]
@@ -141,7 +141,7 @@ function EmailSending() {
           <input
             type="text"
             className="bg-white h-10 w-full rounded-3xl pl-4 text-black
-            max-sm:h-6"
+            max-sm:h-8"
             name="subject"
             value={formData.subject}
             onChange={handleChange}
@@ -151,7 +151,7 @@ function EmailSending() {
         <div
           className=" w-full p-5 h-[60%] space-y-3 
         max-md:p-3
-        max-sm:space-y-1"
+        max-sm:space-y-2"
         >
           <div
             className="text-[1.2rem]

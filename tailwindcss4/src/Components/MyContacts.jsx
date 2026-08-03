@@ -50,23 +50,23 @@ function MyContacts() {
           from you.
         </motion.div>
       </div>
-      <div className="h-[80%] flex max-sm:p-1">
+      <div className="h-[80%] flex max-sm:p-1 max-sm:flex-col-reverse">
         <div
           className="h-full w-[40%] p-17 space-y-7
         max-2xl:p-13
          max-xl:p-4
          max-md:p-2
-         max-sm:h-[90%] max-sm:p-1"
+         max-sm:h-[90%] max-sm:w-full max-sm:justify-center max-sm:p-3"
         >
           <div
             className="h-[80%] rounded-2xl p-8 space-y-5 bg-gray-900 
           max-lg:p-3 max-lg:space-y-4
-          max-md:p-0 max-md:pt-4"
+          max-md:p-0 max-md:pt-4 max-sm:p-8 max-sm:space-y-6 "
           >
             <motion.div
               className="text-3xl ml-5 font-bold 
-              max-lg:text-2xl
-              max-sm:text-lg"
+              max-lg:text-3xl
+              max-sm:text-center max-sm:ml-0"
               initial={{ opacity: 0, x: -100 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 1 }}
@@ -78,7 +78,7 @@ function MyContacts() {
               className="p-3 space-y-4 h-[85%]
               max-lg:space-y-4
               max-md:space-y-2
-              max-sm:p-1
+              max-sm:p-0 max-sm:space-y-4
             "
             >
               {ContactDesc.map((value) => {
@@ -106,13 +106,13 @@ function MyContacts() {
             >
               <div
                 className="text-4xl bg-gradient-to-r from-white to-cyan-400 bg-clip-text text-transparent font-bold 
-              max-md:text-3xl max-sm:text-xl"
+              max-md:text-3xl max-sm:text-3xl"
               >
                 5+
               </div>
               <div
                 className="text-[0.85rem]
-              max-sm:text-[0.6rem]"
+              max-sm:text-[0.8rem]"
               >
                 Projects
               </div>
@@ -126,13 +126,13 @@ function MyContacts() {
             >
               <div
                 className="text-4xl bg-gradient-to-r from-white to-cyan-400 bg-clip-text text-transparent font-bold
-                max-md:text-3xl max-sm:text-xl"
+                max-md:text-3xl max-sm:text-3xl"
               >
                 100%
               </div>
               <div
                 className="text-[0.85rem]
-              max-sm:text-[0.6rem]"
+              max-sm:text-[0.8rem]"
               >
                 Satisfaction
               </div>
@@ -144,10 +144,10 @@ function MyContacts() {
         max-2xl:p-13
         max-xl:p-4
         max-md:p-1
-        max-sm:h-auto
+        max-sm:h-auto max-sm:w-full max-sm:p-3
         "
         >
-          <div className=" h-full w-full bg-gray-900 rounded-2xl">
+          <div className=" h-full w-full bg-gray-900 rounded-2xl max-sm:p-8">
             <EmailSending />
           </div>
         </div>

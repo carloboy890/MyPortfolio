@@ -52,7 +52,7 @@ const HomeContainer = ({ hireRef, openNotif, setOpenNotif }) => {
       <img
         src={aiHomeCover1}
         alt=""
-        className="absolute h-full w-full rounded-t-4xl object-cover object-bottom-left max-sm:hidden"
+        className="absolute h-full w-full rounded-t-4xl object-cover object-bottom-left max-md:hidden"
       />
       <div className="sticky h-[10%] w-full justify-center items-center flex top-0"></div>
       <div
@@ -90,7 +90,7 @@ const HomeContainer = ({ hireRef, openNotif, setOpenNotif }) => {
               max-md:items-center max-sm:relative"
               >
                 <motion.div
-                  className="hidden max-md:flex max-md:w-50 max-md:h-50 max-md:rounded-full max-md:border-2 max-md:justify-center border-cyan-400"
+                  className="hidden max-md:flex max-md:w-50 max-md:h-50 max-md:rounded-full max-md:border-2 max-md:justify-center border-cyan-400 "
                   initial={{ opacity: 0, x: 200 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: false, amount: 0.5 }}
@@ -224,7 +224,7 @@ const HomeContainer = ({ hireRef, openNotif, setOpenNotif }) => {
               <motion.div
                 className="absolute gap-2 hidden justify-end
                 max-lg:flex max-lg:h-auto max-lg:translate-y-155 max-lg:animate-bounce 
-                max-md:pl-0 max-md:gap-1 max-md:h-full max-md:hidden
+                max-md:pl-0 max-md:gap-3 max-md:h-full max-md:hidden
                                   max-sm:gap-0"
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}

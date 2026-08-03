@@ -22,7 +22,7 @@ function NavbarLink({ homeRef, aboutRef, skillsRef, projectsRef, contactRef }) {
       max-2xl:text-[1.2rem] max-2xl:max-w-screen-xl
       max-xl:justify-center max-xl:text-[1.1rem] max-xl:max-w-screen-lg
       max-lg:max-w-screen-md
-      max-md:hidden max-md:max-w-screen-sm"
+      max-md:hidden max-md:max-w-screen-sm max-lg:text-[0.9rem]"
       >
         <li className="fade-cont">
           <button

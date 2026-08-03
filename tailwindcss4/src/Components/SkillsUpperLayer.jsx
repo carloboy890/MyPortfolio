@@ -27,7 +27,7 @@ function SkillsUpperLayer(props) {
       </div>
 
       <div className="flex w-full">
-        <div className="max-sm:hidden w-[30%] flex justify-center items-center">
+        <div className="max-md:hidden w-[30%] flex justify-center items-center">
           <motion.img
             src={facingComp}
             alt="facingComp"
@@ -44,14 +44,15 @@ function SkillsUpperLayer(props) {
 
         <div
           className="space-y-10 p-15 w-[70%] animate-pic-slide2 
-                max-sm:w-full max-sm:p-5"
+                max-sm:w-full max-sm:p-5 max-md:w-full"
         >
           <motion.div
             className="text-[1.1rem] text-justify leading-8
                   max-2xl:text-[1.2rem]
                   max-xl:text-[1rem]
                   max-lg:text-[0.9rem]
-                  max-sm:text-center max-sm:text-xs/8"
+                  max-md:text-[0.9rem]
+                  max-md:text-center max-sm:text-xs/8"
             variants={animate}
             initial={{ opacity: 0, x: 100 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -77,15 +78,14 @@ function SkillsUpperLayer(props) {
           {props.showDownArrow && (
             <div
               className="min-h-[100px] mt-8 flex justify-center
-                    max-2xl:mt-15 
-                    max-sm:hidden"
+                    max-2xl:mt-15 max-md:mt-0 max-md:items-center"
             >
               <img
                 src={arrowDown}
                 alt="arrowDown"
                 className="animate-bounce h-[100px] w-[100px] mr-100 mt-10
                         max-2xl:h-[80px] max-2xl:w-[80px]
-                        max-lg:h-[60px] max-lg:ml-20"
+                        max-lg:h-[60px] max-lg:ml-20 max-md:mr-0 max-md:mt-0 max-md:ml-0"
               />
             </div>
           )}

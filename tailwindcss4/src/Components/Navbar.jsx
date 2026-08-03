@@ -17,6 +17,7 @@ const Navbar = ({
   return (
     <div
       className=" animate-upper-slide h-[60%] w-[85%] pl-5  bg-[#181717] opacity-100 rounded-3xl  font-Jost z-50 text-white flex justify-between
+      max-lg:pl-0 max-lg:w-[90%]
     max-md:justify-center max-sm:pl-0 max-sm:pr-0 max-sm:w-[95%]"
     >
       <div className="flex items-center">
