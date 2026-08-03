@@ -348,7 +348,7 @@ function ChatField() {
           <div
             className="flex relative justify-center items-center h-full
           max-lg:w-[80%] 
-          max-md:w-full"
+          max-md:w-full border-3 border-amber-600"
           >
             <img
               src={chatField}
@@ -393,9 +393,9 @@ function ChatField() {
             <div
               className="absolute flex justify-center items-end h-[73%] w-[70%] 
             max-lg:h-[45%]
-            max-md:h-[95%] max-md:w-[90%]"
+            max-md:h-[95%] max-md:w-[90%] border-pink-500 border-3 z-2"
             >
-              <div className="flex absolute h-10 w-[95%] space-x-2">
+              <div className="flex absolute h-10 w-[95%] space-x-2 border-blue-600 border-3">
                 <div onClick={() => setShowEmojis((val) => !val)}>
                   <img
                     src={happyEmoji}

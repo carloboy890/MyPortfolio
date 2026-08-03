@@ -29,7 +29,7 @@ function PickGender({
 
   return (
     <div
-      className="z-20 h-full w-full flex 
+      className="z-20 h-full w-full flex
     "
     >
       <div

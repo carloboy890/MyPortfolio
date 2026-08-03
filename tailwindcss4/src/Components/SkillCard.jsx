@@ -3,13 +3,8 @@ import "./SkillsContainer.css";
 
 const SkillCard = (props) => {
   return (
-    // <div
-    //   className={`w-[350px] h-[400px] font-Jost border-white flex justify-center items-center ${props.animationClass}
-    //   max-xl:w-[250px] max-xl:h-[230px]
-    //   max-lg:w-[150px] max-lg:h-[100px]`}
-    // >
     <div
-      className="w-[300px] h-[360px] border-white border p-5 hover:shadow-buttonShadow hoverEffect
+      className="w-[300px] h-[360px] border-cyan-400 border-1 hover:bg-cyan-400/30 hover:shadow-cyan-500/50  p-5 hover:shadow-buttonShadow hoverEffect
       max-2xl:w-[250px]
       max-xl:pt-1
       max-lg:w-[150px] max-lg:h-auto"

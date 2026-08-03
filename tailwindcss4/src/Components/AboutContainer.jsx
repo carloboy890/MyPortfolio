@@ -1,51 +1,66 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./AboutContainer.css";
 import pic3 from "../assets/pic3.jpg";
 import HomeDesign from "./HomeDesign";
-import { useNavigate } from "react-router-dom";
 import LineStyle from "./LineStyle";
 import AboutContainerCardDesc from "./AboutContainerCardDesc";
 import AboutContainerDesc from "./AboutContainerDesc";
+import { motion } from "framer-motion";
 
 const AboutContainer = () => {
-  const navigate = useNavigate();
+  const [isMd, setIsMd] = useState(window.innerWidth < 768);
 
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMd(window.innerWidth < 768);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
   return (
-    <HomeDesign>
-      <div className="relative w-full h-screen bg-transparent flex justify-center items-center font-Jost">
-        {/* main container */}
-        <div
-          className="relative w-full px-4 bg-black/50 flex flex-row items-center
-        max-w-screen-2xl min-h-[75vh] max-h-[90vh]
-        max-2xl:max-w-screen-xl max-2xl:h-[80vh] max-2xl:overflow-y-scroll
-        max-xl:max-w-screen-lg max-xl:h-[80vh] max-xl:py-5 max-xl:px-10
-        max-lg:max-w-screen-md max-lg:px-8 max-lg:py-10 max-lg:flex-col lg:items-stretch max-lg:overflow-y-scroll
+    <>
+      {/* main container */}
+      <motion.div
+        className="relative w-full bg-transparent flex flex-row justify-center items-center
+        max-w-screen-2xl h-[90vh]
+        max-2xl:max-w-screen-xl max-2xl:h-[80vh]
+        max-lg:w-full max-lg:flex-col 
         max-md:px-6 max-md:max-w-screen-sm
-        max-sm:max-w-full max-sm:"
+        max-sm:max-w-full max-sm:h-full max-sm:p-5"
+      >
+        {/* line container */}
+        <LineStyle />
+        {/* Left Container Pic */}
+
+        <motion.div
+          className="w-[30%] b flex justify-center items-center
+          max-xl:w-[40%]
+          max-lg:hidden"
+          initial={{ opacity: 0, scale: 0, x: 300 }}
+          whileInView={{ opacity: 1, scale: 1, x: 0 }}
+          viewport={{ once: false, amount: 0.5 }}
+          transition={{
+            delay: 1,
+            duration: 1,
+          }}
         >
-          <button
-            onClick={() => navigate("/")}
-            className="animate-fade-in absolute top-6 right-6 text-white text-3xl font-bold px-3 rounded hover:bg-white/10 transition z-50 
-            max-md:invisible"
-          >
-            ×
-          </button>
-          {/* line container */}
-          <LineStyle />
-          {/* Left Container Pic */}
-          <div
-            className="animate-sm-lg max-w-[800px] flex justify-center items-center 
-          max-lg:w-2/4 
-          max-md:invisible"
-          >
-            <img
-              src={pic3}
-              alt="About"
-              className="w-[75%] max-w-[400px] h-auto object-cover 
-              max-lg:h-[250px] max-lg:w-[60%]"
-            />
-          </div>
-          {/* Content container */}
+          <img src={pic3} alt="About" className="w-[75%] rounded-full" />
+        </motion.div>
+        {/* Content container */}
+        <motion.div
+          className="w-[60%] justify-center flex items-center
+          max-xl:w-[70%] max-lg:w-[90%] 
+          max-sm:w-full"
+          initial={{ opacity: 0, scale: 0 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: false, amount: 0.5 }}
+          transition={{
+            delay: 1,
+            duration: 1,
+          }}
+        >
           {AboutContainerDesc.map((value) => (
             <AboutContainerCardDesc
               key={value.id}
@@ -61,9 +76,9 @@ const AboutContainer = () => {
               service2Desc={value.service2Desc}
             />
           ))}
-        </div>
-      </div>
-    </HomeDesign>
+        </motion.div>
+      </motion.div>
+    </>
   );
 };
 

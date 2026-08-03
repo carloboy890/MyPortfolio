@@ -3,23 +3,19 @@ import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import MovieAppLogo from "../../assets/ProjectsLogos/OtherProjectsSVG/MovieApp.svg";
 
-function MovieAppCardStyle(props) {
+function MovieAppCardStyle({ isMd }) {
   const navigate = useNavigate();
   return (
     <>
-      <motion.div
-        initial={props.initial}
-        style={props.style}
-        animate={props.movieAppControl}
-        className="relative w-110"
-      >
+      <div className="flex - justify-center items-center">
         <div
           onClick={() => navigate("/movieApp")}
-          class="cursor-pointer group bottom-25 scale-130 hover:scale-140 transition-all duration-500 left-80   absolute w-40 h-40 shadow-inner shadow-gray-50 flex justify-center items-center rounded-3xl"
+          className={`border-black relative cursor-pointer shadow-inner transition-all duration-500 bg-black/60 flex justify-center items-center rounded-xl
+          left-60 max-lg:left-45 ${isMd ? "max-md:left-0 max-md:h-[60%] max-md:w-26" : "hover:scale-110 w-13 h-13"}`}
         >
-          <img src={MovieAppLogo} alt="Movie App" className="h-30" />
+          <img src={MovieAppLogo} alt="Movie App" className="w-[60%]" />
         </div>
-      </motion.div>
+      </div>
     </>
   );
 }

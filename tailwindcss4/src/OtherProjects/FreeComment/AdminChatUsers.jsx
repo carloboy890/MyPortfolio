@@ -101,9 +101,9 @@ function AdminChatUsers({
   }
 
   return (
-    <div className="border-1 flex justify-end items-end absolute h-full right-0 w-[30%]">
+    <div className="flex justify-end items-end absolute h-full right-0 w-[30%]">
       <div className="bg-[#f1eeee] fixed rounded-3xl overflow-y-scroll">
-        <div className="h-16 bg-[#7d3cc7] border-1 rounded-t-3xl flex justify-between">
+        <div className="h-16 bg-[#7d3cc7] rounded-t-3xl flex justify-between">
           <div className="m-4 text-2xl font-Jost font-bold text-[#fff]">
             Message
           </div>

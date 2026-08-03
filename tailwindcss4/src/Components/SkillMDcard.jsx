@@ -1,14 +1,19 @@
 import React from "react";
+import { easeInOut, motion } from "framer-motion";
 
 const SkillMDcard = (props) => {
   return (
-    <div
-      className="max-md:flex max-md:w-2/3 ml-30 items-center max-md:justify-around h-20
+    <motion.div
+      className="max-lg:flex max-md:w-2/3 ml-30 items-center max-md:justify-around h-20
     max-sm:ml-0"
+      initial={{ opacity: 0, x: -100 }}
+      whileInView={{ opacity: 1, x: 0 }}
+      transition={{ duration: 1.5, ease: easeInOut }}
+      viewport={{ once: false, amount: 0.5 }}
     >
       <div>
         <img
-          className="w-20 max-md:w-12 max-md:h-10
+          className="w-20 max-lg:w-11 max-lg:h-13 max-md:w-12 max-md:h-10
           max-sm:w-11 max-sm:h-7 max-sm:mt-2"
           src={props.logo}
           alt={props.tool}
@@ -36,7 +41,7 @@ const SkillMDcard = (props) => {
       >
         {props.percentage}
       </div>
-    </div>
+    </motion.div>
   );
 };
 

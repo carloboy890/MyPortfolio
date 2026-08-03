@@ -30,7 +30,7 @@ const SkillCardDesc = [
   {
     id: 2,
     logo: cssLogo,
-    circleAnimation: circle80,
+    circleAnimation: circle90,
     title: "CSS",
     description:
       "CSS is used to define styles for your web pages, including the design, layout and variations in display for different devices and screen sizes.",
@@ -38,7 +38,7 @@ const SkillCardDesc = [
   {
     id: 3,
     logo: javascriptLogo,
-    circleAnimation: circle80,
+    circleAnimation: circle90,
     title: "JAVASCRIPT",
     description:
       "JavaScript is a scripting or programming language that allows you to implement complex features on web pages.",
@@ -46,7 +46,7 @@ const SkillCardDesc = [
   {
     id: 4,
     logo: reactLogo,
-    circleAnimation: circle80,
+    circleAnimation: circle90,
     title: "REACT",
     description:
       "React is a declarative, component-based, open-source front-end JavaScript library for building user interfaces.",
@@ -54,7 +54,7 @@ const SkillCardDesc = [
   {
     id: 5,
     logo: tailwindLogo,
-    circleAnimation: circle80,
+    circleAnimation: circle90,
     title: "TAILWIND",
     description:
       "Tailwind is a framework for building custom designs, and different designs need different typography, colors, shadows, breakpoints, and more.",
@@ -102,7 +102,7 @@ const SkillCardDesc = [
   {
     id: 11,
     logo: canvaLogo,
-    circleAnimation: circle70,
+    circleAnimation: circle80,
     title: "CANVA",
     description:
       "Canva is a free, online graphic design tool that allows users to create a wide range of visual content, including social media graphics, presentations, posters, and more.",

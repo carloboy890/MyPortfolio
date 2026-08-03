@@ -2,7 +2,6 @@ import React from "react";
 import HomeDesign from "../Components/HomeDesign";
 import { useLocation } from "react-router-dom";
 import Navbar from "../Components/Navbar";
-import ContactContainer from "../Components/ContactContainer";
 
 const Contact = () => {
   const location = useLocation();
@@ -14,9 +13,7 @@ const Contact = () => {
         <div className="h-16 shrink-0">
           <Navbar />
         </div>
-        <div className="flex-grow overflow-hidden">
-          <ContactContainer key={location.key} />
-        </div>
+        <div className="flex-grow overflow-hidden"></div>
       </div>
     </div>
   );

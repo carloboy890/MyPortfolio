@@ -29,7 +29,7 @@ function AdminChatHead({ setOpenChatHead, messageSent, readCounts }) {
   }, 0);
 
   return (
-    <div className="absolute h-full border-1 w-full">
+    <div className="absolute h-full w-full">
       <div onClick={() => setOpenChatHead((prev) => !prev)} className="h-[10%]">
         <img
           src={MessageAlert}

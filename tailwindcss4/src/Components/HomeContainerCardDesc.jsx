@@ -4,108 +4,205 @@ import { faSquareArrowUpRight } from "@fortawesome/free-solid-svg-icons";
 import playButton from "../assets/playButton.gif";
 import arrowView from "../assets/arrowView.gif";
 import myWorkplace1 from "../assets/myWorkplace1.mp4";
+import ContactSMDesc from "./ContactSMDesc";
+import ContactSM from "./ContactSM";
+import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 function HomeContainerCardDesc(props) {
+  const navigate = useNavigate();
+  const scrollToSection = (ref) => {
+    ref.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  };
   return (
     <div
-      className="pt-25 -ml-15 w-2/5 font-Jost min-h-[70vh]
-      max-lg:left-25 max-lg:w-auto max-lg:top-10 max-lg:absolute
-      max-md:left-30
-      max-sm:flex max-sm:flex-col max-sm:justify-center max-sm:left-0 max-sm:-top-20 max-sm:w-full max-sm:ml-0"
+      className="p-10 w-full relative font-Jost flex flex-col justify-center items-center
+      max-xl:p-5
+      max-lg:p-0"
     >
       {!props.showVideo && (
         <>
           <div
-            className="fade-cont line-container animate-pic-slide w-full 
-            max-md:text-center max-md:animate-none"
+            className="space-y-10 h-full max-2xl:w-[90%] max-xl:w-[90%]
+          max-lg:flex max-lg:flex-col max-lg:justify-center
+          max-lg:space-y-15 
+          max-md:space-y-10"
           >
-            <p
-              className="fade text-[1.5rem] text-white 
-              max-2xl:text-[1.5rem]
-              max-lg:z-10
-              max-sm:text-[0.8rem]"
+            <motion.div
+              className="line-container w-[75%]
+            max-2xl:w-[88%]
+            max-xl:w-full max-xl:translate-y-7
+            max-lg:animate-none  max-lg:w-full
+            max-md:text-center"
+              initial={{ opacity: 0, x: -100 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: false, amount: 0.5 }}
+              transition={{ duration: 1 }}
             >
-              {props.availability}
-              <span className="ml-5">
-                <FontAwesomeIcon icon={faSquareArrowUpRight} />
-              </span>
-            </p>
-            <div className="line bg-white w-[22rem] h-1 mt-4 max-md:hidden"></div>
-          </div>
+              <div
+                className="fade text-[1.2rem] text-white
+              max-2xl:text-[1.1rem]
+              max-lg:z-10 max-lg:text-[0.9rem] 
+              max-sm:text-[0.8rem]"
+              >
+                {props.availability}
+                <span className="ml-5">
+                  <FontAwesomeIcon icon={faSquareArrowUpRight} />
+                </span>
+                <div className="line bg-white w-full h-1 mt-4 max-md:hidden"></div>
+              </div>
+            </motion.div>
 
-          <div
-            id="homeText"
-            className="animate-pic-slide w-[110%] scale-x-110 font-Jost ml-10 text-base/18 mt-10 text-[3.5rem] text-white
+            <motion.div
+              className="w-full font-Jost text-base/18 text-[2.5rem] text-white
                 max-2xl:w-[80%] max-2xl:text-[2rem]
-                max-xl:text-[1.7rem] max-xl:text-base/15.5
+                max-xl:text-base/15.5
                 max-lg:text-base/16 max-lg:w-full
                 max-md:text-center max-md:flex max-md:flex-col max-md:justify-center max-md:ml-0
                 max-sm:text-base/12"
-          >
-            <p className="text-[1.8rem] max-2xl:text-[1.6rem] max-lg:text-[2rem] max-sm:text-[1rem]">
-              {props.intro1}
-            </p>
-            <p className="animate-bounce max-lg:text-[2.5rem] max-sm:text-[1.2rem]">
-              {props.intro2}
-            </p>
-            <p className="max-lg:text-[2.5rem] max-md:w-full max-md:text-[2.2rem] max-sm:text-[1.2rem]">
-              {props.intro3}
-            </p>
-          </div>
+              initial={{ opacity: 0, x: -150 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: false, amount: 0.5 }}
+              transition={{ duration: 1.5 }}
+            >
+              <p
+                className="text-[1.8rem] 
+              max-2xl:text-[2.2rem]
+              max-xl:text-[2rem] 
+              max-lg:text-[1.6rem]
+              max-md:text-[1.6rem]
+              max-sm:text-[1rem]"
+              >
+                {props.intro1}
+              </p>
+              <p
+                className="animate-bounce 
+                max-xl:text-[2rem]
+                max-md:text-[1.6rem]
+              max-sm:text-[1.2rem] text-[#2dd4bf]"
+              >
+                {props.intro2}
+              </p>
+              <p
+                className="
+              max-xl:text-[2rem] max-md:w-full max-md:text-[1.6rem] max-sm:text-[1.2rem]"
+              >
+                {props.intro3}
+              </p>
+            </motion.div>
 
-          <div className="animate-pic-slide mt-5 flex max-md:flex-col max-md:space-y-10">
-            <div>
-              <img
-                src={arrowView}
-                alt="arrowView"
-                className="max-2xl:w-full max-2xl:h-[80px]
-                  max-lg:w-120 max-lg:h-[100px]
-                  max-md:w-full max-md:p-3
-                  max-sm:h-[80px] max-sm:p-1 max-sm:w-full"
-              />
-            </div>
-            <div className="flex justify-center">
-              <img
-                src={playButton}
-                alt="playButton"
-                onClick={props.onShowVideo}
-                className="h-[110px] w-[110px] 
-                    max-2xl:w-[100px] max-2xl:h-[90px]
-                    max-md:h-[130px] max-md:w-[130px] 
-                    max-sm:h-[100px] max-sm:w-[100px] cursor-pointer"
-              />
-            </div>
+            <motion.div
+              className="flex
+              max-xl:h-17
+              max-lg:h-15 max-lg:w-[90%]
+              max-md:h-20 max-md:w-full max-md:justify-center
+              max-sm:h-[10%] h-20"
+              initial={{ opacity: 0, x: -200 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: false, amount: 0.5 }}
+              transition={{ duration: 1.8 }}
+            >
+              <div className="max-md:w-[60%] max-md:h-full">
+                <img
+                  src={arrowView}
+                  alt="arrowView"
+                  className="max-2xl:w-full h-full
+                max-md:p-3
+                 max-sm:p-1 max-sm:w-full"
+                />
+              </div>
+              <div className="flex justify-center">
+                <img
+                  src={playButton}
+                  alt="playButton"
+                  onClick={props.onShowVideo}
+                  className=" cursor-pointer"
+                />
+              </div>
+            </motion.div>
+
+            <motion.div
+              className="flex space-x-20
+              max-lg:space-x-5
+              max-md:justify-center"
+              initial={{ opacity: 0, x: -100 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: false, amount: 0.5 }}
+              transition={{ duration: 2.5 }}
+            >
+              <button
+                onClick={() => scrollToSection(props.hireRef)}
+                className="shadow__btn cursor-pointer max-lg:scale-80"
+              >
+                Hire Me!
+              </button>
+              <button
+                onClick={() => navigate("/freecommentapp")}
+                className="shadow__btn cursor-pointer max-lg:scale-80"
+              >
+                Let's Talk
+              </button>
+            </motion.div>
+            <motion.div
+              className="flex gap-2 justify-end
+              max-lg:hidden
+              max-md:pl-0 max-md:gap-1 max-md:h-full translate-y-10 animate-bounce
+              max-sm:gap-0"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: false, amount: 0.5 }}
+              transition={{ duration: 3 }}
+            >
+              {ContactSMDesc.map((value) => (
+                <ContactSM
+                  key={value.id}
+                  link={value.link}
+                  logo={value.logo}
+                  isId1={value.id === 1}
+                  isId2={value.id === 2}
+                  isId3={value.id === 3}
+                  isId4={value.id === 4}
+                />
+              ))}
+            </motion.div>
           </div>
         </>
       )}
 
       {/* Screen Video Overlay */}
       {props.showVideo && (
-        <div
-          className="max-2xl:max-w-screen-xl max-2xl:ml-5 max-2xl:-mt-25 max-2xl:w-280
-        max-xl:max-w-screen-lg max-xl:-ml-0 max-xl:w-240 max-xl:h-170 max-xl:-mt-35
-        max-lg:max-w-screen-md max-lg:h-170 max-lg:ml-0 max-lg:-mt-40 max-lg:w-170
-        max-md:max-w-screen-sm max-md:w-140 max-md:h-160 max-md:left-5 max-md:-bottom-140
-        max-sm:-mt-10 max-sm:w-full max-sm:h-130 max-sm:left-2.5 max-sm:rounded-none
-        bg-black/90 w-350 z-50 rounded-lg shadow-lg mr-auto ml-auto -mt-35"
+        <motion.div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          onClick={props.onCloseVideo}
         >
-          <video
-            src={myWorkplace1}
-            autoPlay
-            controls
-            className="w-full h-[90%] object-contain rounded-lg shadow-lg"
-          />
-          <button
-            onClick={props.onCloseVideo}
-            className="absolute z-10 cursor-pointer top-0 right-25 text-white text-3xl font-bold hover:text-gray-400
-            max-2xl:top-10 max-2xl:right-25
-            max-xl:right-18 max-xl:-top-0
-            max-lg:right-10 max-lg:-top-6
-            max-sm:top-28 max-sm:right-6 max-sm:text-2xl"
+          <motion.div
+            className="relative w-[90%] max-w-5xl"
+            initial={{ scale: 0.8 }}
+            animate={{ scale: 1 }}
+            transition={{ duration: 0.3 }}
+            onClick={(e) => e.stopPropagation()}
           >
-            ×
-          </button>
-        </div>
+            <button
+              onClick={props.onCloseVideo}
+              className="absolute -top-12 right-0 text-white text-4xl cursor-pointer"
+            >
+              ×
+            </button>
+
+            <video
+              src={myWorkplace1}
+              autoPlay
+              controls
+              className="w-full rounded-xl shadow-2xl"
+            />
+          </motion.div>
+        </motion.div>
       )}
     </div>
   );

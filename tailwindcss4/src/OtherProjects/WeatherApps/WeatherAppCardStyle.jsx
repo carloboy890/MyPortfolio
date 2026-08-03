@@ -8,21 +8,26 @@ function WeatherAppCardStyle(props) {
   return (
     <>
       <motion.div
-        className="flex items-center relative h-full"
+        className={`relative z-4 font-Tiny5 text-6xl flex justify-center cursor-pointer transition-all duration-500
+          ${props.isMd ? "max-md:h-[60%] max-md:top-0 max-md:left-0" : "hover:scale-110 h-13 w-13 top-5"}
+        left-55 
+        max-lg:left-40 max-lg:top-50`}
         initial={props.initial}
         animate={props.weatherAppControl}
+        onClick={() => navigate("/weatherApp")}
       >
-        <div
-          className=" h-120 w-90 cursor-pointer scale-85 hover:scale-100 transition-all duration-1000"
-          onClick={() => navigate("/weatherApp")}
-        >
-          <div className="absolute z-4 font-Tiny5 text-6xl top-5 text-center ">
-            <img src={WeatherAppLogo} alt="Weather App" />
-          </div>
-        </div>
+        <img src={WeatherAppLogo} alt="Weather App" className="w-35" />
       </motion.div>
     </>
   );
 }
 
 export default WeatherAppCardStyle;
+
+/*<motion.div
+        className="relative cursor-pointer scale-12 hover:scale-15 transition-all duration-500 border-1
+          max-lg:scale-11 z-20"
+        initial={props.initial}
+        animate={props.weatherAppControl}
+        onClick={() => navigate("/weatherApp")}
+      ></motion.div>*/

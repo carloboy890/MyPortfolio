@@ -3,22 +3,18 @@ import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import FreeCommentLogo from "../../assets/ProjectsLogos/OtherProjectsSVG/FreeComment.svg";
 
-function FreeCommentAppCardStyle(props) {
+function FreeCommentAppCardStyle({ isMd }) {
   const navigate = useNavigate();
   return (
     <>
-      <motion.div
-        initial={props.initial}
-        animate={props.freeCommentControl}
-        className={`relative w-110 quiz-card `}
+      <div
+        className={`relative cursor-pointer flex card2 transform transition-all duration-500 justify-center items-center
+          max-lg:left-35
+          ${isMd ? "!h-25 max-md:left-0 !w-25" : "hover:scale-110 !w-14 !h-14 left-50 !rounded-xl"}`}
         onClick={() => navigate("/freeCommentApp")}
       >
-        <div className="absolute cursor-pointer flex flex-col bottom-25 right-80 card2 transform scale-120 hover:scale-130 transition-all duration-500 justify-center items-center">
-          <div>
-            <img src={FreeCommentLogo} alt="Comment logo" className="h-32" />
-          </div>
-        </div>
-      </motion.div>
+        <img src={FreeCommentLogo} alt="Comment logo" className="w-[60%]" />
+      </div>
     </>
   );
 }

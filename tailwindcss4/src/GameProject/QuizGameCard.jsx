@@ -4,17 +4,17 @@ import quizTimeSVG from "../assets/ProjectsLogos/quizTimeSVG.svg";
 import { motion, useAnimation } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 
-function QuizGameCard(props) {
+function QuizGameCard({ isMd }) {
   const navigate = useNavigate();
   return (
     <>
       <motion.div
-        initial={props.initial}
-        animate={props.quizControl}
-        className={`relative w-110 quiz-card `}
+        className={`relative w-full h-full quiz-card flex justify-center items-center`}
         onClick={() => navigate("/quiz")}
       >
-        <div className="absolute cursor-pointer flex flex-col bottom-25 right-80 card2 transform scale-120 hover:scale-130 transition-all duration-500 justify-center items-center">
+        <div
+          className={`${isMd ? "scale-50" : "scale-30 max-lg:left-0"} absolute w-full h-full cursor-pointer flex flex-col card2 transform transition-all duration-500 justify-center items-center`}
+        >
           <div>
             <img src={quizTimeSVG} alt="quiz time" className="h-8" />
           </div>
