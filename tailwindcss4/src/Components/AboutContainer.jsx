@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./AboutContainer.css";
 import pic3 from "../assets/pic3.jpg";
-import HomeDesign from "./HomeDesign";
 import LineStyle from "./LineStyle";
 import AboutContainerCardDesc from "./AboutContainerCardDesc";
 import AboutContainerDesc from "./AboutContainerDesc";

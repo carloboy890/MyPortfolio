@@ -5,7 +5,10 @@ function NotifSystem({ setOpenNotif }) {
     <div className=" relative pt-2">
       <button
         onClick={() => setOpenNotif(true)}
-        className="group relative cursor-pointer scale-80 max-lg:scale-65 max-lg:w-full max-sm:scale-60"
+        className="group relative cursor-pointer scale-80
+        max-xl:scale-65
+         max-lg:scale-65 max-lg:w-full 
+         max-sm:scale-60"
       >
         <div className="absolute -right-2 -top-2 z-10">
           <div className="flex h-5 w-5 items-center justify-center">

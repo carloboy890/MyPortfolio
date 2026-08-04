@@ -1,5 +1,4 @@
 import React, { useState, useRef, useEffect } from "react";
-import HomeDesign from "./HomeDesign";
 import SkillCardDesc from "./SkillCardDesc";
 import SkillCard from "./SkillCard";
 import "./SkillsContainer.css";

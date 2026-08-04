@@ -48,15 +48,16 @@ const HomeContainer = ({ hireRef, openNotif, setOpenNotif }) => {
   }, []);
 
   return (
-    <div className="relative w-full flex items-center space-y-15 flex-col font-Jost rounded-t-4xl">
+    <div className="relative h-auto w-full flex items-center flex-col font-Jost rounded-t-4xl ">
       <img
         src={aiHomeCover1}
         alt=""
         className="absolute h-full w-full rounded-t-4xl object-cover object-bottom-left max-md:hidden"
       />
-      <div className="sticky h-[10%] w-full justify-center items-center flex top-0"></div>
       <div
-        className="flex w-full h-[80%] z-10
+        className="flex w-full h-full z-10 p-15
+        max-xl:p-10
+        max-lg:p-0
       max-md:flex-col-reverse"
       >
         <div
@@ -86,11 +87,12 @@ const HomeContainer = ({ hireRef, openNotif, setOpenNotif }) => {
             max-md:h-full max-md:w-full"
             >
               <div
-                className="absolute max-xl:w-full h-full aspect-square max-lg:aspect-auto  flex justify-center
-              max-md:items-center max-sm:relative"
+                className="absolute max-xl:w-full h-full aspect-square max-lg:aspect-auto flex justify-center p-15
+                max-xl:p-0
+              max-md:items-center max-sm:relative max-md:h-auto max-md:static"
               >
                 <motion.div
-                  className="hidden max-md:flex max-md:w-50 max-md:h-50 max-md:rounded-full max-md:border-2 max-md:justify-center border-cyan-400 "
+                  className="hidden max-md:flex max-md:w-50 max-md:h-50 max-md:rounded-full max-md:border-2 max-md:justify-center border-cyan-400"
                   initial={{ opacity: 0, x: 200 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: false, amount: 0.5 }}
@@ -111,7 +113,7 @@ const HomeContainer = ({ hireRef, openNotif, setOpenNotif }) => {
                   alt="profileHomePic"
                   className="w-[80%] h-auto relative z-7  
                   max-2xl:w-[70%]
-                  max-xl:w-110
+                  max-xl:w-100
                   max-lg:w-80
                   max-md:h-[95%] max-md:rounded-full max-md:w-[95%] max-md:hidden"
                 />
@@ -225,7 +227,7 @@ const HomeContainer = ({ hireRef, openNotif, setOpenNotif }) => {
                 className="absolute gap-2 hidden justify-end
                 max-lg:flex max-lg:h-auto max-lg:translate-y-155 max-lg:animate-bounce 
                 max-md:pl-0 max-md:gap-3 max-md:h-full max-md:hidden
-                                  max-sm:gap-0"
+                                  max-sm:gap-0 z-10"
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: false, amount: 0.5 }}

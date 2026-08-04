@@ -26,8 +26,8 @@ function MyExperience() {
 
   return (
     <div
-      className="relative h-full w-full flex justify-center flex-col items-center 
-    max-sm:pt-10 max-sm:space-y-8"
+      className="relative h-full w-full flex justify-center flex-col items-center
+      max-xl:pt-15 max-sm:space-y-8  max-xl:space-y-8"
     >
       {certs === null && (
         <>

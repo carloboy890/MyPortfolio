@@ -20,13 +20,16 @@ function HomeContainerCardDesc(props) {
   return (
     <div
       className="p-10 w-full relative font-Jost flex flex-col justify-center items-center
-      max-xl:p-5
-      max-lg:p-0"
+      max-2xl:p-5
+      max-xl:p-0 max-xl:h-auto
+      max-lg:p-10 
+      max-md:p-5 "
     >
       {!props.showVideo && (
         <>
           <div
-            className="space-y-10 h-full max-2xl:w-[90%] max-xl:w-[90%]
+            className="space-y-12.5 h-full max-2xl:w-full pt-5
+            max-xl:h-full
           max-lg:flex max-lg:flex-col max-lg:justify-center max-md:items-center
           max-lg:space-y-15 
           max-md:space-y-10
@@ -36,7 +39,7 @@ function HomeContainerCardDesc(props) {
               className="line-container w-[75%]
             max-2xl:w-[88%]
             max-xl:w-full max-xl:translate-y-7
-            max-lg:animate-none  max-lg:w-full
+            max-lg:animate-none  max-lg:w-full 
             max-md:text-center"
               initial={{ opacity: 0, x: -100 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -100,7 +103,7 @@ function HomeContainerCardDesc(props) {
               max-xl:h-17
               max-lg:h-15 max-lg:w-[90%]
               max-md:h-20 max-md:w-[60%] max-md:justify-center max-md:items-center
-              max-sm:h-[13%] h-20"
+              max-sm:h-[13%] h-20 "
               initial={{ opacity: 0, x: -200 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: false, amount: 0.5 }}
@@ -115,7 +118,7 @@ function HomeContainerCardDesc(props) {
                  max-sm:p-1 max-sm:w-full"
                 />
               </div>
-              <div className="flex justify-center max-md:w-auto max-md:h-full">
+              <div className="flex justify-center max-md:w-18 max-md:h-full">
                 <img
                   src={playButton}
                   alt="playButton"
@@ -150,7 +153,7 @@ function HomeContainerCardDesc(props) {
             <motion.div
               className="flex gap-2 justify-end
               max-lg:hidden
-              max-md:pl-0 max-md:gap-1 max-md:h-full translate-y-10 animate-bounce max-md:flex max-md:animate-none max-md:justify-center max-md:translate-y-0
+              max-md:pl-0 max-md:gap-1 max-md:flex max-md:animate-none max-md:justify-center
               max-sm:gap-0"
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}

@@ -5,7 +5,6 @@ import QuizGame from "./GameProject/QuizGame";
 import FreeCommentApp from "./OtherProjects/FreeComment/FreeCommentApp";
 import WeatherApp from "./OtherProjects/WeatherApps/WeatherApp";
 import MovieApp from "./OtherProjects/MovieApps/MovieApp";
-import Project from "./Routes/Project";
 import HomeContainer from "./Components/HomeContainer";
 import LoginInfo from "./OtherProjects/FreeComment/Login/LoginInfo";
 import AdminLoginInfo from "./OtherProjects/FreeComment/Login/adminLoginInfo";

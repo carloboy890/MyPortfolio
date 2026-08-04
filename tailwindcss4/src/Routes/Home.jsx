@@ -56,7 +56,7 @@ const Home = () => {
             <div
               ref={homeRef}
               className="h-[100vh] bg-[#090909] w-full flex rounded-t-4xl
-              max-lg-[80vh] max-sm:h-auto max-md:bg-transparent"
+              max-xl:h-auto max-sm:h-auto max-md:bg-transparent"
             >
               <HomeContainer
                 key={location.key}
@@ -105,7 +105,7 @@ const Home = () => {
           <div
             ref={experienceRef}
             className="relative h-[150vh] rounded-4xl w-full flex-col flex bg-[#090909] 
-            max-sm:h-auto"
+            max-xl:h-auto"
           >
             <MotionConfig reducedMotion={isMd ? "always" : "never"}>
               <MyExperience />

@@ -82,6 +82,7 @@ function MyProjectsNew() {
         <OtherProjects showProjs={showProjs} />
         <div
           className="absolute space-y-5 flex flex-col
+          max-xl:space-y-3
           max-lg:space-y-2"
         >
           <motion.button
@@ -91,7 +92,8 @@ function MyProjectsNew() {
             }}
             whileTap={{ scale: 0.95, rotate: "6.5deg" }}
             className="border-4 rounded-4xl z-3 text-3xl p-4 cursor-pointer inline-flex items-center gap-1 border-slate-300 bg-gradient-to-b from-slate-50 to-slate-200 px-4 py-2 font-semibold hover:opacity-90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-slate-300 focus-visible:ring-offset-2 active:opacity-100
-            max-lg:text-[1.3rem]
+            max-xl:text-[1.2rem]
+            max-lg:text-[1.1rem]
             max-md:text-[0.9rem] 
             max-sm:text-[0.7rem]"
           >
@@ -104,7 +106,8 @@ function MyProjectsNew() {
             }}
             whileTap={{ scale: 0.95, rotate: "6.5deg" }}
             className="border-4 rounded-4xl text-3xl z-3 p-4 cursor-pointer inline-flex items-center gap-1 border-slate-300 bg-gradient-to-b from-slate-50 to-slate-200 px-4 py-2 font-semibold hover:opacity-90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-slate-300 focus-visible:ring-offset-2 active:opacity-100
-            max-lg:text-[1.3rem]
+            max-xl:text-[1.2rem]
+            max-lg:text-[1.1rem]
             max-md:text-[0.9rem] 
             max-sm:text-[0.7rem]"
           >
