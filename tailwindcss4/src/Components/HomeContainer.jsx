@@ -124,100 +124,100 @@ const HomeContainer = ({ hireRef, openNotif, setOpenNotif }) => {
                       <motion.img
                         src={jsLogoBox}
                         alt="jsLogoBox"
-                        className=" size-[clamp(10px,3vw,40px)] relative top-[28%] left-[9%] max-2xl:left-[12%] cursor-pointer z-6
+                        className=" size-[clamp(10px,3vw,40px)] relative top-[28%] left-[9%] max-2xl:left-[12%]  z-6
                         max-xl:left-[5%] max-xl:top-[32%]
                         max-lg:top-[38%]"
                         initial={{ opacity: 0, x: 100, y: 70 }}
                         whileInView={{ opacity: 1, x: 0, y: -10 }}
                         viewport={{ once: false, amount: 0.5 }}
                         transition={{ duration: 0.5 }}
-                        whileHover={{
-                          scale: 1.1,
-                          transition: {
-                            duration: 0.2,
-                            ease: "easeOut",
-                          },
-                        }}
+                        // whileHover={{
+                        //   scale: 1.1,
+                        //   transition: {
+                        //     duration: 0.2,
+                        //     ease: "easeOut",
+                        //   },
+                        // }}
                       />
                     </div>
                     <div className="max-md:hidden absolute w-full h-full">
                       <motion.img
                         src={nodeJSLogoBox}
                         alt="nodeJSLogoBox"
-                        className=" size-[clamp(10px,3vw,40px)] relative top-[11%] left-[22%] max-2xl:left-[25%] translate-x-2 cursor-pointer z-6
+                        className=" size-[clamp(10px,3vw,40px)] relative top-[11%] left-[22%] max-2xl:left-[25%] translate-x-2  z-6
                         max-xl:top-[19%] max-xl:left-[18%]
                          max-lg:top-[28%]"
                         initial={{ opacity: 0, x: 60, y: 120 }}
                         whileInView={{ opacity: 1, x: 0, y: -10 }}
                         viewport={{ once: false, amount: 0.5 }}
                         transition={{ duration: 1 }}
-                        whileHover={{
-                          scale: 1.1,
-                          transition: {
-                            duration: 0.2,
-                            ease: "easeOut",
-                          },
-                        }}
+                        // whileHover={{
+                        //   scale: 1.1,
+                        //   transition: {
+                        //     duration: 0.2,
+                        //     ease: "easeOut",
+                        //   },
+                        // }}
                       />
                     </div>
                     <div className="max-md:hidden absolute w-full h-full">
                       <motion.img
                         src={reactJSLogoBox}
                         alt="reactJSLogoBox"
-                        className="size-[clamp(10px,3vw,40px)] relative top-[2%] left-[52%] max-2xl:top-[5%] cursor-pointer z-6
+                        className="size-[clamp(10px,3vw,40px)] relative top-[2%] left-[52%] max-2xl:top-[5%]  z-6
                         max-xl:top-[10%]
                          max-lg:top-[20%]"
                         initial={{ opacity: 0, x: 0, y: 120 }}
                         whileInView={{ opacity: 1, x: 0, y: -10 }}
                         viewport={{ once: false, amount: 0.5 }}
                         transition={{ duration: 1.2 }}
-                        whileHover={{
-                          scale: 1.1,
-                          transition: {
-                            duration: 0.2,
-                            ease: "easeOut",
-                          },
-                        }}
+                        // whileHover={{
+                        //   scale: 1.1,
+                        //   transition: {
+                        //     duration: 0.2,
+                        //     ease: "easeOut",
+                        //   },
+                        // }}
                       />
                     </div>
                     <div className="max-md:hidden absolute w-full h-full">
                       <motion.img
                         src={mongoDBLogoBox}
                         alt="mongoDBLogoBox"
-                        className="size-[clamp(10px,3vw,40px)] relative top-[11%] max-2xl:left-[80%] max-2xl:top-[14%] left-[85%] cursor-pointer z-6
+                        className="size-[clamp(10px,3vw,40px)] relative top-[11%] max-2xl:left-[80%] max-2xl:top-[14%] left-[85%]  z-6
                         max-xl:top-[17%]
                         max-lg:top-[26%]"
                         initial={{ opacity: 0, x: -100, y: 120 }}
                         whileInView={{ opacity: 1, x: 0, y: -10 }}
                         viewport={{ once: false, amount: 0.5 }}
                         transition={{ duration: 1.3 }}
-                        whileHover={{
-                          scale: 1.1,
-                          transition: {
-                            duration: 0.2,
-                            ease: "easeOut",
-                          },
-                        }}
+                        // whileHover={{
+                        //   scale: 1.1,
+                        //   transition: {
+                        //     duration: 0.2,
+                        //     ease: "easeOut",
+                        //   },
+                        // }}
                       />
                     </div>
                     <div className="max-md:hidden absolute w-full h-full">
                       <motion.img
                         src={vsCodeLogoBox}
                         alt="vsCodeLogoBox"
-                        className="size-[clamp(10px,3vw,40px)] relative top-[34%] left-[90%] max-2xl:left-[85%] cursor-pointer z-6
+                        className="size-[clamp(10px,3vw,40px)] relative top-[34%] left-[90%] max-2xl:left-[85%]  z-6
                         max-xl:left-[92%] max-xl:top-[36%]
                          max-lg:top-[42%]"
                         initial={{ opacity: 0, x: -40, y: 120 }}
                         whileInView={{ opacity: 1, x: 0, y: -10 }}
                         viewport={{ once: false, amount: 0.5 }}
                         transition={{ duration: 1.5 }}
-                        whileHover={{
-                          scale: 1.1,
-                          transition: {
-                            duration: 0.2,
-                            ease: "easeOut",
-                          },
-                        }}
+                        // whileHover={{
+                        //   scale: 1.1,
+                        //   transition: {
+                        //     duration: 0.2,
+                        //     ease: "easeOut",
+                        //   },
+                        // }}
                       />
                     </div>
                   </>

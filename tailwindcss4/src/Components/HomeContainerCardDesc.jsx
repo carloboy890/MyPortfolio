@@ -118,7 +118,7 @@ function HomeContainerCardDesc(props) {
                  max-sm:p-1 max-sm:w-full"
                 />
               </div>
-              <div className="flex justify-center max-md:w-18 max-md:h-full">
+              <div className="flex justify-center w-20 max-xl:w-18 max-md:h-full">
                 <img
                   src={playButton}
                   alt="playButton"

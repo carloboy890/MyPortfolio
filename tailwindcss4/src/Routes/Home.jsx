@@ -55,7 +55,7 @@ const Home = () => {
           <div className="h-auto">
             <div
               ref={homeRef}
-              className="h-[100vh] bg-[#090909] w-full flex rounded-t-4xl
+              className="h-[90vh] bg-[#090909] w-full flex rounded-t-4xl
               max-xl:h-auto max-sm:h-auto max-md:bg-transparent"
             >
               <HomeContainer
