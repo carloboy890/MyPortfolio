@@ -11,13 +11,12 @@ import AdminLoginInfo from "./OtherProjects/FreeComment/Login/adminLoginInfo";
 import RegistrationField from "./OtherProjects/FreeComment/Registration/RegistrationField";
 import ChatField from "./OtherProjects/FreeComment/ChatField";
 import { HashRouter as Router, Route, Routes } from "react-router-dom";
-
-// import MusicPlayer from "./Components/MusicPlayer";
+import MusicPlayer from "./Components/MusicPlayer";
 
 function App() {
   return (
     <>
-      {/* <MusicPlayer /> */}
+      <MusicPlayer />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/freeCommentApp" element={<FreeCommentApp />} />

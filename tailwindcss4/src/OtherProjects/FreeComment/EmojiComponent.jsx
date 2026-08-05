@@ -49,7 +49,7 @@ function EmojiComponent({ setChatText }) {
       <SwiperSlide key={i} className="">
         <div
           className="h-20 items-center flex justify-center
-        max-lg:w-full"
+        max-lg:w-full max-lg:h-15"
         >
           <img
             onClick={() => setChatText((prev) => prev + " " + emoji.token)}

@@ -347,22 +347,39 @@ function ChatField() {
         (passedUsername || selectedUser) && (
           <div
             className="flex relative justify-center items-center h-full
-          max-lg:w-[80%] 
-          max-md:w-full border-3 border-amber-600"
+           max-lg:w-[clamp(300px,20vw,500px )]
+          max-md:w-full"
           >
             <img
               src={chatField}
               alt="Chat Field"
               className="h-full 
-            w-full max-md:hidden"
+            w-full max-xl:w-[90%] max-lg:w-[85%] max-lg:aspect-square max-md:hidden"
             />
             <div
-              className="flex absolute w-full h-full max-h-[70%] justify-center items-center
-              max-lg:max-h-[70%]
-              max-md:max-h-full max-md:items-start
+              className="absolute flex flex-col w-full h-[90%] justify-end p-8
+              max-xl:p-15 max-xl:pb-23 max-xl:space-y-3
+              max-lg:max-h-[70%] max-lg:pb-25
+              max-md:max-h-full max-md:p-0 max-md:h-[95%] max-md:space-y-5 max-md:items-start space-y-5
             
             "
             >
+              {showEmojis ? (
+                <div
+                  className=" relative w-full h-[20%] pt-3 flex justify-center 
+                  max-xl:pt-8
+                  max-lg:pt-3
+                  max-md:h-[5%]"
+                >
+                  <div
+                    className="absolute z-2 flex w-[50%] max-lg:h-[60%]
+                max-md:hidden"
+                  >
+                    <EmojiComponent setChatText={setChatText} />
+                  </div>
+                </div>
+              ) : null}
+
               <InnerChatBox
                 errorMess={errorMess}
                 messageSucc={messageSucc}
@@ -378,25 +395,9 @@ function ChatField() {
                 // handleScroll={handleScroll}
                 isAtBottomRef={isAtBottomRef}
               />
-            </div>
-            {showEmojis ? (
-              <div className="absolute w-[60%] flex justify-center h-full">
-                <div
-                  className="absolute h-20 top-24 z-2 flex max-w-[85%] 
-                max-lg:top-48 
-                max-md:hidden"
-                >
-                  <EmojiComponent setChatText={setChatText} />
-                </div>
-              </div>
-            ) : null}
-            <div
-              className="absolute flex justify-center items-end h-[73%] w-[70%] 
-            max-lg:h-[45%]
-            max-md:h-[95%] max-md:w-[90%] border-pink-500 border-3 z-2"
-            >
-              <div className="flex absolute h-10 w-[95%] space-x-2 border-blue-600 border-3">
-                <div onClick={() => setShowEmojis((val) => !val)}>
+
+              <div className="flex h-auto w-full justify-center space-x-2 ">
+                <div onClick={() => setShowEmojis((val) => !val)} className="">
                   <img
                     src={happyEmoji}
                     alt=":)"
@@ -407,7 +408,7 @@ function ChatField() {
                 </div>
                 <form
                   onSubmit={handleSubmit}
-                  className="flex h-12 justify-between w-full max-lg:h-9.5"
+                  className="flex h-12 justify-between w-[75%] max-lg:h-9.5"
                 >
                   <input
                     type="text"

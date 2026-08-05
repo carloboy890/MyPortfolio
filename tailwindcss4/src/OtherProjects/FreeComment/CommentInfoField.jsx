@@ -24,7 +24,7 @@ function CommentInfoField({
       {hideInfoField && (
         <div
           className="h-full flex items-center absolute w-full 
-        max-md:justify-center border-5"
+        max-md:justify-center"
         >
           <div
             className="h-full relative flex justify-center items-center z-20 space-x-4 w-full

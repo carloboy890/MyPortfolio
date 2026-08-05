@@ -29,16 +29,26 @@ function AdminChatHead({ setOpenChatHead, messageSent, readCounts }) {
   }, 0);
 
   return (
-    <div className="absolute h-full w-full">
-      <div onClick={() => setOpenChatHead((prev) => !prev)} className="h-[10%]">
+    <div
+      className="absolute h-full flex items-end w-[98%]
+    max-md:items-start max-md:w-[55%]"
+    >
+      <div
+        onClick={() => setOpenChatHead((prev) => !prev)}
+        className="w-full absolute flex justify-end right-0 
+        max-md:justify-center"
+      >
         <img
           src={MessageAlert}
-          className="h-15 w-15 hidden  absolute cursor-pointer right-31 top-1 max-2xl:block z-1"
+          className="h-15 w-15 hidden cursor-pointer right-2 top-1 max-2xl:block z-1
+          max-2xl:h-22 max-2xl:w-22 
+          max-md:h-15 max-md:w-15"
           alt="Message Alert"
         />
         <span
-          className="font absolute text-[0.5rem] hidden
-         max-2xl:inline-block max-2xl:right-37.5 max-2xl:top-5.5 text-white z-1"
+          className="font relative text-[0.5rem] hidden
+         max-2xl:inline-block max-2xl:right-12 font-bold max-2xl:top-7.5 z-1 text-white
+         max-md:right-9 max-md:top-4.5"
         >
           {textCount}
         </span>
