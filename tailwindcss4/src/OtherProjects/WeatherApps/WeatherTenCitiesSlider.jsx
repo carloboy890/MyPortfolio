@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import WeatherPieceCards from "./WeatherPieceCards";
 import { formatDate } from "./WeatherFormatDate";
 import { getWeatherMetrics } from "./WeatherHeaderCardData";
@@ -44,6 +44,7 @@ function WeatherTenCitiesSlider({
   setNightWeatherTheme,
 }) {
   useEffect(() => {
+    console.count("WeatherTenCitiesSlider Effect");
     if (tenCities.length === 0) return;
 
     const firstCity = tenCities[0];
@@ -93,6 +94,74 @@ function WeatherTenCitiesSlider({
     setWallpaperSource,
   ]);
 
+  const processedCities = useMemo(() => {
+    return tenCities.map((value) => {
+      const {
+        temperature_2m_max,
+        temperature_2m_min,
+        time,
+        weathercode,
+        sunrise,
+        sunset,
+      } = value.daily;
+
+      const { temperature } = value.current_weather;
+
+      const metrics = getWeatherMetrics(
+        value.current_weather,
+        value.daily,
+        value.hourly,
+      );
+
+      const newDates = time.slice(0, 5).map(formatDate);
+
+      const avgTemp = {
+        temp1: ((temperature_2m_max[1] + temperature_2m_min[1]) / 2).toFixed(1),
+        temp2: ((temperature_2m_max[2] + temperature_2m_min[2]) / 2).toFixed(1),
+        temp3: ((temperature_2m_max[3] + temperature_2m_min[3]) / 2).toFixed(1),
+      };
+
+      const currentWeather = {
+        current_weather: value.current_weather,
+        daily_result: value.daily,
+        hourly_Result: value.hourly,
+        location: value.city,
+        weatherText: getWeatherText(weathercode),
+        date: newDates,
+        timezone: value.timezone,
+      };
+
+      const formattedTime = formatTimeForTimezone(value.timezone);
+
+      const weatherMP = getWeatherWallpaper(
+        weathercode,
+        formattedTime,
+        sunrise,
+        sunset,
+        value.timezone,
+        0,
+      );
+
+      const nightTime = getIsNight(sunrise, sunset, value.timezone, 0);
+
+      const weatherCodeToday = weathercode[0];
+      const weatherKey = getWeatherIcon(weatherCodeToday)?.[0];
+      const icon = iconMap[weatherKey] || Sunny;
+
+      return {
+        value,
+        temperature,
+        metrics,
+        newDates,
+        avgTemp,
+        currentWeather,
+        weatherMP,
+        nightTime,
+        icon,
+      };
+    });
+  }, [tenCities]);
+
   return (
     <Swiper
       className="max-md:h-80"
@@ -108,137 +177,70 @@ function WeatherTenCitiesSlider({
         1536: { slidesPerView: 4 },
       }}
     >
-      {tenCities.map((value, i) => {
-        const {
-          temperature_2m_max,
-          temperature_2m_min,
-          time,
-          weathercode,
-          sunrise,
-          sunset,
-        } = value.daily;
-        const { temperature } = value.current_weather;
-
-        const weatherText = getWeatherText(weathercode);
-        const metrics = getWeatherMetrics(
-          value?.current_weather,
-          value?.daily,
-          value?.hourly,
-        );
-
-        const avgTemp = {
-          temp1: ((temperature_2m_max[1] + temperature_2m_min[1]) / 2).toFixed(
-            1,
-          ),
-          temp2: ((temperature_2m_max[2] + temperature_2m_min[2]) / 2).toFixed(
-            1,
-          ),
-          temp3: ((temperature_2m_max[3] + temperature_2m_min[3]) / 2).toFixed(
-            1,
-          ),
-        };
-
-        const get4Dates = time.slice(0, 5);
-        const newDates = get4Dates.map((date) => formatDate(date));
-
-        const currentWeather = {
-          current_weather: value?.current_weather,
-          daily_result: value?.daily,
-          hourly_Result: value?.hourly,
-          location: value?.city,
-          weatherText: weatherText,
-          date: newDates,
-          timezone: value?.timezone,
-        };
-
-        console.log(get4Dates);
-
-        const formattedTime = formatTimeForTimezone(currentWeather.timezone);
-        const weatherMP = getWeatherWallpaper(
-          weathercode,
-          formattedTime,
-          sunrise,
-          sunset,
-          currentWeather.timezone,
-          0,
-        );
-
-        const nightTime = getIsNight(
-          sunrise,
-          sunset,
-          currentWeather.timezone,
-          0,
-        );
-
-        const weatherCodeToday = value.daily.weathercode[0];
-        const weatherKey = getWeatherIcon(weatherCodeToday)?.[0];
-        const icon = iconMap[weatherKey] || Sunny;
-
-        return (
-          <SwiperSlide key={i}>
-            <div
-              className="w-60 ml-9
+      {processedCities.map((city, i) => (
+        <SwiperSlide key={i}>
+          <div
+            className="w-60 ml-9
           max-2xl:w-63 max-2xl:ml-13 
           max-xl:-mt-5 max-xl:ml-2
           max-lg:w-63 max-lg:ml-5
           max-md:w-57 max-md:ml-23 max-md:-mt-10
           max-sm:ml-25"
-            >
-              {nightTime ? (
-                <>
-                  <NightWeatherPieceCard
-                    key={i}
-                    setNightWeatherTheme={setNightWeatherTheme}
-                    nightTime={nightTime}
-                    icon={icon}
-                    setWeatherWallpaper={setWeatherWallpaper}
-                    timezone={currentWeather.timezone}
-                    passName={value?.city}
-                    newDates0={newDates[0]}
-                    newDates1={newDates[1]}
-                    newDates2={newDates[2]}
-                    newDates3={newDates[3]}
-                    temperature={temperature}
-                    maxTemp1={avgTemp.temp1}
-                    maxTemp2={avgTemp.temp2}
-                    maxTemp3={avgTemp.temp3}
-                    setPassCurrentWeather={setPassCurrentWeather}
-                    setPassMetrics={setPassMetrics}
-                    setShow={setShow}
-                    metrics={metrics}
-                    weatherMP={weatherMP}
-                    currentWeather={currentWeather}
-                  />
-                </>
-              ) : (
-                <>
-                  <WeatherPieceCards
-                    key={i}
-                    icon={icon}
-                    setWeatherWallpaper={setWeatherWallpaper}
-                    timezone={currentWeather.timezone}
-                    passName={value?.city}
-                    newDates0={newDates[0]}
-                    newDates1={newDates[1]}
-                    newDates2={newDates[2]}
-                    newDates3={newDates[3]}
-                    temperature={temperature}
-                    maxTemp1={avgTemp.temp1}
-                    maxTemp2={avgTemp.temp2}
-                    maxTemp3={avgTemp.temp3}
-                    setPassCurrentWeather={setPassCurrentWeather}
-                    setPassMetrics={setPassMetrics}
-                    setShow={setShow}
-                    metrics={metrics}
-                    weatherMP={weatherMP}
-                    currentWeather={currentWeather}
-                  />
-                </>
-              )}
-            </div>
-          </SwiperSlide>
-        );
-      })}
+          >
+            {city.nightTime ? (
+              <>
+                <NightWeatherPieceCard
+                  key={i}
+                  setNightWeatherTheme={setNightWeatherTheme}
+                  nightTime={city.nightTime}
+                  icon={city.icon}
+                  setWeatherWallpaper={setWeatherWallpaper}
+                  timezone={city.currentWeather.timezone}
+                  passName={city.value?.city}
+                  newDates0={city.newDates[0]}
+                  newDates1={city.newDates[1]}
+                  newDates2={city.newDates[2]}
+                  newDates3={city.newDates[3]}
+                  temperature={city.temperature}
+                  maxTemp1={city.avgTemp.temp1}
+                  maxTemp2={city.avgTemp.temp2}
+                  maxTemp3={city.avgTemp.temp3}
+                  setPassCurrentWeather={setPassCurrentWeather}
+                  setPassMetrics={setPassMetrics}
+                  setShow={setShow}
+                  metrics={city.metrics}
+                  weatherMP={city.weatherMP}
+                  currentWeather={city.currentWeather}
+                />
+              </>
+            ) : (
+              <>
+                <WeatherPieceCards
+                  key={i}
+                  icon={city.icon}
+                  setWeatherWallpaper={setWeatherWallpaper}
+                  timezone={city.currentWeather.timezone}
+                  passName={city.value?.city}
+                  newDates0={city.newDates[0]}
+                  newDates1={city.newDates[1]}
+                  newDates2={city.newDates[2]}
+                  newDates3={city.newDates[3]}
+                  temperature={city.temperature}
+                  maxTemp1={city.avgTemp.temp1}
+                  maxTemp2={city.avgTemp.temp2}
+                  maxTemp3={city.avgTemp.temp3}
+                  setPassCurrentWeather={setPassCurrentWeather}
+                  setPassMetrics={setPassMetrics}
+                  setShow={setShow}
+                  metrics={city.metrics}
+                  weatherMP={city.weatherMP}
+                  currentWeather={city.currentWeather}
+                />
+              </>
+            )}
+          </div>
+        </SwiperSlide>
+      ))}
     </Swiper>
   );
 }

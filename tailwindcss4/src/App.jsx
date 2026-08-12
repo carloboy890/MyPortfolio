@@ -1,10 +1,13 @@
+import { lazy, Suspense } from "react";
 import "./App.css";
-import Home from "./Routes/Home";
-import SimonGame from "./GameProject/SimonGame";
-import QuizGame from "./GameProject/QuizGame";
-import FreeCommentApp from "./OtherProjects/FreeComment/FreeCommentApp";
-import WeatherApp from "./OtherProjects/WeatherApps/WeatherApp";
-import MovieApp from "./OtherProjects/MovieApps/MovieApp";
+const Home = lazy(() => import("./Routes/Home"));
+const SimonGame = lazy(() => import("./GameProject/SimonGame"));
+const QuizGame = lazy(() => import("./GameProject/QuizGame"));
+const FreeCommentApp = lazy(
+  () => import("./OtherProjects/FreeComment/FreeCommentApp"),
+);
+const WeatherApp = lazy(() => import("./OtherProjects/WeatherApps/WeatherApp"));
+const MovieApp = lazy(() => import("./OtherProjects/MovieApps/MovieApp"));
 import HomeContainer from "./Components/HomeContainer";
 import LoginInfo from "./OtherProjects/FreeComment/Login/LoginInfo";
 import AdminLoginInfo from "./OtherProjects/FreeComment/Login/adminLoginInfo";
@@ -17,14 +20,16 @@ function App() {
   return (
     <>
       <MusicPlayer />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/freeCommentApp" element={<FreeCommentApp />} />
-        <Route path="/weatherApp" element={<WeatherApp />} />
-        <Route path="movieApp" element={<MovieApp />} />
-        <Route path="/simon" element={<SimonGame />} />
-        <Route path="/quiz" element={<QuizGame />} />
-      </Routes>
+      <Suspense fallback={<div>Loading...</div>}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/freeCommentApp" element={<FreeCommentApp />} />
+          <Route path="/weatherApp" element={<WeatherApp />} />
+          <Route path="/movieApp" element={<MovieApp />} />
+          <Route path="/simon" element={<SimonGame />} />
+          <Route path="/quiz" element={<QuizGame />} />
+        </Routes>
+      </Suspense>
     </>
   );
 }

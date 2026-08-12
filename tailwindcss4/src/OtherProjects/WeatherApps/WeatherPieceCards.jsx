@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styles from "./WeatherSmallCards.module.css";
 import Sunny from "../../assets/ProjectsLogos/OtherProjectsSVG/WeatherLookUpLogos/SunnyLogo.svg";
 
@@ -7,7 +7,6 @@ function WeatherPieceCards(props) {
     icon,
     setWeatherWallpaper,
     weatherMP,
-    timezone,
     passName,
     newDates0,
     newDates1,
@@ -62,20 +61,20 @@ function WeatherPieceCards(props) {
             <div className={styles.hill4}></div>
             <div className={styles.tree1}>
               <svg
-                stroke-width="0.00064"
+                strokeWidth="0.00064"
                 stroke="#b77873"
                 fill="#b77873"
-                xml:space="preserve"
+                xmlSpace="preserve"
                 viewBox="0 0 64.00 64.00"
-                xmlns:xlink="http://www.w3.org/1999/xlink"
+                xmlnsXlink="http://www.w3.org/1999/xlink"
                 xmlns="http://www.w3.org/2000/svg"
                 id="Layer_1"
                 version="1.0"
               >
-                <g stroke-width="0" id="SVGRepo_bgCarrier"></g>
+                <g strokeWidth="0" id="SVGRepo_bgCarrier"></g>
                 <g
-                  stroke-linejoin="round"
-                  stroke-linecap="round"
+                  strokeLinejoin="round"
+                  strokeLinecap="round"
                   id="SVGRepo_tracerCarrier"
                 ></g>
                 <g id="SVGRepo_iconCarrier">
@@ -88,20 +87,20 @@ function WeatherPieceCards(props) {
             </div>
             <div className={styles.tree2}>
               <svg
-                stroke-width="0.00064"
+                strokeWidth="0.00064"
                 stroke="#b77873"
                 fill="#b77873"
-                xml:space="preserve"
+                xmlSpace="preserve"
                 viewBox="0 0 64.00 64.00"
-                xmlns:xlink="http://www.w3.org/1999/xlink"
+                xmlnsXlink="http://www.w3.org/1999/xlink"
                 xmlns="http://www.w3.org/2000/svg"
                 id="Layer_1"
                 version="1.0"
               >
-                <g stroke-width="0" id="SVGRepo_bgCarrier"></g>
+                <g strokeWidth="0" id="SVGRepo_bgCarrier"></g>
                 <g
-                  stroke-linejoin="round"
-                  stroke-linecap="round"
+                  strokeLinejoin="round"
+                  strokeLinecap="round"
                   id="SVGRepo_tracerCarrier"
                 ></g>
                 <g id="SVGRepo_iconCarrier">
@@ -117,18 +116,18 @@ function WeatherPieceCards(props) {
                 version="1.0"
                 id="Layer_1"
                 xmlns="http://www.w3.org/2000/svg"
-                xmlns:xlink="http://www.w3.org/1999/xlink"
+                xmlnsXlink="http://www.w3.org/1999/xlink"
                 viewBox="0 0 64.00 64.00"
-                xml:space="preserve"
+                xmlSpace="preserve"
                 fill="#a16773"
                 stroke="#a16773"
-                stroke-width="0.00064"
+                strokeWidth="0.00064"
               >
-                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
                 <g
                   id="SVGRepo_tracerCarrier"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 ></g>
                 <g id="SVGRepo_iconCarrier">
                   <path
@@ -153,19 +152,19 @@ function WeatherPieceCards(props) {
                       version="1.0"
                       id="Layer_1"
                       xmlns="http://www.w3.org/2000/svg"
-                      xmlns:xlink="http://www.w3.org/1999/xlink"
+                      xmlnsXlink="http://www.w3.org/1999/xlink"
                       width="64px"
                       height="64px"
                       viewBox="0 0 64 64"
-                      xml:space="preserve"
+                      xmlSpace="preserve"
                       fill="#ffffff"
                       stroke="#ffffff"
                     >
-                      <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                      <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
                       <g
                         id="SVGRepo_tracerCarrier"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
                       ></g>
                       <g id="SVGRepo_iconCarrier">
                         <path

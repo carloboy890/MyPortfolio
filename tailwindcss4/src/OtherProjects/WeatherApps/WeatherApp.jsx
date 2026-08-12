@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import axios from "axios";
 import WeatherHeader from "./WeatherHeader";
 import WeatherMainCard from "./WeatherMainCard";
@@ -20,7 +20,7 @@ function WeatherApp() {
   const [passCurrentWeather, setPassCurrentWeather] = useState(null);
   const [passMetrics, setPassMetrics] = useState([]);
   const [show, setShow] = useState(false);
-  const [getCities, setGetCities] = useState([]);
+  const [error, setError] = useState(null);
   const [tenCities, setTenCities] = useState([]);
   const [showSearch, setShowSearch] = useState(false);
   const [showMainCards, setShowMainCards] = useState(true);
@@ -30,17 +30,26 @@ function WeatherApp() {
   const [nightWeatherTheme, setNightWeatherTheme] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  const getMainCities = mainCities;
+  // useEffect(() => {
+  //   const mainCitiesCoords = getMainCities.map((city, i) => ({
+  //     index: i,
+  //     latitude: city.latitude,
+  //     longitude: city.longitude,
+  //     name: city.name,
+  //   }));
+  //   setGetCities(mainCitiesCoords);
+  // }, [getMainCities]);
 
-  useEffect(() => {
-    const mainCitiesCoords = getMainCities.map((city, i) => ({
-      index: i,
-      latitude: city.latitude,
-      longitude: city.longitude,
-      name: city.name,
-    }));
-    setGetCities(mainCitiesCoords);
-  }, []);
+  const getCities = useMemo(
+    () =>
+      mainCities.map((city, i) => ({
+        index: i,
+        latitude: city.latitude,
+        longitude: city.longitude,
+        name: city.name,
+      })),
+    [],
+  );
 
   const getMainCitiesData = async () => {
     setLoading(true);
@@ -51,15 +60,31 @@ function WeatherApp() {
         ),
       );
 
-      const responses = await Promise.all(requests);
+      const responses = await Promise.allSettled(requests);
 
-      const mainWeather = responses.map((res, i) => ({
+      const successfulResponses = responses
+        .filter((res) => res.status === "fulfilled")
+        .map((res) => res.value);
+
+      if (successfulResponses.length === 0) {
+        throw new Error("Unable to fetch weather data");
+      }
+
+      setError(null);
+
+      // const mainWeather = responses.map((res, i) => ({
+      //   city: getCities[i].name,
+      //   ...res.data,
+      // }));
+      const mainWeather = successfulResponses.map((res, i) => ({
         city: getCities[i].name,
         ...res.data,
       }));
+
       setTenCities(mainWeather);
     } catch (error) {
       console.error(error);
+      // setError("Unable to load weather data.");
     } finally {
       setLoading(false);
     }
@@ -67,7 +92,7 @@ function WeatherApp() {
 
   useEffect(() => {
     getMainCitiesData();
-  }, [getCities]);
+  }, []);
 
   const getData = async (query) => {
     if (!query) return;
@@ -123,6 +148,7 @@ function WeatherApp() {
       navigate(-1);
     }
   };
+
   return (
     <>
       <div
@@ -151,27 +177,30 @@ function WeatherApp() {
         >
           {loading ? (
             loadingTheme()
+          ) : error ? (
+            <h2>{error}</h2>
           ) : (
-            <div className="flex w-full pt-1 flex-col items-center">
-              {show &&
-                (isNight ? (
-                  <NightMainCardWeather
-                    passCurrentWeather={passCurrentWeather}
-                    setPassMetrics={setPassMetrics}
-                    setWeatherWallpaper={setWeatherWallpaper}
-                    setWallpaperSource={setWallpaperSource}
-                    isNight={isNight}
-                  />
-                ) : (
-                  <WeatherMainCard
-                    passCurrentWeather={passCurrentWeather}
-                    setPassMetrics={setPassMetrics}
-                    setWeatherWallpaper={setWeatherWallpaper}
-                    setWallpaperSource={setWallpaperSource}
-                    isNight={isNight}
-                  />
-                ))}
-              {/* {showMainCards && !showSearch && (
+            <>
+              <div className="flex w-full pt-1 flex-col items-center">
+                {show &&
+                  (isNight ? (
+                    <NightMainCardWeather
+                      passCurrentWeather={passCurrentWeather}
+                      setPassMetrics={setPassMetrics}
+                      setWeatherWallpaper={setWeatherWallpaper}
+                      setWallpaperSource={setWallpaperSource}
+                      isNight={isNight}
+                    />
+                  ) : (
+                    <WeatherMainCard
+                      passCurrentWeather={passCurrentWeather}
+                      setPassMetrics={setPassMetrics}
+                      setWeatherWallpaper={setWeatherWallpaper}
+                      setWallpaperSource={setWallpaperSource}
+                      isNight={isNight}
+                    />
+                  ))}
+                {/* {showMainCards && !showSearch && (
                 <WeatherDefaultTenCities
                   tenCities={tenCities}
                   setPassCurrentWeather={setPassCurrentWeather}
@@ -183,38 +212,39 @@ function WeatherApp() {
                   setNightWeatherTheme={setNightWeatherTheme}
                 />
               )} */}
-              <div
-                className="w-300
+                <div
+                  className="w-300
               max-2xl:w-250
               max-xl:w-190
               max-lg:w-140 
               max-md:w-100 max-md:flex max-md:justify-center
               max-sm:w-110"
-              >
-                {showMainCards && !showSearch && (
-                  <WeatherTenCitiesSlider
-                    tenCities={tenCities}
-                    setPassCurrentWeather={setPassCurrentWeather}
-                    setPassMetrics={setPassMetrics}
+                >
+                  {showMainCards && !showSearch && (
+                    <WeatherTenCitiesSlider
+                      tenCities={tenCities}
+                      setPassCurrentWeather={setPassCurrentWeather}
+                      setPassMetrics={setPassMetrics}
+                      setShow={setShow}
+                      setWeatherWallpaper={setWeatherWallpaper}
+                      setDefaultWallpaper={setDefaultWallpaper}
+                      setWallpaperSource={setWallpaperSource}
+                      setNightWeatherTheme={setNightWeatherTheme}
+                    />
+                  )}
+                </div>
+                {showSearch && (
+                  <WeatherSmallCards
                     setShow={setShow}
-                    setWeatherWallpaper={setWeatherWallpaper}
-                    setDefaultWallpaper={setDefaultWallpaper}
-                    setWallpaperSource={setWallpaperSource}
+                    setPassMetrics={setPassMetrics}
+                    weather={weather}
+                    passName={passName}
+                    setPassCurrentWeather={setPassCurrentWeather}
                     setNightWeatherTheme={setNightWeatherTheme}
                   />
                 )}
               </div>
-              {showSearch && (
-                <WeatherSmallCards
-                  setShow={setShow}
-                  setPassMetrics={setPassMetrics}
-                  weather={weather}
-                  passName={passName}
-                  setPassCurrentWeather={setPassCurrentWeather}
-                  setNightWeatherTheme={setNightWeatherTheme}
-                />
-              )}
-            </div>
+            </>
           )}
         </div>
         <div className="mt-21">

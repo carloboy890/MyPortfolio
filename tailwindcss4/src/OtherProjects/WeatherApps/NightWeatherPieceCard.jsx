@@ -8,7 +8,6 @@ function NightWeatherPieceCard(props) {
     icon,
     setWeatherWallpaper,
     weatherMP,
-    timezone,
     passName,
     newDates0,
     newDates1,
@@ -47,12 +46,12 @@ function NightWeatherPieceCard(props) {
                      max-sm:scale-65 border-1`}
         >
           <section className={`${styles.landscapeSection}`}>
-            <div class={`${styles.sky}`}></div>
-            <div class={`${styles.moon}`}>
-              <div class={`${styles.shine1}`}></div>
-              <div class={`${styles.shine2}`}></div>
-              <div class={`${styles.realMoon}`}>
-                <div class={`${styles.moonShape}`}></div>
+            <div className={`${styles.sky}`}></div>
+            <div className={`${styles.moon}`}>
+              <div className={`${styles.shine1}`}></div>
+              <div className={`${styles.shine2}`}></div>
+              <div className={`${styles.realMoon}`}>
+                <div className={`${styles.moonShape}`}></div>
               </div>
             </div>
             <div className={styles.hill1}></div>
@@ -73,16 +72,16 @@ function NightWeatherPieceCard(props) {
                 version="1.0"
                 id="Layer_1"
                 xmlns="http://www.w3.org/2000/svg"
-                xmlns:xlink="http://www.w3.org/1999/xlink"
+                xmlnsXlink="http://www.w3.org/1999/xlink"
                 viewBox="0 0 64 64"
-                xml:space="preserve"
+                xmlSpace="preserve"
                 fill="#47567F"
               >
-                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
                 <g
                   id="SVGRepo_tracerCarrier"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 ></g>
                 <g id="SVGRepo_iconCarrier">
                   <path
@@ -97,16 +96,16 @@ function NightWeatherPieceCard(props) {
                 version="1.0"
                 id="Layer_1"
                 xmlns="http://www.w3.org/2000/svg"
-                xmlns:xlink="http://www.w3.org/1999/xlink"
+                xmlnsXlink="http://www.w3.org/1999/xlink"
                 viewBox="0 0 64 64"
-                xml:space="preserve"
+                xmlSpace="preserve"
                 fill="#47567F"
               >
-                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
                 <g
                   id="SVGRepo_tracerCarrier"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 ></g>
                 <g id="SVGRepo_iconCarrier">
                   <path
@@ -121,17 +120,17 @@ function NightWeatherPieceCard(props) {
                 version="1.0"
                 id="Layer_1"
                 xmlns="http://www.w3.org/2000/svg"
-                xmlns:xlink="http://www.w3.org/1999/xlink"
+                xmlnsXlink="http://www.w3.org/1999/xlink"
                 viewBox="-0.64 -0.64 65.28 65.28"
-                xml:space="preserve"
+                xmlSpace="preserve"
                 fill="#4A4973"
                 stroke="#4A4973"
               >
-                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
                 <g
                   id="SVGRepo_tracerCarrier"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 ></g>
                 <g id="SVGRepo_iconCarrier">
                   <path
@@ -156,19 +155,19 @@ function NightWeatherPieceCard(props) {
                       version="1.0"
                       id="Layer_1"
                       xmlns="http://www.w3.org/2000/svg"
-                      xmlns:xlink="http://www.w3.org/1999/xlink"
+                      xmlnsXlink="http://www.w3.org/1999/xlink"
                       width="64px"
                       height="64px"
                       viewBox="0 0 64 64"
-                      xml:space="preserve"
+                      xmlSpace="preserve"
                       fill="#ffffff"
                       stroke="#ffffff"
                     >
-                      <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                      <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
                       <g
                         id="SVGRepo_tracerCarrier"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
                       ></g>
                       <g id="SVGRepo_iconCarrier">
                         <path

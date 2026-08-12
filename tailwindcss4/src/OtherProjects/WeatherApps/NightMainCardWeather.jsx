@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import styles from "./NightMainCardWeather.module.css";
 import Sunny from "../../assets/ProjectsLogos/OtherProjectsSVG/WeatherLookUpLogos/SunnyLogo.svg";
 import Cloudy from "../../assets/ProjectsLogos/OtherProjectsSVG/WeatherLookUpLogos/CloudyLogo.svg";
@@ -13,6 +13,7 @@ import WeatherDaysMainCard from "./WeatherDaysMainCard";
 import { getWeatherMetrics } from "./WeatherHeaderCardData";
 import { formatTimeForTimezone } from "./formatTime";
 import { getWeatherWallpaper } from "./WeatherWallpapers";
+import CurrentTime from "./CurrentTime";
 
 function NightMainCardWeather({
   passCurrentWeather,
@@ -51,20 +52,12 @@ function NightMainCardWeather({
   };
 
   const weatherCodeSliced = weathercode.slice(0, 4);
-  const iconsArray = weatherCodeSliced.map((code) => {
-    const text = getWeatherIcon(code);
-    return iconMap[text];
-  });
-
-  const [tick, setTick] = useState(0);
-
-  useEffect(() => {
-    const id = setInterval(() => {
-      setTick((t) => t + 1);
-    }, 1000);
-
-    return () => clearInterval(id);
-  }, []);
+  const iconsArray = useMemo(() => {
+    return weatherCodeSliced.map((code) => {
+      const text = getWeatherIcon(code);
+      return iconMap[text];
+    });
+  }, [weatherCodeSliced]);
 
   const date4Slice = date.slice(0, 4);
 
@@ -90,6 +83,7 @@ function NightMainCardWeather({
     date4Slice,
     iconsArray,
   );
+  console.log(days);
 
   const formattedTime = formatTimeForTimezone(timezone);
 
@@ -109,6 +103,8 @@ function NightMainCardWeather({
     setWallpaperSource("day");
   }, [isID, formattedTime, weathercode, sunrise, sunset]);
 
+  const selectedDay = days.find((day) => day.id === isID);
+
   return (
     <div className="w-full h-1/2 mb-10 flex justify-center items-center">
       <div
@@ -126,47 +122,39 @@ function NightMainCardWeather({
           </div>
           <div className={styles.leftSide}>
             <div className={styles.weather}>
-              <img
-                src={days.find((day) => day.id === isID)?.weatherIcon}
-                alt=""
-                className="h-8 w-8"
-              />
+              <img src={selectedDay?.weatherIcon} alt="" className="h-8 w-8" />
               <div className="text-[0.8rem] font-bold">
-                {days.find((day) => day.id === isID)?.weathertext}
+                {selectedDay?.weathertext}
               </div>
             </div>
             <div className={styles.temperature}>
-              {days.find((day) => day.id === isID)?.temperature} °C
+              {selectedDay?.temperature} °C
             </div>
-            <div className="ml-3 text-[0.8rem]">
-              {days.find((day) => day.id === isID)?.range}°
-            </div>
+            <div className="ml-3 text-[0.8rem]">{selectedDay?.range}°</div>
           </div>
           <div className={styles.rightSide}>
             <div>
-              <div className={styles.hour}>{formattedTime}</div>
-              <div className={styles.date}>
-                {days.find((day) => day.id === isID)?.date}
-              </div>
+              <CurrentTime timezone={timezone} className={styles.hour} />
+              <div className={styles.date}>{selectedDay?.date}</div>
             </div>
             <svg
               className="h-6 w-6 absolute top-17 right-7"
               version="1.0"
               id="Layer_1"
               xmlns="http://www.w3.org/2000/svg"
-              xmlns:xlink="http://www.w3.org/1999/xlink"
+              xmlnsXlink="http://www.w3.org/1999/xlink"
               width="64px"
               height="64px"
               viewBox="0 0 64 64"
-              xml:space="preserve"
+              xmlSpace="preserve"
               fill="#ffffff"
               stroke="#ffffff"
             >
-              <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+              <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
               <g
                 id="SVGRepo_tracerCarrier"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeLinecap="round"
+                strokeLinejoin="round"
               ></g>
               <g id="SVGRepo_iconCarrier">
                 <path
