@@ -71,7 +71,7 @@ function Hire() {
     max-lg:w-[90%] max-sm:space-y-10"
     >
       <div className="w-full min-h-[20%] flex flex-col justify-center items-center">
-        <div
+        <motion.div
           className="text-[3.4rem]"
           variants={sentence}
           initial="hidden"
@@ -98,7 +98,7 @@ function Hire() {
               </motion.span>
             ))}
           </motion.div>
-        </div>
+        </motion.div>
         <div
           className="space-x-2 
         max-md:text-[0.8rem]

@@ -16,7 +16,7 @@ const ContactDesc = [
     description: "+639563370343",
   },
   {
-    id: 1,
+    id: 3,
     title: "Location",
     logo: locationLogo,
     description: "Caloocan City, Metro Manila",

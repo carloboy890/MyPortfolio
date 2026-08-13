@@ -66,7 +66,7 @@ const Home = () => {
               />
             </div>
 
-            <div
+            <motion.div
               ref={aboutRef}
               className="relative w-full h-[100vh] items-center flex justify-center bg-[#090909] 
               max-sm:h-auto"
@@ -86,7 +86,7 @@ const Home = () => {
               <MotionConfig reducedMotion={isMd ? "always" : "never"}>
                 <AboutContainer />
               </MotionConfig>
-            </div>
+            </motion.div>
             <div
               ref={hireRef}
               className="relative h-[110vh] justify-center items-center flex

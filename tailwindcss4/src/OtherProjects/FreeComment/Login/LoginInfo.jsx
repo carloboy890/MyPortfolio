@@ -112,16 +112,6 @@ function LoginInfo({
       max-lg:h-60 max-lg:w-full
       max-md:h-full"
         >
-          {/* {hideBackButton && (
-          <div className="z-21 absolute left-10 top-8">
-            <img
-              onClick={() => setHideInfoField(true)}
-              src={backButton}
-              alt="Back Button"
-              className="h-15 w-15 cursor-pointer transition duration-150 hover:scale-110"
-            />
-          </div>
-        )} */}
           <form
             onSubmit={handleSubmit}
             className="absolute flex flex-col space-y-4 items-center

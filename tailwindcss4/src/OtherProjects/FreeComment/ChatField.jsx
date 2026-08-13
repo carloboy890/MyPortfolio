@@ -45,6 +45,27 @@ function ChatField() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (!chatText.trim()) return;
+
+    const currentMessage = chatText;
+
+    const tempMessage = {
+      _id: `temp-${Date.now()}`,
+      text: currentMessage,
+      username: passedUsername,
+      createdAt: new Date().toISOString(),
+    };
+
+    // Show immediately
+    setMessageSent((prev) => [...prev, tempMessage]);
+
+    requestAnimationFrame(() => {
+      scrollToBottom();
+    });
+
+    // Clear input immediately
+    setChatText("");
+
     try {
       if (switchField === "AskMe") {
         const response = await fetch(
@@ -62,6 +83,7 @@ function ChatField() {
             }),
           },
         );
+
         const data = await response.json();
         console.log(data.message);
 
@@ -76,9 +98,9 @@ function ChatField() {
         }
         setMessageSucc(data.message);
 
-        const updatedMessages = await fetchMessages(0);
+        // const updatedMessages = await fetchMessages(0);
 
-        setMessageSent(updatedMessages.data);
+        // setMessageSent(updatedMessages.data);
       }
       setChatText("");
     } catch (err) {
@@ -146,8 +168,6 @@ function ChatField() {
 
     return response.data;
   };
-
-  ///DEBUGGING STARTS HERE
 
   const loadMessages = async (newSkip = 0, append = false) => {
     if (passedAdminUsername && !selectedUser) {
@@ -278,10 +298,7 @@ function ChatField() {
     const el = chatEndRef.current;
     if (!el) return;
 
-    el.scrollTo({
-      top: el.scrollHeight,
-      behavior: "smooth",
-    });
+    el.scrollTop = el.scrollHeight;
   };
 
   useEffect(() => {
@@ -354,11 +371,11 @@ function ChatField() {
               src={chatField}
               alt="Chat Field"
               className="h-full 
-            w-full max-xl:w-[90%] max-lg:w-[85%] max-lg:aspect-square max-md:hidden"
+            w-full max-xl:w-[85%] max-lg:w-[85%] max-lg:aspect-square max-md:hidden"
             />
             <div
               className="absolute flex flex-col w-full h-[90%] justify-end p-8
-              max-xl:p-15 max-xl:pb-23 max-xl:space-y-3
+              max-xl:p-15 max-xl:pb-28 max-xl:space-y-1
               max-lg:max-h-[70%] max-lg:pb-25
               max-md:max-h-full max-md:p-0 max-md:h-[95%] max-md:space-y-5 max-md:items-start space-y-5
             
@@ -366,9 +383,9 @@ function ChatField() {
             >
               {showEmojis ? (
                 <div
-                  className=" relative w-full h-[20%] pt-3 flex justify-center 
-                  max-xl:pt-8
-                  max-lg:pt-3
+                  className=" relative w-full h-[20%] pt-3 flex justify-center
+                  max-xl:pt-8 max-xl:mb-14
+                  max-lg:pt-3 max-lg:mb-6
                   max-md:h-[5%]"
                 >
                   <div

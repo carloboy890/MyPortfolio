@@ -22,7 +22,7 @@ function MyContacts() {
           initial={{ opacity: 0, x: -300 }}
           whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 1 }}
-          viewPort={{ once: false, amount: 0.5 }}
+          viewport={{ once: false, amount: 0.5 }}
         >
           Let's Create Something{" "}
           <span
@@ -44,7 +44,7 @@ function MyContacts() {
           initial={{ opacity: 0, x: 300 }}
           whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 1 }}
-          viewPort={{ once: false, amount: 0.5 }}
+          viewport={{ once: false, amount: 0.5 }}
         >
           Have an idea, a project, or just want to connect? I'd love to hear
           from you.
@@ -70,7 +70,7 @@ function MyContacts() {
               initial={{ opacity: 0, x: -100 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 1 }}
-              viewPort={{ once: false, amount: 0.5 }}
+              viewport={{ once: false, amount: 0.5 }}
             >
               Contact Information
             </motion.div>
@@ -84,8 +84,8 @@ function MyContacts() {
               {ContactDesc.map((value) => {
                 return (
                   <ContactInfos
-                    title={value.title}
                     key={value.id}
+                    title={value.title}
                     logo={value.logo}
                     description={value.description}
                   />
@@ -102,7 +102,7 @@ function MyContacts() {
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 1 }}
-              viewPort={{ once: false, amount: 0.5 }}
+              viewport={{ once: false, amount: 0.5 }}
             >
               <div
                 className="text-4xl bg-gradient-to-r from-white to-cyan-400 bg-clip-text text-transparent font-bold 
@@ -122,7 +122,7 @@ function MyContacts() {
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 1 }}
-              viewPort={{ once: false, amount: 0.5 }}
+              viewport={{ once: false, amount: 0.5 }}
             >
               <div
                 className="text-4xl bg-gradient-to-r from-white to-cyan-400 bg-clip-text text-transparent font-bold

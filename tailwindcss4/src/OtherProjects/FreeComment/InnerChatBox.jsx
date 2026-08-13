@@ -22,14 +22,14 @@ function InnerChatBox({
 
   return (
     <div
-      className="p-3 flex h-[70%] overflow-y-auto z-2 
-      max-xl:h-[65%]
+      className="p-3 flex h-[70%] overflow-y-auto z-2 flex-col justify-end
+      max-xl:h-[60%] max-xl:w-[97%] hide-scrollbar
       max-lg:pt-3 max-lg:w-[99%] max-lg:h-[63%]
-      max-md:h-[90%] max-md:w-full"
+      max-md:h-[80%] max-md:w-full "
       ref={chatEndRef}
     >
       {switchField === "AskMe" && (
-        <div className="w-full box-border">
+        <div className="w-full box-border min-h-full flex flex-col">
           {loadingMore && (
             <div className="text-center z-20 text-xl py-2">
               Opening old messages...

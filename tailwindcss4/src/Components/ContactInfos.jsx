@@ -9,7 +9,7 @@ function ContactInfos(props) {
       initial={{ opacity: 0, x: -100 }}
       whileInView={{ opacity: 1, x: 0 }}
       transition={{ duration: 1 }}
-      viewPort={{ once: false, amount: 0.5 }}
+      viewport={{ once: false, amount: 0.5 }}
     >
       <div
         className="w-25 h-full border-white flex justify-center items-center rounded-4xl bg-cyan-950

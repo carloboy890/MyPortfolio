@@ -23,6 +23,19 @@ function FreeCommentApp() {
   const [isGender, setIsGender] = useState("");
 
   useEffect(() => {
+    const lastActivity = Number(localStorage.getItem("lastActivity"));
+
+    const THIRTY_MINUTES = 30 * 60 * 1000;
+
+    if (lastActivity && Date.now() - lastActivity > THIRTY_MINUTES) {
+      localStorage.removeItem("user");
+      localStorage.removeItem("admin");
+      localStorage.removeItem("switchField");
+      localStorage.removeItem("lastActivity");
+
+      return;
+    }
+
     const savedUsername = localStorage.getItem("user");
     const savedAdminUsername = localStorage.getItem("admin");
     const savedSwitchField = localStorage.getItem("switchField");
@@ -30,7 +43,6 @@ function FreeCommentApp() {
     if (savedUsername) {
       const user = JSON.parse(savedUsername);
       setPassedUsername(user.username);
-
       setHideUserInfo(false);
     }
 
@@ -43,6 +55,20 @@ function FreeCommentApp() {
     if (savedSwitchField) {
       setSwitchField(savedSwitchField);
     }
+  }, []);
+
+  useEffect(() => {
+    const THIRTY_MINUTES = 30 * 60 * 1000;
+
+    const interval = setInterval(() => {
+      const lastActivity = Number(localStorage.getItem("lastActivity"));
+
+      if (lastActivity && Date.now() - lastActivity > THIRTY_MINUTES) {
+        handleLogOut();
+      }
+    }, 60000); // every minute
+
+    return () => clearInterval(interval);
   }, []);
 
   useEffect(() => {
@@ -83,6 +109,7 @@ function FreeCommentApp() {
     localStorage.removeItem("user");
     localStorage.removeItem("admin");
     localStorage.removeItem("switchField");
+    localStorage.removeItem("lastActivity");
 
     setPassedUsername("");
     setPassedAdminUsername("");
@@ -90,6 +117,24 @@ function FreeCommentApp() {
     setHideUserInfo(true);
     setOpenUserInfo(true);
   }
+
+  useEffect(() => {
+    const updateActivity = () => {
+      localStorage.setItem("lastActivity", Date.now());
+    };
+
+    updateActivity();
+
+    const events = ["click", "mousemove", "keydown", "scroll", "touchstart"];
+
+    events.forEach((event) => window.addEventListener(event, updateActivity));
+
+    return () => {
+      events.forEach((event) =>
+        window.removeEventListener(event, updateActivity),
+      );
+    };
+  }, []);
 
   return (
     <FreeCommentBG>
