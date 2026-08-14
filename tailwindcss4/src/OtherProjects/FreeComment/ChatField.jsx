@@ -25,6 +25,7 @@ function ChatField() {
   } = useContext(UsernameContext);
 
   const chatEndRef = useRef(null);
+  const chatContainerRef = useRef(null);
   const isAtBottomRef = useRef(false);
   const isLoadingOldMessagesRef = useRef(false);
   const [chatText, setChatText] = useState("");
@@ -182,7 +183,6 @@ function ChatField() {
       setMessageSent([]);
       return;
     }
-    // console.log("append:", append, "current length:", messageSent.length);
     const data = await fetchMessages(newSkip);
 
     if (data.data.length === 0) {
@@ -202,6 +202,10 @@ function ChatField() {
       console.log("RENDER:", messageSent.length);
     } else {
       setMessageSent(data.data);
+
+      requestAnimationFrame(() => {
+        scrollToBottom();
+      });
     }
   };
 
@@ -212,6 +216,17 @@ function ChatField() {
       const existingIds = new Set(prev.map((msg) => msg._id));
 
       const newMessages = data.data.filter((msg) => !existingIds.has(msg._id));
+
+      const currentUsername = passedUsername || passedAdminUsername;
+      const incomingMessages = newMessages.filter(
+        (msg) => msg.username !== currentUsername,
+      );
+
+      if (incomingMessages.length > 0) {
+        requestAnimationFrame(() => {
+          scrollToBottom();
+        });
+      }
 
       let updated = [...prev];
 
@@ -258,23 +273,6 @@ function ChatField() {
     loadingMore,
     hasMore,
   });
-
-  // const loadMore = async () => {
-  //   if (loadingMore || !hasMore) return;
-
-  //   isLoadingOldMessagesRef.current = true;
-  //   setLoadingMore(true);
-
-  //   try {
-  //     const nextSkip = messageSent.length;
-
-  //     await loadMessages(nextSkip, true);
-  //   } catch (err) {
-  //     console.error("Load more failed:", err);
-  //   } finally {
-  //     setLoadingMore(false);
-  //   }
-  // };
 
   const loadMore = useCallback(async () => {
     if (loadingMore || !hasMore) return;
