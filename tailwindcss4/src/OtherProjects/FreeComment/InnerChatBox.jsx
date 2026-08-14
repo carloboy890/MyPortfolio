@@ -22,7 +22,7 @@ function InnerChatBox({
 
   return (
     <div
-      className="p-3 flex h-[70%] overflow-y-auto z-2 flex-col justify-end
+      className="p-3 flex h-[67%] overflow-y-auto z-2 flex-col justify-end
       max-xl:h-[60%] max-xl:w-[97%] hide-scrollbar
       max-lg:pt-3 max-lg:w-[99%] max-lg:h-[63%]
       max-md:h-[80%] max-md:w-full "

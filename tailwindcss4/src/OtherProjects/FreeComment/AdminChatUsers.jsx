@@ -104,8 +104,8 @@ function AdminChatUsers({
   return (
     <>
       {openChatHead && (
-        <div className="flex justify-end items-end absolute h-full right-0 w-[20%] z-10">
-          <div className="bg-[#f1eeee] fixed rounded-3xl overflow-y-scroll">
+        <div className="flex justify-end items-end absolute h-full right-3 w-[20%] z-10">
+          <div className="bg-[#f1eeee] fixed rounded-t-3xl overflow-y-scroll hide-scrollbar h-[40%]">
             <div className="h-16 bg-[#7d3cc7] rounded-t-3xl flex justify-between">
               <div className="m-4 text-2xl font-Jost font-bold text-[#fff]">
                 Message
@@ -137,7 +137,7 @@ function AdminChatUsers({
                       setSelectedUser(user.username);
                     }}
                     key={i}
-                    className={`h-20 w-full pl-3 pt-3 cursor-pointer justify-around hover:bg-amber-400 flex`}
+                    className={`h-20 w-full p-4 cursor-pointer justify-around hover:bg-amber-400 flex`}
                   >
                     <div className="flex  space-x-3 w-full ">
                       <div>

@@ -52,12 +52,18 @@ function ChatField() {
     const tempMessage = {
       _id: `temp-${Date.now()}`,
       text: currentMessage,
-      username: passedUsername,
+      username: passedUsername || passedAdminUsername,
+      role: passedAdminUsername ? "admin" : "user",
       createdAt: new Date().toISOString(),
     };
 
     // Show immediately
-    setMessageSent((prev) => [...prev, tempMessage]);
+    setMessageSent((prev) => {
+      console.log("PREV:", prev);
+      console.log("TEMP:", tempMessage);
+
+      return [...prev, tempMessage];
+    });
 
     requestAnimationFrame(() => {
       scrollToBottom();
@@ -96,7 +102,7 @@ function ChatField() {
             scrollToBottom();
           }, 100);
         }
-        setMessageSucc(data.message);
+        // setMessageSucc(data.message);
 
         // const updatedMessages = await fetchMessages(0);
 
@@ -108,6 +114,8 @@ function ChatField() {
     }
   };
 
+  console.log(chatText);
+  console.log(messageSent);
   //FETCH ALL MESSAGES (COUNT)
 
   useEffect(() => {
@@ -205,13 +213,26 @@ function ChatField() {
 
       const newMessages = data.data.filter((msg) => !existingIds.has(msg._id));
 
-      // console.log(existingIds);
-      // console.log(newMessages);
+      let updated = [...prev];
 
-      console.log("Polling user:", selectedUser);
-      console.log("Current messages:", messageSent.length);
+      newMessages.forEach((serverMsg) => {
+        const tempIndex = updated.findIndex(
+          (msg) =>
+            String(msg._id).startsWith("temp-") &&
+            msg.text === serverMsg.text &&
+            msg.username === serverMsg.username,
+        );
 
-      return [...prev, ...newMessages];
+        console.log(tempIndex);
+
+        if (tempIndex !== -1) {
+          updated[tempIndex] = serverMsg;
+        } else {
+          updated.push(serverMsg);
+        }
+      });
+
+      return updated;
     });
   };
 
@@ -348,7 +369,7 @@ function ChatField() {
   return (
     <div className="relative flex justify-center w-full h-full">
       <div
-        className="absolute right-10 top-3 cursor-pointer font-bold z-2"
+        className="absolute right-10 top-3 cursor-pointer font-bold z-11"
         onClick={handleLogOut}
       >
         Log Out
@@ -374,16 +395,16 @@ function ChatField() {
             w-full max-xl:w-[85%] max-lg:w-[85%] max-lg:aspect-square max-md:hidden"
             />
             <div
-              className="absolute flex flex-col w-full h-[90%] justify-end p-8
+              className="absolute flex flex-col w-full h-[90%] justify-end p-8 z-2 mb-3 space-y-3
               max-xl:p-15 max-xl:pb-28 max-xl:space-y-1
               max-lg:max-h-[70%] max-lg:pb-25
-              max-md:max-h-full max-md:p-0 max-md:h-[95%] max-md:space-y-5 max-md:items-start space-y-5
+              max-md:max-h-full max-md:p-0 max-md:h-[95%] max-md:space-y-5 max-md:items-start
             
             "
             >
               {showEmojis ? (
                 <div
-                  className=" relative w-full h-[20%] pt-3 flex justify-center
+                  className=" relative w-full h-[20%] pt-3 flex justify-center mb-8
                   max-xl:pt-8 max-xl:mb-14
                   max-lg:pt-3 max-lg:mb-6
                   max-md:h-[5%]"
