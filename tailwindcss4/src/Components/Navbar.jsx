@@ -20,7 +20,7 @@ const Navbar = ({
       max-lg:pl-0 max-lg:w-[90%]
     max-md:justify-center max-sm:pl-0 max-sm:pr-0 max-sm:w-[95%]"
     >
-      <div className="flex items-center">
+      <div className="flex items-center justify-center">
         <NotifSystem setOpenNotif={setOpenNotif} />
       </div>
 

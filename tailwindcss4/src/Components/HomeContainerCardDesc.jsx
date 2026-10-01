@@ -118,7 +118,7 @@ function HomeContainerCardDesc(props) {
                  max-sm:p-1 max-sm:w-full"
                 />
               </div>
-              <div className="flex justify-center w-20 max-xl:w-18 max-md:h-full">
+              <div className="flex justify-center w-20 max-xl:w-18 max-md:h-full z-20">
                 <img
                   src={playButton}
                   alt="playButton"
@@ -194,7 +194,7 @@ function HomeContainerCardDesc(props) {
           >
             <button
               onClick={props.onCloseVideo}
-              className="absolute -top-12 right-0 text-white text-4xl cursor-pointer"
+              className="absolute -top-12 right-0 text-white text-4xl cursor-pointer z-40"
             >
               ×
             </button>

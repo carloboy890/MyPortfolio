@@ -2,10 +2,11 @@ import React from "react";
 
 function NotifSystem({ setOpenNotif }) {
   return (
-    <div className=" relative pt-2">
+    <div className="relative pt-2">
       <button
         onClick={() => setOpenNotif(true)}
         className="group relative cursor-pointer scale-80
+        max-2xl:scale-70 max-2xl:pb-3
         max-xl:scale-65
          max-lg:scale-65 max-lg:w-full 
          max-sm:scale-55"

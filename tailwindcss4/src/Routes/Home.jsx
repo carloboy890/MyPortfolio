@@ -13,10 +13,13 @@ import MyProjectsNew from "../Components/MyProjectsNew";
 import MyContacts from "../Components/MyContacts";
 import { motion, MotionConfig } from "framer-motion";
 import NotifContent from "../Components/NotifContent";
+import MiniSiri from "../Components/miniSiri";
 
 const Home = () => {
   const [openNotif, setOpenNotif] = useState(false);
   const [isMd, setIsMd] = useState(window.innerWidth < 768);
+  const [showVideo, setShowVideo] = useState(false);
+
   const location = useLocation();
   const homeRef = useRef(null);
   const aboutRef = useRef(null);
@@ -40,29 +43,36 @@ const Home = () => {
     <div>
       <MainBgCover />
       <div className="absolute w-full min-h-screen overflow-x-hidden overflow-scroll font-Jost flex flex-col justify-center items-center text-white">
-        <div className="fixed top-5 left-0 h-[12%] opacity-90 w-full z-50 flex justify-center">
-          <Navbar
-            homeRef={homeRef}
-            aboutRef={aboutRef}
-            experienceRef={experienceRef}
-            skillsRef={skillsRef}
-            projectsRef={projectsRef}
-            contactRef={contactRef}
-            setOpenNotif={setOpenNotif}
-          />
+        {!showVideo && (
+          <div className="fixed top-5 left-0 h-[12%] opacity-90 w-full z-50 flex justify-center">
+            <Navbar
+              homeRef={homeRef}
+              aboutRef={aboutRef}
+              experienceRef={experienceRef}
+              skillsRef={skillsRef}
+              projectsRef={projectsRef}
+              contactRef={contactRef}
+              setOpenNotif={setOpenNotif}
+            />
+          </div>
+        )}
+        <div className="fixed h-40 w-80 flex justify-end bottom-0 right-0 z-11 ">
+          <MiniSiri isMd={isMd} />
         </div>
         <div className="relative w-[95%] h-auto bg-transparent rounded-t-4xl mt-5 flex-col">
           <div className="h-auto">
             <div
               ref={homeRef}
-              className="h-[90vh] bg-[#090909] w-full flex rounded-t-4xl
-              max-xl:h-auto max-sm:h-auto max-md:bg-transparent"
+              className="h-[90vh] bg-transparent w-full flex rounded-t-4xl
+              max-2xl:h-auto max-sm:h-auto max-md:bg-transparent"
             >
               <HomeContainer
                 key={location.key}
                 hireRef={hireRef}
                 openNotif={openNotif}
                 setOpenNotif={setOpenNotif}
+                setShowVideo={setShowVideo}
+                showVideo={showVideo}
               />
             </div>
 

@@ -17,7 +17,7 @@ function NavbarLink({ homeRef, aboutRef, skillsRef, projectsRef, contactRef }) {
   return (
     <>
       <ul
-        className="z-50 text-shadow-lg/30 justify-end list-none font-[500] flex space-x-20 text-[1.2rem] items-center rounded-4xl p-5 bg-[#242424]/80
+        className="z-50 text-shadow-lg/30 justify-end list-none font-[500] flex space-x-20 text-[1.2rem] items-center rounded-3xl p-5 bg-[#242424]/80
       max-w-screen-2xl
       max-2xl:text-[1.2rem] max-2xl:max-w-screen-xl
       max-xl:justify-center max-xl:text-[1.1rem] max-xl:max-w-screen-lg

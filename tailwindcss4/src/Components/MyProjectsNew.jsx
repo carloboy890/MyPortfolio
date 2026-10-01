@@ -40,7 +40,7 @@ function MyProjectsNew() {
 
   return (
     <div
-      className="absolute text-black w-full h-full rounded-4xl flex justify-center items-center flex-col"
+      className="absolute text-black w-full h-full rounded-4xl flex justify-center items-center border-1 flex-col"
       ref={sectionRef}
     >
       <motion.div
@@ -92,6 +92,7 @@ function MyProjectsNew() {
             }}
             whileTap={{ scale: 0.95, rotate: "6.5deg" }}
             className="border-4 rounded-4xl z-3 text-3xl p-4 cursor-pointer inline-flex items-center gap-1 border-slate-300 bg-gradient-to-b from-slate-50 to-slate-200 px-4 py-2 font-semibold hover:opacity-90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-slate-300 focus-visible:ring-offset-2 active:opacity-100
+            max-2xl:text-[1.4rem]
             max-xl:text-[1.2rem]
             max-lg:text-[1.1rem]
             max-md:text-[0.9rem] 
@@ -106,6 +107,7 @@ function MyProjectsNew() {
             }}
             whileTap={{ scale: 0.95, rotate: "6.5deg" }}
             className="border-4 rounded-4xl text-3xl z-3 p-4 cursor-pointer inline-flex items-center gap-1 border-slate-300 bg-gradient-to-b from-slate-50 to-slate-200 px-4 py-2 font-semibold hover:opacity-90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-slate-300 focus-visible:ring-offset-2 active:opacity-100
+            max-2xl:text-[1.4rem]
             max-xl:text-[1.2rem]
             max-lg:text-[1.1rem]
             max-md:text-[0.9rem] 

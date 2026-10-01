@@ -18,10 +18,15 @@ import ContactSM from "./ContactSM";
 import { motion } from "framer-motion";
 import NotifContent from "./NotifContent";
 
-const HomeContainer = ({ hireRef, openNotif, setOpenNotif }) => {
+const HomeContainer = ({
+  hireRef,
+  openNotif,
+  setOpenNotif,
+  setShowVideo,
+  showVideo,
+}) => {
   const location = useLocation();
   const [lineExpanded, setLineExpanded] = useState(false);
-  const [showVideo, setShowVideo] = useState(false);
   const [showLogos, setShowLogos] = useState(false);
 
   const handleShow = () => {
@@ -49,11 +54,11 @@ const HomeContainer = ({ hireRef, openNotif, setOpenNotif }) => {
 
   return (
     <div className="relative h-auto w-full flex items-center flex-col font-Jost rounded-t-4xl ">
-      <img
+      {/* <img
         src={aiHomeCover1}
         alt=""
         className="absolute h-full w-full rounded-t-4xl object-cover object-bottom-left max-md:hidden"
-      />
+      /> */}
       <div
         className="flex w-full h-full z-10 p-15
         max-xl:p-10
