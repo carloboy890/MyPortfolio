@@ -6,7 +6,12 @@ import AboutContainerCardDesc from "./AboutContainerCardDesc";
 import AboutContainerDesc from "./AboutContainerDesc";
 import { motion } from "framer-motion";
 
-const AboutContainer = () => {
+const AboutContainer = ({
+  activePage,
+  setResultMess,
+  setOnBtnSwitch,
+  aboutTimer,
+}) => {
   const [isMd, setIsMd] = useState(window.innerWidth < 768);
 
   useEffect(() => {
@@ -73,6 +78,10 @@ const AboutContainer = () => {
               service1Desc={value.service1Desc}
               service2={value.service2}
               service2Desc={value.service2Desc}
+              activePage={activePage}
+              setResultMess={setResultMess}
+              setOnBtnSwitch={setOnBtnSwitch}
+              aboutTimer={aboutTimer}
             />
           ))}
         </motion.div>

@@ -19,8 +19,8 @@ import MusicPlayer from "./Components/MusicPlayer";
 function App() {
   return (
     <>
-      <MusicPlayer />
-      <Suspense fallback={<div>Loading...</div>}>
+      {/* <MusicPlayer /> */}
+      <Suspense fallback={null}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/freeCommentApp" element={<FreeCommentApp />} />

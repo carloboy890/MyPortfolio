@@ -5,9 +5,8 @@ import { motion } from "framer-motion";
 import MERNStackCert from "../assets/MERNStackCert.jpg";
 import UdemyCert1 from "../assets/UdemyCert1.jpg";
 
-function MyExperience() {
+function MyExperience({ setCerts, certs }) {
   const [isMd, setIsMd] = useState(window.innerWidth < 768);
-  const [certs, setCerts] = useState(null);
 
   useEffect(() => {
     const handleResize = () => {
@@ -58,11 +57,11 @@ function MyExperience() {
             </motion.div>
           </div>
           <div
-            className="flex flex-col justify-around h-[80%] w-full 
+            className="flex flex-col h-[80%] w-full 
           relative"
           >
             <div
-              className="h-auto w-full flex justify-center
+              className="h-auto w-full flex justify-center 
          "
             >
               <motion.div
@@ -85,24 +84,24 @@ function MyExperience() {
         max-md:items-start max-md:left-10"
             >
               <motion.div
-                className={`absolute top-5 h-5 w-5 rounded-full bg-cyan-400 shadow-[0_0_20px_#22d3ee]
+                className={`absolute top-60 h-5 w-5 rounded-full bg-cyan-400 shadow-[0_0_20px_#22d3ee]
               max-md:-left-2 max-sm:top-0`}
                 initial={{ opacity: 0, x: -50 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.5, delay: 0.5 }}
                 viewport={{ once: false, amount: 0.5 }}
               ></motion.div>
-              <motion.div
+              {/* <motion.div
                 className={`absolute top-140 h-5 w-5 rounded-full bg-cyan-400 shadow-[0_0_20px_#22d3ee]
               max-md:-left-2 max-sm:top-115`}
                 initial={{ opacity: 0, x: isMd ? -50 : 50 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.5, delay: 0.5 }}
                 viewport={{ once: false, amount: 0.5 }}
-              ></motion.div>
+              ></motion.div> */}
               <div className="absolute h-full w-[3px]  bg-cyan-400 shadow-[0_0_15px_#22d3ee]"></div>
             </div>
-            <div className="h-auto w-full flex justify-center">
+            {/* <div className="h-auto w-full flex justify-center border-1 border-amber-400">
               <motion.div
                 className="mt-5 ml-110 z-1 w-[clamp(340px,30vw,380px)] bg-[#090909] rounded-3xl hover:bg-cyan-400/10 hover:shadow-[0_0_25px_rgba(34,211,238,0.25)] cursor-pointer  
              max-lg:ml-95
@@ -121,7 +120,7 @@ function MyExperience() {
                   newStyle="-left-9"
                 />
               </motion.div>
-            </div>
+            </div> */}
           </div>
         </>
       )}
@@ -157,7 +156,7 @@ function MyExperience() {
           />
         </div>
       )}
-      <div className="h-20"></div>
+      {/* <div className="h-20"></div> */}
     </div>
   );
 }

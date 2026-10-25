@@ -1,6 +1,7 @@
 import React from "react";
 import UIUX from "../assets/UIUX.png";
 import myResume from "../assets/myResume.pdf";
+import { onBtnEnter } from "./aiAssistant/aiUtils/onBtnEnter";
 
 function AboutContainerCardDesc(props) {
   return (
@@ -74,8 +75,19 @@ function AboutContainerCardDesc(props) {
           </div>
         </div>
 
-        <div className="flex justify-center mt-13">
+        <div className="flex justify-center mt-13 cursor-pointer">
           <button
+            onMouseEnter={() => {
+              clearTimeout(props.aboutTimer.current);
+              onBtnEnter({
+                buttonId: "about-resume",
+                activePage: props.activePage,
+                setOnBtnSwitch: props.setOnBtnSwitch,
+                setResultMess: props.setResultMess,
+                aboutTimer: props.aboutTimer,
+              });
+            }}
+            onMouseLeave={() => props.setResultMess(null)}
             onClick={() => window.open(myResume, "_blank")}
             className="shadow__btn cursor-pointer !text-[0.8rem]"
           >

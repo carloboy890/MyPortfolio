@@ -2,12 +2,10 @@ import "./HomeContainer.css";
 import React, { useEffect } from "react";
 import "./AboutContainer.css";
 import { useState } from "react";
-import { useLocation } from "react-router-dom";
 import HomeContainerCardDesc from "./HomeContainerCardDesc";
 import HomeContainerDesc from "./HomeContainerDesc";
 import Navbar from "./Navbar";
 import profileHomePic from "../assets/profileHomePic.svg";
-import aiHomeCover1 from "../assets/aiHomeCover1.jpg";
 import reactJSLogoBox from "../assets/LogoBox/reactJSLogoBox.svg";
 import jsLogoBox from "../assets/LogoBox/jsLogoBox.svg";
 import nodeJSLogoBox from "../assets/LogoBox/nodeJSLogoBox.svg";
@@ -17,6 +15,8 @@ import ContactSMDesc from "./ContactSMDesc";
 import ContactSM from "./ContactSM";
 import { motion } from "framer-motion";
 import NotifContent from "./NotifContent";
+import beatSquareAnimation from "../assets/beatSquareAnimation.gif";
+import { onBtnEnter } from "./aiAssistant/aiUtils/onBtnEnter";
 
 const HomeContainer = ({
   hireRef,
@@ -24,8 +24,16 @@ const HomeContainer = ({
   setOpenNotif,
   setShowVideo,
   showVideo,
+  toClick,
+  openAiBot,
+  showArrow,
+  activePage,
+  setResultMess,
+  onBtnSwitch,
+  setOnBtnSwitch,
+  exploreTimer,
 }) => {
-  const location = useLocation();
+  // const location = useLocation();
   const [lineExpanded, setLineExpanded] = useState(false);
   const [showLogos, setShowLogos] = useState(false);
 
@@ -52,15 +60,24 @@ const HomeContainer = ({
     return () => clearTimeout(timer);
   }, []);
 
+  // function onBtnEnter(buttonId) {
+  //   const item = AiMessages.find(
+  //     (item) => item.page === activePage && item.id === buttonId,
+  //   );
+
+  //   setOnBtnSwitch(buttonId);
+  //   setResultMess(item ? item.message : null);
+  // }
+
   return (
-    <div className="relative h-auto w-full flex items-center flex-col font-Jost rounded-t-4xl ">
+    <div className="relative h-auto w-full flex items-center flex-col font-Jost rounded-t-4xl">
       {/* <img
         src={aiHomeCover1}
         alt=""
         className="absolute h-full w-full rounded-t-4xl object-cover object-bottom-left max-md:hidden"
       /> */}
       <div
-        className="flex w-full h-full z-10 p-15
+        className="relative flex w-full h-full z-10 p-15
         max-xl:p-10
         max-lg:p-0
       max-md:flex-col-reverse"
@@ -81,6 +98,13 @@ const HomeContainer = ({
               onShowVideo={handleShow}
               onCloseVideo={handleHide}
               hireRef={hireRef}
+              toClick={toClick}
+              showArrow={showArrow}
+              activePage={activePage}
+              setResultMess={setResultMess}
+              onBtnSwitch={onBtnSwitch}
+              setOnBtnSwitch={setOnBtnSwitch}
+              exploreTimer={exploreTimer}
             />
           ))}
         </div>
@@ -106,32 +130,50 @@ const HomeContainer = ({
                   <motion.img
                     src={profileHomePic}
                     alt="profileHomePic"
-                    className="w-[80%] h-auto relative z-7 
+                    className={`w-[80%] h-auto relative z-1 ${toClick ? "opacity-40" : "opacity-100"}
                   max-2xl:w-[70%]
                   max-xl:w-110
                   max-lg:w-80
-                  max-md:h-[95%] max-md:rounded-full max-md:w-[95%]"
+                  max-md:h-[95%] max-md:rounded-full max-md:w-[95%]`}
                   />
                 </motion.div>
                 <motion.img
                   src={profileHomePic}
                   alt="profileHomePic"
-                  className="w-[80%] h-auto relative z-7  
+                  className={`w-[80%] h-auto relative z-1 ${toClick ? "opacity-40" : "opacity-100"}
                   max-2xl:w-[70%]
                   max-xl:w-100
                   max-lg:w-80
-                  max-md:h-[95%] max-md:rounded-full max-md:w-[95%] max-md:hidden"
+                  max-md:h-[95%] max-md:rounded-full max-md:w-[95%] max-md:hidden`}
                 />
 
                 {showLogos && (
                   <>
                     <div className="max-md:hidden absolute w-full h-full">
+                      {showArrow === "secondArrow" && (
+                        <img
+                          src={beatSquareAnimation}
+                          alt="beatSquareAnimation"
+                          className="absolute w-13 h-13 top-[26%] left-[8.3%]"
+                        />
+                      )}
                       <motion.img
                         src={jsLogoBox}
+                        onMouseEnter={() => {
+                          clearTimeout(exploreTimer.current);
+                          onBtnEnter({
+                            buttonId: "skill-javascript",
+                            activePage,
+                            setOnBtnSwitch,
+                            setResultMess,
+                            exploreTimer,
+                          });
+                        }}
+                        onMouseLeave={() => setResultMess(null)}
                         alt="jsLogoBox"
-                        className=" size-[clamp(10px,3vw,40px)] relative top-[28%] left-[9%] max-2xl:left-[12%]  z-6
+                        className={`size-[clamp(10px,3vw,40px)] relative top-[28%] left-[9%] max-2xl:left-[12%]  z-11 ${openAiBot ? "cursor-pointer" : ""}
                         max-xl:left-[5%] max-xl:top-[32%]
-                        max-lg:top-[38%]"
+                        max-lg:top-[38%]`}
                         initial={{ opacity: 0, x: 100, y: 70 }}
                         whileInView={{ opacity: 1, x: 0, y: -10 }}
                         viewport={{ once: false, amount: 0.5 }}
@@ -146,12 +188,30 @@ const HomeContainer = ({
                       />
                     </div>
                     <div className="max-md:hidden absolute w-full h-full">
+                      {showArrow === "secondArrow" && (
+                        <img
+                          src={beatSquareAnimation}
+                          alt="beatSquareAnimation"
+                          className="absolute w-13 h-13 top-[9%] left-[22.3%]"
+                        />
+                      )}
                       <motion.img
                         src={nodeJSLogoBox}
+                        onMouseEnter={() => {
+                          clearTimeout(exploreTimer.current);
+                          onBtnEnter({
+                            buttonId: "skill-javascript",
+                            activePage,
+                            setOnBtnSwitch,
+                            setResultMess,
+                            exploreTimer,
+                          });
+                        }}
+                        onMouseLeave={() => setResultMess(null)}
                         alt="nodeJSLogoBox"
-                        className=" size-[clamp(10px,3vw,40px)] relative top-[11%] left-[22%] max-2xl:left-[25%] translate-x-2  z-6
+                        className={`size-[clamp(10px,3vw,40px)] relative top-[11%] left-[22%] max-2xl:left-[25%] translate-x-2 z-11 ${openAiBot ? "cursor-pointer" : ""}
                         max-xl:top-[19%] max-xl:left-[18%]
-                         max-lg:top-[28%]"
+                         max-lg:top-[28%]`}
                         initial={{ opacity: 0, x: 60, y: 120 }}
                         whileInView={{ opacity: 1, x: 0, y: -10 }}
                         viewport={{ once: false, amount: 0.5 }}
@@ -166,12 +226,30 @@ const HomeContainer = ({
                       />
                     </div>
                     <div className="max-md:hidden absolute w-full h-full">
+                      {showArrow === "secondArrow" && (
+                        <img
+                          src={beatSquareAnimation}
+                          alt="beatSquareAnimation"
+                          className="absolute w-13 h-13 -top-[0.05%] left-[51.3%]"
+                        />
+                      )}
                       <motion.img
                         src={reactJSLogoBox}
+                        onMouseEnter={() => {
+                          clearTimeout(exploreTimer.current);
+                          onBtnEnter({
+                            buttonId: "skill-javascript",
+                            activePage,
+                            setOnBtnSwitch,
+                            setResultMess,
+                            exploreTimer,
+                          });
+                        }}
+                        onMouseLeave={() => setResultMess(null)}
                         alt="reactJSLogoBox"
-                        className="size-[clamp(10px,3vw,40px)] relative top-[2%] left-[52%] max-2xl:top-[5%]  z-6
+                        className={`size-[clamp(10px,3vw,40px)] relative top-[2%] left-[52%] max-2xl:top-[5%]  z-11 ${openAiBot ? "cursor-pointer" : ""}
                         max-xl:top-[10%]
-                         max-lg:top-[20%]"
+                        max-lg:top-[20%]`}
                         initial={{ opacity: 0, x: 0, y: 120 }}
                         whileInView={{ opacity: 1, x: 0, y: -10 }}
                         viewport={{ once: false, amount: 0.5 }}
@@ -186,12 +264,30 @@ const HomeContainer = ({
                       />
                     </div>
                     <div className="max-md:hidden absolute w-full h-full">
+                      {showArrow === "secondArrow" && (
+                        <img
+                          src={beatSquareAnimation}
+                          alt="beatSquareAnimation"
+                          className="absolute w-13 h-13 top-[9.1%] left-[84.3%]"
+                        />
+                      )}
                       <motion.img
                         src={mongoDBLogoBox}
+                        onMouseEnter={() => {
+                          clearTimeout(exploreTimer.current);
+                          onBtnEnter({
+                            buttonId: "skill-javascript",
+                            activePage,
+                            setOnBtnSwitch,
+                            setResultMess,
+                            exploreTimer,
+                          });
+                        }}
+                        onMouseLeave={() => setResultMess(null)}
                         alt="mongoDBLogoBox"
-                        className="size-[clamp(10px,3vw,40px)] relative top-[11%] max-2xl:left-[80%] max-2xl:top-[14%] left-[85%]  z-6
+                        className={`size-[clamp(10px,3vw,40px)] relative top-[11%] max-2xl:left-[80%] max-2xl:top-[14%] left-[85%]  z-11 ${openAiBot ? "cursor-pointer" : ""}
                         max-xl:top-[17%]
-                        max-lg:top-[26%]"
+                        max-lg:top-[26%]`}
                         initial={{ opacity: 0, x: -100, y: 120 }}
                         whileInView={{ opacity: 1, x: 0, y: -10 }}
                         viewport={{ once: false, amount: 0.5 }}
@@ -206,12 +302,30 @@ const HomeContainer = ({
                       />
                     </div>
                     <div className="max-md:hidden absolute w-full h-full">
+                      {showArrow === "secondArrow" && (
+                        <img
+                          src={beatSquareAnimation}
+                          alt="beatSquareAnimation"
+                          className="absolute w-13 h-13 top-[32.1%] left-[89.3%]"
+                        />
+                      )}
                       <motion.img
                         src={vsCodeLogoBox}
+                        onMouseEnter={() => {
+                          clearTimeout(exploreTimer.current);
+                          onBtnEnter({
+                            buttonId: "skill-javascript",
+                            activePage,
+                            setOnBtnSwitch,
+                            setResultMess,
+                            exploreTimer,
+                          });
+                        }}
+                        onMouseLeave={() => setResultMess(null)}
                         alt="vsCodeLogoBox"
-                        className="size-[clamp(10px,3vw,40px)] relative top-[34%] left-[90%] max-2xl:left-[85%]  z-6
+                        className={`size-[clamp(10px,3vw,40px)] relative top-[34%] left-[90%] max-2xl:left-[85%]  z-11 ${openAiBot ? "cursor-pointer" : ""}
                         max-xl:left-[92%] max-xl:top-[36%]
-                         max-lg:top-[42%]"
+                         max-lg:top-[42%]`}
                         initial={{ opacity: 0, x: -40, y: 120 }}
                         whileInView={{ opacity: 1, x: 0, y: -10 }}
                         viewport={{ once: false, amount: 0.5 }}
@@ -274,6 +388,9 @@ const HomeContainer = ({
               <NotifContent />
             </div>
           </div>
+        )}
+        {toClick && (
+          <div className="absolute inset-0 z-5 rounded-t-4xl bg-black/60 pointer-events-none" />
         )}
       </div>
     </div>

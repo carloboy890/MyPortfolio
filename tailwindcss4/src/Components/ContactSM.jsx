@@ -4,7 +4,7 @@ function ContactSM(props) {
   return (
     <>
       <div
-        className="relative w-13 flex z-20 justify-center
+        className="relative w-13 flex z-4 justify-center
         "
       >
         <a

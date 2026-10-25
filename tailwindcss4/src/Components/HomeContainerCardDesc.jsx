@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSquareArrowUpRight } from "@fortawesome/free-solid-svg-icons";
 import playButton from "../assets/playButton.gif";
@@ -8,22 +8,40 @@ import ContactSMDesc from "./ContactSMDesc";
 import ContactSM from "./ContactSM";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+import beatAnimation from "../assets/beatAnimation.gif";
+import springArrow from "../assets/springArrow.gif";
+import AiMessages from "./AiMessageDesc";
+import { onBtnEnter } from "./aiAssistant/aiUtils/onBtnEnter";
 
 function HomeContainerCardDesc(props) {
   const navigate = useNavigate();
+
   const scrollToSection = (ref) => {
     ref.current?.scrollIntoView({
       behavior: "smooth",
       block: "start",
     });
   };
+
+  // function onBtnEnter(buttonId) {
+  //   props.setResultMess(null);
+  //   const item = AiMessages.find(
+  //     (item) => item.page === props.activePage && item.id === buttonId,
+  //   );
+
+  //   props.setOnBtnSwitch(buttonId);
+  //   setTimeout(() => {
+  //     props.setResultMess(item ? item.message : null);
+  //   }, 500);
+  // }
+
   return (
     <div
-      className="p-10 w-full relative font-Jost flex flex-col justify-center items-center
+      className="p-20 w-full relative font-Jost flex flex-col justify-center items-center
       max-2xl:p-5
       max-xl:p-0 max-xl:h-auto
       max-lg:p-10 
-      max-md:p-5 "
+      max-md:p-5"
     >
       {!props.showVideo && (
         <>
@@ -98,6 +116,24 @@ function HomeContainerCardDesc(props) {
               </p>
             </motion.div>
 
+            {props.showArrow === "firstArrow" && (
+              <div className="absolute right-60 bottom-0 z-11">
+                <img
+                  src={springArrow}
+                  alt="spring Arrow"
+                  className="rotate-270 w-30 h-30"
+                />
+              </div>
+            )}
+            {props.showArrow === "secondArrow" && (
+              <div className="absolute -right-20 top-75 z-11">
+                <img
+                  src={springArrow}
+                  alt="spring Arrow"
+                  className=" w-30 h-30"
+                />
+              </div>
+            )}
             <motion.div
               className="flex
               max-xl:h-17
@@ -129,29 +165,81 @@ function HomeContainerCardDesc(props) {
             </motion.div>
 
             <motion.div
-              className="flex space-x-20
+              className={`relative flex space-x-20
               max-lg:space-x-5
-              max-md:justify-center"
+              max-md:justify-center`}
               initial={{ opacity: 0, x: -100 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: false, amount: 0.5 }}
               transition={{ duration: 2.5 }}
             >
-              <button
-                onClick={() => scrollToSection(props.hireRef)}
-                className="shadow__btn cursor-pointer max-lg:scale-80"
-              >
-                Hire Me!
-              </button>
-              <button
-                onClick={() => navigate("/freecommentapp")}
-                className="shadow__btn cursor-pointer max-lg:scale-80"
-              >
-                Let's Talk
-              </button>
+              <div className="">
+                {" "}
+                <div className="absolute -left-6 -bottom-2">
+                  {props.showArrow === "firstArrow" && (
+                    <img
+                      src={beatAnimation}
+                      alt="beatAnimation"
+                      className="w-55 h-15"
+                    />
+                  )}
+                </div>
+                <button
+                  onClick={() => scrollToSection(props.hireRef)}
+                  onMouseEnter={() => {
+                    clearTimeout(props.exploreTimer.current);
+                    // props.setOnBtnSwitch("home-hire");
+                    onBtnEnter({
+                      buttonId: "home-hire",
+                      activePage: props.activePage,
+                      setOnBtnSwitch: props.setOnBtnSwitch,
+                      setResultMess: props.setResultMess,
+                      aboutTimer: props.aboutTimer,
+                      exploreTimer: props.exploreTimer,
+                    });
+                  }}
+                  onMouseLeave={() => {
+                    props.setResultMess(null);
+                  }}
+                  className={`shadow__btn cursor-pointer max-lg:scale-80 relative ${props.toClick ? "z-11" : "z-4"}`}
+                >
+                  Hire Me!
+                </button>
+              </div>
+              <div className="">
+                <div className="absolute left-57 -bottom-2">
+                  {props.showArrow === "firstArrow" && (
+                    <img
+                      src={beatAnimation}
+                      alt="beatAnimation"
+                      className="w-55 h-15"
+                    />
+                  )}
+                </div>
+                <button
+                  onClick={() => navigate("/freecommentapp")}
+                  className={`shadow__btn cursor-pointer max-lg:scale-80 relative ${props.toClick ? "z-11" : "z-4"}`}
+                  onMouseEnter={() => {
+                    clearTimeout(props.exploreTimer.current);
+                    onBtnEnter({
+                      buttonId: "home-contact",
+                      activePage: props.activePage,
+                      setOnBtnSwitch: props.setOnBtnSwitch,
+                      setResultMess: props.setResultMess,
+                      aboutTimer: props.aboutTimer,
+                      exploreTimer: props.exploreTimer,
+                    });
+                  }}
+                  onMouseLeave={() => {
+                    props.setResultMess(null);
+                  }}
+                >
+                  Let's Talk
+                </button>
+              </div>
             </motion.div>
             <motion.div
-              className="flex gap-2 justify-end
+              className="flex gap-2 justify-start pl-23 mt-25
               max-lg:hidden
               max-md:pl-0 max-md:gap-1 max-md:flex max-md:animate-none max-md:justify-center
               max-sm:gap-0"

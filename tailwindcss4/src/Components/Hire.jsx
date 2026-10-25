@@ -151,7 +151,7 @@ function Hire() {
           initial="initial"
           whileInView="whileInView"
           whileHover="whileHover"
-          className="bg-gray-900 cursor-pointer opacity-90 rounded-4xl shadow-lg hover:bg-cyan-400/30 hover:shadow-cyan-500/50 space-y-5 h-full w-full flex justify-center p-5 flex-col
+          className="bg-gray-900 p-5 flex justify-center flex-col space-y-5 cursor-pointer opacity-90 rounded-4xl shadow-lg hover:bg-cyan-400/30 hover:shadow-cyan-500/50 h-full w-full
           max-sm:space-y-5 max-sm:p-3"
         >
           <div className="text-2xl">🚀</div>
