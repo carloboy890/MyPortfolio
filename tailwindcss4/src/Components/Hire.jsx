@@ -65,6 +65,8 @@ function Hire() {
     },
   };
 
+  console.log("Hire page");
+
   return (
     <div
       className="relative h-full flex flex-col w-[60%]
@@ -308,9 +310,4 @@ function Hire() {
   );
 }
 
-export default Hire;
-
-// <motion.div
-//   variants={card1}
-//   className="bg-gray-900 cursor-pointer opacity-90 rounded-4xl shadow-lg transition-all duration-300 ease-in-out hover:bg-cyan-400/30 hover:shadow-cyan-500/50 h-full w-full"
-// ></motion.div>
+export default React.memo(Hire);

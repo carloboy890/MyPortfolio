@@ -11,7 +11,7 @@ function MyContacts() {
     max-sm:pt-10 max-sm:space-y-5"
     >
       <div
-        className="h-[20%] w-full flex justify-center items-center flex-col border-1 pt-10
+        className="h-[20%] w-full flex justify-center items-center flex-col pt-10
       max-sm:space-y-2"
       >
         <motion.div

@@ -12,17 +12,14 @@ const AboutContainer = ({
   setOnBtnSwitch,
   aboutTimer,
 }) => {
-  const [isMd, setIsMd] = useState(window.innerWidth < 768);
+  console.log("About Page rendered", {
+    activePage,
+    aboutTimer,
+  });
 
   useEffect(() => {
-    const handleResize = () => {
-      setIsMd(window.innerWidth < 768);
-    };
-
-    window.addEventListener("resize", handleResize);
-
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+    console.log("AboutContainer effect ran");
+  }, [activePage, aboutTimer]);
   return (
     <>
       {/* main container */}
@@ -90,4 +87,4 @@ const AboutContainer = ({
   );
 };
 
-export default AboutContainer;
+export default React.memo(AboutContainer);

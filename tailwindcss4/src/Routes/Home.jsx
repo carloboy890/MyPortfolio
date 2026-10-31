@@ -13,13 +13,13 @@ import MyProjectsNew from "../Components/MyProjectsNew";
 import MyContacts from "../Components/MyContacts";
 import { motion, MotionConfig } from "framer-motion";
 import NotifContent from "../Components/NotifContent";
-import MiniSiri from "../Components/miniSiri";
+import MiniSiri from "../Components/MiniSiri";
 import Experience2 from "../Components/Experience2";
 
 const Home = () => {
   const [openNotif, setOpenNotif] = useState(false);
   const [certs, setCerts] = useState(null);
-  const [isMd, setIsMd] = useState(window.innerWidth < 768);
+  const [isMd, setIsMd] = useState(false);
   const [showVideo, setShowVideo] = useState(false);
   const [activePage, setActivePage] = useState(1);
   const scrollContainerRef = useRef(null);
@@ -39,16 +39,69 @@ const Home = () => {
   const introTimer = useRef(null);
   const exploreTimer = useRef(null);
   const aboutTimer = useRef(null);
+  const hireTimer = useRef(null);
+
+  // console.count("Home rendered");
+  // useEffect(() => {
+  //   console.log("Home states changed:", {
+  //     isMd,
+  //     activePage,
+  //     openNotif,
+  //     certs,
+  //     showVideo,
+  //     resultMess,
+  //     openAiBot,
+  //     toClick,
+  //   });
+  // }, [
+  //   isMd,
+  //   activePage,
+  //   openNotif,
+  //   certs,
+  //   showVideo,
+  //   resultMess,
+  //   openAiBot,
+  //   toClick,
+  // ]);
+
+  // const renderCount = useRef(0);
+
+  // renderCount.current++;
+
+  // console.log("Home render:", renderCount.current);
+  // console.log("openAiBot:", openAiBot);
+
+  // useEffect(() => {
+  //   console.log("Home mounted");
+
+  //   return () => {
+  //     console.log("Home unmounted");
+  //   };
+  // }, []);
+
+  useEffect(() => {
+    console.log("openAiBot effect:", openAiBot);
+  }, [openAiBot]);
 
   useEffect(() => {
     const handleResize = () => {
-      setIsMd(window.innerWidth < 768);
+      const width = window.innerWidth;
+
+      if (width <= 1) return;
+
+      setIsMd(width < 768);
     };
+
+    handleResize();
 
     window.addEventListener("resize", handleResize);
 
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  useEffect(() => {
+    console.log("activePage changed to:", activePage);
+  }, [activePage]);
 
   return (
     <div>
@@ -72,7 +125,6 @@ const Home = () => {
         )}
         <div className="fixed h-50 w-130 flex justify-end bottom-0 right-0 z-21">
           <MiniSiri
-            isMd={isMd}
             homeRef={homeRef}
             activePage={activePage}
             setToClick={setToClick}
@@ -85,6 +137,8 @@ const Home = () => {
             setResultMess={setResultMess}
             introTimer={introTimer}
             exploreTimer={exploreTimer}
+            aboutTimer={aboutTimer}
+            hireTimer={hireTimer}
           />
         </div>
 
@@ -142,29 +196,50 @@ const Home = () => {
             />
           </MotionConfig>
         </motion.div>
-        <div
+        <motion.div
           ref={hireRef}
+          onViewportEnter={() => setActivePage(3)}
+          viewport={{ root: scrollContainerRef, amount: 1 }}
           className="relative h-[100vh] justify-center items-center flex snap-start
             pt-20 bg-[#090909] max-sm:h-auto"
         >
           <MotionConfig reducedMotion={isMd ? "always" : "never"}>
-            <Hire />
+            <Hire
+            // setResultMess={setResultMess}
+            // setOnBtnSwitch={setOnBtnSwitch}
+            />
           </MotionConfig>
-        </div>
+        </motion.div>
 
-        <div className="relative h-[100vh] snap-start flex-col flex max-sm:h-[100vh] ">
+        <motion.div
+          onViewportEnter={() => setActivePage(4)}
+          viewport={{ root: scrollContainerRef, amount: 1 }}
+          className="relative h-[100vh] snap-start flex-col flex max-sm:h-[100vh] "
+        >
           <MotionConfig reducedMotion={isMd ? "always" : "never"}>
-            <MyServices />
+            <MyServices
+              setResultMess={setResultMess}
+              setOnBtnSwitch={setOnBtnSwitch}
+            />
           </MotionConfig>
-        </div>
-        <div className="relative h-[150vh] flex flex-col justify-center items-center snap-start w-full bg-[#090909] border-2 border-cyan-400">
+        </motion.div>
+        <motion.div
+          className="relative h-[150vh] flex flex-col justify-center items-center snap-start w-full bg-[#090909]"
+          onViewportEnter={() => setActivePage(5)}
+          viewport={{ root: scrollContainerRef, amount: 0.5 }}
+        >
           <div
             ref={experienceRef}
             className="relative h-[75vh] rounded-t-4xl w-full flex-col flex bg-[#090909] 
             max-xl:h-auto"
           >
             <MotionConfig reducedMotion={isMd ? "always" : "never"}>
-              <MyExperience setCerts={setCerts} certs={certs} />
+              <MyExperience
+                setCerts={setCerts}
+                setResultMess={setResultMess}
+                setOnBtnSwitch={setOnBtnSwitch}
+                certs={certs}
+              />
             </MotionConfig>
           </div>
           <div
@@ -176,33 +251,49 @@ const Home = () => {
               <Experience2 setCerts={setCerts} certs={certs} isMd={isMd} />
             </MotionConfig>
           </div>
-        </div>
+        </motion.div>
 
-        <div
+        <motion.div
           ref={skillsRef}
+          onViewportEnter={() => setActivePage(6)}
+          viewport={{ root: scrollContainerRef, amount: 0.5 }}
           className="relative h-[100vh] w-full rounded-4xl flex-col flex bg-white/20 mt-5 snap-start"
         >
-          <SkillsContainer />
-        </div>
-        <div
+          <SkillsContainer
+            setResultMess={setResultMess}
+            setOnBtnSwitch={setOnBtnSwitch}
+          />
+        </motion.div>
+        <motion.div
           ref={projectsRef}
+          onViewportEnter={() => setActivePage(7)}
+          viewport={{ root: scrollContainerRef, amount: 0.5 }}
           className="relative h-[100vh] w-[105%] right-11.5 rounded-4xl flex-col flex bg-[#ffffff] mt-5 snap-start
             max-lg:w-full max-lg:right-0
             max-md:h-[90vh] max-sm:h-[80vh]"
         >
           <MotionConfig reducedMotion={isMd ? "always" : "never"}>
-            <MyProjectsNew />
+            <MyProjectsNew
+              activePage={activePage}
+              setResultMess={setResultMess}
+              setOnBtnSwitch={setOnBtnSwitch}
+            />
           </MotionConfig>
-        </div>
-        <div
+        </motion.div>
+        <motion.div
           ref={contactRef}
+          onViewportEnter={() => setActivePage(8)}
+          viewport={{ root: scrollContainerRef, amount: 0.5 }}
           className="relative h-[100vh] w-full rounded-4xl flex-col bg-[#090909] flex mt-5 snap-start
             max-lg:h-[80vh] max-sm:h-auto"
         >
           <MotionConfig reducedMotion={isMd ? "always" : "never"}>
-            <MyContacts />
+            <MyContacts
+              setResultMess={setResultMess}
+              setOnBtnSwitch={setOnBtnSwitch}
+            />
           </MotionConfig>
-        </div>
+        </motion.div>
       </div>
     </div>
   );

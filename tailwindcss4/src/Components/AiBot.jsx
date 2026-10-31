@@ -15,27 +15,26 @@ function AiBot({
   const botTimer = useRef(null);
   const unlockTimer = useRef(null);
 
-  useEffect(() => {
-    return () => {
-      clearTimeout(botTimer.current);
-      clearTimeout(unlockTimer.current);
-    };
-  }, []);
+  // useEffect(() => {
+  //   return () => {
+  //     clearTimeout(botTimer.current);
+  //     clearTimeout(unlockTimer.current);
+  //   };
+  // }, []);
 
   function pagesAutoMess() {
     if (isBotBusy.current) return;
 
     isBotBusy.current = true;
 
-    if (activePage === 1) {
-      setOpenMess("instruction");
+    // if (activePage === 1) {
+    //   setOpenMess("instruction");
 
-      unlockTimer.current = setTimeout(() => {
-        isBotBusy.current = false;
-      }, 20000);
-    }
+    //   unlockTimer.current = setTimeout(() => {
+    //     isBotBusy.current = false;
+    //   }, 20000);
+    // }
     if (activePage === 2) {
-      // clearTimeout(aboutTimer.current);
       setOpenMess("about-intro");
 
       botTimer.current = setTimeout(() => {
@@ -44,6 +43,17 @@ function AiBot({
         unlockTimer.current = setTimeout(() => {
           isBotBusy.current = false;
         }, 6000);
+      }, 100);
+    }
+    if (activePage === 3) {
+      setOpenMess("hire-intro");
+
+      botTimer.current = setTimeout(() => {
+        setBotClickCount((prev) => prev + 1);
+
+        unlockTimer.current = setTimeout(() => {
+          isBotBusy.current = false;
+        }, 9000);
       }, 100);
     }
   }

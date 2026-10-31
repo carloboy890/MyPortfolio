@@ -3,12 +3,14 @@ import styles from "./MiniSiri.module.css";
 import { motion, MotionConfig } from "framer-motion";
 import AiBot from "./AiBot";
 import AiMessageBubble from "./AiMessageBubble";
-import AiMessages from "./AiMessageDesc";
-import { page1Mess } from "./aiAssistant/aiUtils/aiPage1";
-import { page2Mess } from "./aiAssistant/aiUtils/aiPage2to6";
+import { messageAutomation } from "./aiAssistant/aiUtils/messageAutomationFunc";
+import {
+  scheduleTimer,
+  cancelTimer,
+  clearAllTimers,
+} from "./aiAssistant/aiUtils/clearTimers";
 
 function MiniSiri({
-  isMd,
   homeRef,
   activePage,
   setToClick,
@@ -20,6 +22,7 @@ function MiniSiri({
   setResultMess,
   introTimer,
   exploreTimer,
+  aboutTimer,
 }) {
   const [close, setClose] = useState(false);
   const [hasEntered, setHasEntered] = useState(false);
@@ -27,15 +30,27 @@ function MiniSiri({
   const [openMess, setOpenMess] = useState("");
   const [automationEnabled, setAutomationEnabled] = useState(false);
   const [botClickCount, setBotClickCount] = useState(0);
-  // const introTimer = useRef(null);
-  // const exploreTimer = useRef(null);
-  const aboutTimer = useRef(null);
   const showArrowRef = useRef(showArrow);
+  const timersRef = useRef(new Set());
+
+  // console.log({
+  //   close,
+  //   hasEntered,
+  //   openAiBubble,
+  //   openMess,
+  //   automationEnabled,
+  //   botClickCount,
+  //   activePage,
+  // });
+
+  console.log(openAiBot);
 
   const text = "Hello";
 
   function openBot() {
     setOpenMess("");
+    console.count("openBot called");
+
     setTimeout(() => {
       setOpenAiBot(true);
       setAutomationEnabled(true);
@@ -51,8 +66,6 @@ function MiniSiri({
 
   function closeBot() {
     setShowArrow("close");
-    // clearTimeout(introTimer.current);
-    // clearTimeout(exploreTimer.current);
     setTimeout(() => {
       setOpenAiBot(false);
       setToClick(false);
@@ -66,43 +79,65 @@ function MiniSiri({
     }, 500);
   }
 
-  function messageAutomation() {
-    if (activePage === 1) {
-      setResultMess(null);
-      page1Mess({
-        openMess,
-        activePage,
-        setResultMess,
-        setOpenMess,
-        setToClick,
-        setShowArrow,
-        introTimer,
-        exploreTimer,
-        showArrow,
-        showArrowRef,
-      });
-    }
-
-    if (activePage === 2) {
-      setResultMess(null);
-      page2Mess({ activePage, setResultMess, openMess, aboutTimer });
-    }
+  function schedule(callback, delay) {
+    return scheduleTimer({ callback, delay, timersRef });
   }
 
+  function cancel(timerId) {
+    cancelTimer({ timerId, timersRef });
+  }
+
+  // useEffect(() => {
+  //   clearAllTimers(timersRef);
+  //   setResultMess(null);
+
+  //   return () => {
+  //     clearAllTimers(timersRef);
+  //   };
+  // }, [activePage]);
+
   useEffect(() => {
+    clearAllTimers(timersRef);
+
+    if (resultMess !== "") {
+      setResultMess("");
+    }
+
+    return () => {
+      clearAllTimers(timersRef);
+    };
+  }, [activePage]);
+
+  useEffect(() => {
+    console.log("Automation effect ran:", {
+      activePage,
+      openMess,
+      automationEnabled,
+      botClickCount,
+    });
     if (!automationEnabled) return;
-    messageAutomation();
+    messageAutomation({
+      activePage,
+      setResultMess,
+      openMess,
+      setOpenMess,
+      setToClick,
+      setShowArrow,
+      introTimer,
+      exploreTimer,
+      showArrow,
+      aboutTimer,
+      showArrowRef,
+      scheduleTimer: schedule,
+      cancelTimer: cancel,
+    });
   }, [activePage, openMess, automationEnabled, botClickCount]);
 
   return (
-    <div className="relative h-full w-full flex">
+    <div className="relative h-full w-full flex right-2">
       {openAiBubble && (
-        <div className="absolute w-3/4 h-full top-3 ">
-          <AiMessageBubble
-            homeRef={homeRef}
-            activePage={activePage}
-            resultMess={resultMess}
-          />
+        <div className="absolute w-3/4 h-full top-3">
+          <AiMessageBubble resultMess={resultMess} />
         </div>
       )}
       <div className="absolute right-0 h-full w-2/5 flex justify-end items-end ">
@@ -237,7 +272,9 @@ function MiniSiri({
           transition={{ duration: 1, delay: 1 }}
           aria-label="Hello"
         >
-          <div className={styles.loaderText}>
+          <div
+            className={`styles.loaderText text-2xl font-bold ${activePage === 7 ? "text-black" : "text-white"}`}
+          >
             {text.split("").map((letter, index) => (
               <span
                 key={`${letter}-${index}`}

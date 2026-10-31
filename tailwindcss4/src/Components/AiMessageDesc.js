@@ -86,7 +86,8 @@ const AiMessages = [
     id: "about-intro",
     page: 2,
     title: "Explore About",
-    message: "This the about page",
+    message:
+      "Get to know Carlo, his journey into web development, his background, and his passion for building modern web applications.",
   },
   {
     id: "about-resume",
@@ -109,7 +110,8 @@ const AiMessages = [
     id: "services-intro",
     page: 4,
     title: "Services Page",
-    message: "Explore the services Carlo offers as a full-stack developer.",
+    message:
+      "Discover how Carlo can bring your ideas to life through modern, responsive, and user-friendly web applications.",
   },
 
   // Page 5 - Experience
@@ -134,7 +136,7 @@ const AiMessages = [
     page: 6,
     title: "Skills",
     message:
-      "Explore the technologies and tools Carlo uses as a full-stack developer.",
+      "Discover the technologies and tools Carlo uses to build modern, responsive, and functional web applications as a full-stack developer.",
   },
 
   // Page 7 - Projects
@@ -142,13 +144,15 @@ const AiMessages = [
     id: "projects-intro",
     page: 7,
     title: "Projects",
-    message: "This is the projects page that Carlo made and can make.",
+    message:
+      "Welcome to Carlo's projects! Explore his work, discover the applications he has built, and see how he brings ideas to life through web development.",
   },
   {
     id: "project-ecommerce",
     page: 7,
     title: "Modern E-commerce",
-    message: "This is the projects page that Carlo made and can make.",
+    message:
+      "Explore Carlo's Modern E-commerce project, featuring a modern shopping experience and a user-friendly interface.",
   },
   {
     id: "project-game-platform",
@@ -184,6 +188,13 @@ const AiMessages = [
     title: "Developer Portfolio",
     message:
       "A professional developer portfolio showcasing Carlo's projects, technical skills, experience, and the web applications he can build.",
+  },
+  {
+    id: "contact-intro",
+    page: 8,
+    title: "Contact",
+    message:
+      "Have a project in mind or want to work with Carlo? Get in touch and let's discuss how we can bring your ideas to life.",
   },
 ];
 

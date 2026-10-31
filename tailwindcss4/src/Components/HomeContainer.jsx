@@ -60,22 +60,12 @@ const HomeContainer = ({
     return () => clearTimeout(timer);
   }, []);
 
-  // function onBtnEnter(buttonId) {
-  //   const item = AiMessages.find(
-  //     (item) => item.page === activePage && item.id === buttonId,
-  //   );
-
-  //   setOnBtnSwitch(buttonId);
-  //   setResultMess(item ? item.message : null);
-  // }
+  // console.log("HomeContainer Rendered");
+  // console.count(`showArrow: ${showArrow}`);
+  // console.log(`showArrow: ${showArrow}`);
 
   return (
     <div className="relative h-auto w-full flex items-center flex-col font-Jost rounded-t-4xl">
-      {/* <img
-        src={aiHomeCover1}
-        alt=""
-        className="absolute h-full w-full rounded-t-4xl object-cover object-bottom-left max-md:hidden"
-      /> */}
       <div
         className="relative flex w-full h-full z-10 p-15
         max-xl:p-10
@@ -159,17 +149,17 @@ const HomeContainer = ({
                       )}
                       <motion.img
                         src={jsLogoBox}
-                        onMouseEnter={() => {
-                          clearTimeout(exploreTimer.current);
-                          onBtnEnter({
-                            buttonId: "skill-javascript",
-                            activePage,
-                            setOnBtnSwitch,
-                            setResultMess,
-                            exploreTimer,
-                          });
-                        }}
-                        onMouseLeave={() => setResultMess(null)}
+                        // onMouseEnter={() => {
+                        //   clearTimeout(exploreTimer.current);
+                        //   onBtnEnter({
+                        //     buttonId: "skill-javascript",
+                        //     activePage,
+                        //     setOnBtnSwitch,
+                        //     setResultMess,
+                        //     exploreTimer,
+                        //   });
+                        // }}
+                        // onMouseLeave={() => setResultMess(null)}
                         alt="jsLogoBox"
                         className={`size-[clamp(10px,3vw,40px)] relative top-[28%] left-[9%] max-2xl:left-[12%]  z-11 ${openAiBot ? "cursor-pointer" : ""}
                         max-xl:left-[5%] max-xl:top-[32%]
@@ -200,7 +190,7 @@ const HomeContainer = ({
                         onMouseEnter={() => {
                           clearTimeout(exploreTimer.current);
                           onBtnEnter({
-                            buttonId: "skill-javascript",
+                            buttonId: "skill-nodejs",
                             activePage,
                             setOnBtnSwitch,
                             setResultMess,
@@ -238,7 +228,7 @@ const HomeContainer = ({
                         onMouseEnter={() => {
                           clearTimeout(exploreTimer.current);
                           onBtnEnter({
-                            buttonId: "skill-javascript",
+                            buttonId: "skill-react",
                             activePage,
                             setOnBtnSwitch,
                             setResultMess,
@@ -276,7 +266,7 @@ const HomeContainer = ({
                         onMouseEnter={() => {
                           clearTimeout(exploreTimer.current);
                           onBtnEnter({
-                            buttonId: "skill-javascript",
+                            buttonId: "skill-mongodb",
                             activePage,
                             setOnBtnSwitch,
                             setResultMess,
@@ -314,7 +304,7 @@ const HomeContainer = ({
                         onMouseEnter={() => {
                           clearTimeout(exploreTimer.current);
                           onBtnEnter({
-                            buttonId: "skill-javascript",
+                            buttonId: "skill-vscode",
                             activePage,
                             setOnBtnSwitch,
                             setResultMess,
@@ -397,4 +387,4 @@ const HomeContainer = ({
   );
 };
 
-export default HomeContainer;
+export default React.memo(HomeContainer);

@@ -1,10 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 
 function NotifSystem({ setOpenNotif }) {
+  const [newUpdateCount, setNewUpdateCount] = useState(1);
+
   return (
     <div className="relative pt-2">
       <button
-        onClick={() => setOpenNotif(true)}
+        onClick={() => {
+          setOpenNotif(true);
+          setNewUpdateCount((prev) => prev * 0);
+        }}
         className="group relative cursor-pointer scale-80
         max-2xl:scale-70 max-2xl:pb-3
         max-xl:scale-65
@@ -15,7 +20,7 @@ function NotifSystem({ setOpenNotif }) {
           <div className="flex h-5 w-5 items-center justify-center">
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-400 opacity-75"></span>
             <span className="relative inline-flex h-4 w-4 items-center justify-center rounded-full bg-red-500 text-[10px] font-bold text-white">
-              0
+              {newUpdateCount}
             </span>
           </div>
         </div>

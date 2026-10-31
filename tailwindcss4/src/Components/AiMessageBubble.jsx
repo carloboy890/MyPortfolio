@@ -2,12 +2,12 @@ import React from "react";
 import { easeInOut, motion } from "framer-motion";
 import AiMessages from "./AiMessageDesc";
 
-function AiMessageBubble({ homeRef, activePage, resultMess }) {
+function AiMessageBubble({ resultMess }) {
   const sentence = {
     hidden: {},
     visible: {
       transition: {
-        staggerChildren: 0.08,
+        staggerChildren: 0.05,
       },
     },
   };
@@ -22,38 +22,6 @@ function AiMessageBubble({ homeRef, activePage, resultMess }) {
       opacity: 1,
     },
   };
-
-  // function introMessage(item) {
-  //   return item;
-  // }
-  // function messageAutomation() {
-  //   let result = ""
-
-  //   if(homeRef) {
-  //   AiMessages.find(item => item.id === "home-intro") {
-  //     result = item.message
-  //   }}
-  // }
-
-  // function messageAutomation() {
-  //   if (activePage === 1) {
-  //     const item = AiMessages.find((item) => item.page === activePage);
-  //     if (item) {
-  //       const timer = setTimeout(() => {
-  //         setResultMess(item.message);
-  //       }, 3000);
-  //     }
-  //   }
-
-  //   if (activePage === 2) {
-  //     const item = AiMessages.find((item) => item.page === activePage);
-  //     if (item) {
-  //       const aboutIntro = item.message;
-  //       setResultMess(aboutIntro);
-  //     }
-  //   }
-  // }
-  console.log(resultMess);
 
   return (
     <>

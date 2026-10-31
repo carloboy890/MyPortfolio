@@ -10,7 +10,12 @@ import FloatingProjects from "./floatingProjects";
 import GamesChoicesMD from "./GamesChoicesMD";
 import ProjectsChoicesMD from "./ProjectsChoicesMD";
 
-function MyProjectsNew() {
+function MyProjectsNew({
+  activePage,
+  setResultMess,
+  setOnBtnSwitch,
+  openAiBot,
+}) {
   const [showProjs, setShowProjs] = useState("none");
   const [isMd, setIsMd] = useState(window.innerWidth < 768);
   const [showComponent, setShowComponent] = useState("");
@@ -77,7 +82,14 @@ function MyProjectsNew() {
         <OtherProjects1 />
         {/* --> end */}
 
-        <FloatingProjects showProjs={showProjs} isMd={isMd} />
+        <FloatingProjects
+          showProjs={showProjs}
+          isMd={isMd}
+          activePage={activePage}
+          setResultMess={setResultMess}
+          setOnBtnSwitch={setOnBtnSwitch}
+          openAiBot={openAiBot}
+        />
         <GameProjects showProjs={showProjs} />
         <OtherProjects showProjs={showProjs} />
         <div

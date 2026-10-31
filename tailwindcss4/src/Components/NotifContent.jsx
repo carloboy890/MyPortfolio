@@ -5,23 +5,23 @@ function NotifContent() {
     {
       id: 1,
       title: "Website Assistant",
-      desc: "An AI assistant for the portfolio.",
+      desc: "An AI assistant for the portfolio. (Responsive Coming Soon!)",
     },
-    {
-      id: 2,
-      title: "New Projects",
-      desc: "More React and MERN projects coming soon.",
-    },
-    {
-      id: 3,
-      title: "Portfolio Update",
-      desc: "Improved animations, Faster Loading and responsiveness.",
-    },
-    {
-      id: 4,
-      title: "Loading Screen",
-      desc: "Improved animations and responsiveness.",
-    },
+    // {
+    //   id: 2,
+    //   title: "New Projects",
+    //   desc: "More React and MERN projects coming soon.",
+    // },
+    // {
+    //   id: 3,
+    //   title: "Portfolio Update",
+    //   desc: "Improved animations, Faster Loading and responsiveness.",
+    // },
+    // {
+    //   id: 4,
+    //   title: "Loading Screen",
+    //   desc: "Improved animations and responsiveness.",
+    // },
   ];
 
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -37,7 +37,7 @@ function NotifContent() {
   return (
     <div className="space-y-7">
       <div>
-        <h2 className="text-5xl text-center">Next Update</h2>
+        <h2 className="text-5xl text-center">New Update</h2>
       </div>
       <div className="w-full max-w-md mx-auto">
         <div

@@ -11,6 +11,8 @@ export function page1Mess({
   exploreTimer,
   showArrow,
   showArrowRef,
+  scheduleTimer,
+  cancelTimer,
 }) {
   if (openMess === "") {
     const item = AiMessages.find(
@@ -18,11 +20,11 @@ export function page1Mess({
     );
 
     if (item) {
-      introTimer.current = setTimeout(() => {
+      introTimer.current = scheduleTimer(() => {
         setResultMess(item.message);
+        console.log(`render: count`);
       }, 500);
-      exploreTimer.current = setTimeout(() => {
-        setResultMess(null);
+      exploreTimer.current = scheduleTimer(() => {
         setOpenMess("Explore");
       }, 8000);
     }
@@ -34,7 +36,7 @@ export function page1Mess({
     );
 
     if (item) {
-      exploreTimer.current = setTimeout(() => {
+      exploreTimer.current = scheduleTimer(() => {
         setResultMess(item.message);
       }, 500);
     }
